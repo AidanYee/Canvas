@@ -6,6 +6,7 @@ import L from "leaflet";
 import icon from "./marker";
 // our react component  
 import Routing from "./RoutingTest";
+import BootstrapButton from './components/Button'
 
 const Map = (props) => {
   const [latLang, setLatLang] = React.useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
@@ -53,6 +54,7 @@ const Map = (props) => {
       center={[49.2810, -123.1350]}
     >
     <MyComponent/>
+      
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=JHPAACJynf7oMojiymA4"
@@ -68,7 +70,9 @@ const Map = (props) => {
           return null;
         }}
       </MapConsumer>
+      <BootstrapButton />
     </MapContainer>
+    
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { MapContainer, TileLayer, MapConsumer, useMapEvents } from "react-leaflet";
 // example from sandbox (non-react)
 //import RoutineMachine from "./RoutineMachine";
@@ -7,12 +7,13 @@ import icon from "./marker";
 // our react component  
 import Routing from "./RoutingTest";
 import Control from 'react-leaflet-custom-control';
-import Button from './components/Button';
+import ClickableButton from './components/Button';
+
 
 const Map = (props) => {
-  const [latLang, setLatLong] = React.useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
+  const [latLong, setLatLong] = useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
   const instance = {
-    waypoints: latLang,
+    waypoints: latLong,
     lineOptions: {
       styles: [{ color: "#6FA1EC", weight: 4 }]
     },
@@ -27,8 +28,27 @@ const Map = (props) => {
     showAlternatives: false,
   }
 
-  const removeLastPoint = () => { 
-    console.log("removeLastPoint has been called, but the func has no code")
+  
+
+// -the goal of this function is when called it removes the last created point from the instance object
+// -the instance obj stores the points in an array caled latLng which is a state within the Map component
+// -using a custom hook we want to modify the latLng state via a new setState called setHistory
+// -when the function is called the  useVisualMode hook is triggered and it pops off the last element in the array
+
+  const removeLastPoint = (latLong) => {
+
+    // // console.log("removeLastPoint has been called")
+    
+    // const [history, setHistory] = useState([latLong]);
+
+    // if (history.length > 1) {
+        
+    //   setHistory(prev => [
+    //     ...prev.pop()
+
+    //   ]);
+    // }
+
   };
 
   
@@ -62,7 +82,13 @@ const Map = (props) => {
       >
       
     <Control prepend position="bottomleft">
-          <Button onClick={removeLastPoint()}>Delete a Point</Button>
+          <ClickableButton onClick={removeLastPoint()}>Delete a Point</ClickableButton>
+    </Control>
+    <Control prepend position="bottomleft">
+          <ClickableButton >New Button</ClickableButton>
+    </Control>
+    <Control prepend position="bottomleft">
+          <ClickableButton >Save</ClickableButton>
     </Control>
     
     <MyComponent/>

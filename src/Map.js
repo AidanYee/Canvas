@@ -10,7 +10,7 @@ import Control from 'react-leaflet-custom-control';
 import Button from './components/Button';
 
 const Map = (props) => {
-  const [latLang, setLatLang] = React.useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
+  const [latLang, setLatLong] = React.useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
   const instance = {
     waypoints: latLang,
     lineOptions: {
@@ -44,7 +44,7 @@ const Map = (props) => {
         // console.log("🎲 ~ e.latlng", e.latlng);
         
         // uses previous state and updates with new state
-        setLatLang(prev => [...prev, L.latLng(lat, lng)])
+        setLatLong(prev => [...prev, L.latLng(lat, lng)])
   
         // adds marker to map according to lat, lng
         L.marker([lat, lng], { icon }).addTo(map);

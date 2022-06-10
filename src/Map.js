@@ -10,7 +10,7 @@ import Control from 'react-leaflet-custom-control';
 import Button from './components/Button';
 
 const Map = (props) => {
-  const [latLang, setLatLong] = React.useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
+  const [latLang, setLatLong] = React.useState([L.latLng(49.2810, -123.1350)])
   const instance = {
     waypoints: latLang,
     lineOptions: {
@@ -19,7 +19,7 @@ const Map = (props) => {
     // shows directions
     show: true,
     // adds way points by dragging
-    addWaypoints: true,
+    addWaypoints: false,
     routeWhileDragging: true,
     // move waypoints by dragging
     draggableWaypoints: true,
@@ -27,16 +27,18 @@ const Map = (props) => {
     showAlternatives: false,
   }
 
-  const removeLastPoint = () => { 
-    console.log("removeLastPoint has been called, but the func has no code")
-  };
+  // const removeLastPoint = () => { 
+  //   setLatLong(prev => [...prev.slice(0, -1)])
+  //   console.log("🎲 ~ removeLastPoint", removeLastPoint);
+  // };
+  
 
   
   // MyComponent is a method from within react-leaflet, that is the library for react-leaflet hooks
   function MyComponent() {
   
     // useMapEvents is a React Leaflet Hook
-    const map = useMapEvents({
+   useMapEvents({
       // var map reprsesents the event listener that create a point when a user clicks on the map
       // on-click event to save lat + lng
       click: (e) => {
@@ -47,7 +49,7 @@ const Map = (props) => {
         setLatLong(prev => [...prev, L.latLng(lat, lng)])
   
         // adds marker to map according to lat, lng
-        L.marker([lat, lng], { icon }).addTo(map);
+        // L.marker([lat, lng], { icon }).addTo(map);
       }
     });
     return null;
@@ -62,7 +64,7 @@ const Map = (props) => {
       >
       
     <Control prepend position="bottomleft">
-          <Button onClick={removeLastPoint()}>Delete a Point</Button>
+          <Button setLatLong={setLatLong}>Delete a Point</Button>
     </Control>
     
     <MyComponent/>
@@ -72,17 +74,6 @@ const Map = (props) => {
           url="https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=JHPAACJynf7oMojiymA4"
         />
       <Routing instance={instance} />
-      
-      <MapConsumer>
-        {(map) => {
-          console.log("map center:", map.getCenter());
-          map.on("click", function (e) {
-            const { lat, lng } = e.latlng;
-            L.marker([lat, lng], { icon }).addTo(map);
-          });
-          return null;
-        }}
-      </MapConsumer>
 
     </MapContainer>
     </>

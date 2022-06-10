@@ -14,18 +14,23 @@ function BootstrapButton() {
     var button = L.control({
       position: "topright"
     });
+    const buttonHandler = () => { 
+      console.log("Button Handler called");
+    };
 
     button.onAdd = function (map) {
       this._div = L.DomUtil.create("div", "myControl");
       const buttonElement = `<div class="btnWrapper">
-    <button class="btn btn-primary">Button stuff</button>
+      <button class="btn btn-primary" onClick=${buttonHandler}>Button stuff</button>
       </div>`;
-
+      
+      // buttonElement.addEventListener('click', () => { console.log('test')}
       this._div.innerHTML = buttonElement;
       return this._div;
     };
-
+    
     button.addTo(map);
+    console.log("button", button);
 
     return () => map.remove(button);
   }, [map]);

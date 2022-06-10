@@ -7,6 +7,7 @@ import icon from "./marker";
 // our react component  
 import Routing from "./RoutingTest";
 import BootstrapButton from './components/Button'
+import Control from 'react-leaflet-custom-control';
 
 const Map = (props) => {
   const [latLang, setLatLang] = React.useState([L.latLng(49.2810, -123.1350),L.latLng(49.2850, -123.1310)])
@@ -25,10 +26,15 @@ const Map = (props) => {
     fitSelectedRoutes: true,
     showAlternatives: false,
   }
+
+  const removeLastPoint = () => { 
+    console.log("removeLastPoint has been called, but the func has no code")
+  };
   
   // MyComponent is a method from within react-leaflet, that is the library for react-leaflet hooks
   function MyComponent() {
     
+
     // useMapEvents is a React Leaflet Hook
     const map = useMapEvents({
       // var map reprsesents the event listener that create a point when a user clicks on the map
@@ -47,12 +53,21 @@ const Map = (props) => {
     return null;
   }
   return (
+    <>
+    
     <MapContainer
       doubleClickZoom={false}
       id="mapId"
       zoom={14}
       center={[49.2810, -123.1350]}
-    >
+      >
+      
+    <Control prepend position="bottomleft">
+          <button onClick={handler}>Save Drawing</button>
+    </Control>
+      <Control prepend position="bottomleft">
+          <button onClick={removeLastPoint()}>Delete a Point</button>
+    </Control>
     <MyComponent/>
       
         <TileLayer
@@ -70,9 +85,8 @@ const Map = (props) => {
           return null;
         }}
       </MapConsumer>
-      <BootstrapButton />
     </MapContainer>
-    
+    </>
   );
 };
 

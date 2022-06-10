@@ -1,18 +1,19 @@
-import React from "react";
-import { MapContainer, TileLayer, MapConsumer, useMapEvents } from "react-leaflet";
+import { useState } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 // example from sandbox (non-react)
 //import RoutineMachine from "./RoutineMachine";
 import L from "leaflet";
-import icon from "./marker";
+// import icon from "./marker";
 // our react component  
 import Routing from "./RoutingTest";
 import Control from 'react-leaflet-custom-control';
 import Button from './components/Button';
 
+
 const Map = (props) => {
-  const [latLang, setLatLong] = React.useState([L.latLng(49.2810, -123.1350)])
+  const [latLong, setLatLong] = useState([L.latLng(49.2810, -123.1350)])
   const instance = {
-    waypoints: latLang,
+    waypoints: latLong,
     lineOptions: {
       styles: [{ color: "#6FA1EC", weight: 4 }]
     },

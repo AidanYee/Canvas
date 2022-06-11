@@ -38,10 +38,14 @@ const Map = (props) => {
   //----------------------------------------------------------------------------------------------------
   // BUTTON COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
-
-  const saveDrawing = () => {
-    console.log(JSON.stringify(latLong)); // this will POST to the db as new drawing entry
-    setLatLong([]); // clear of the current points from the map
+  const id = 1;
+  const saveDrawing = (id, latlong) => {
+    return axios.put(`canvas-api-/${id}`, JSON.stringify(latLong))
+      .then(() => {
+        setLatLong([]); // clear of the current points from the map once response from server that save worked is recieved
+        
+      })
+    //console.log(JSON.stringify(latLong)); // this will POST to the db as new drawing entry
   };
 
   // removes last element in state array

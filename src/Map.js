@@ -21,7 +21,7 @@ const Map = (props) => {
   const instance = {
     waypoints: latLong,
     lineOptions: {
-      styles: [{ color: "#ff69b4", weight: 10 }],
+      styles: [{ color: "#ff69b4", weight: 12 }],
     },
     // shows directions
     show: true,

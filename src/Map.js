@@ -2,13 +2,17 @@
 //----------------------------------------------------------------------------------------------------
 import { useState } from "react";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
 
-// FROM OUR APP
+// SCSS:
+//import Button from "material-ui/Button";
+import "./styles.css";
+
+// COMPONENTS FROM OUR APP:
 import Routing from "./Router";
 import DeletePointButton from "./components/DeletePointButton";
+import SaveDrawingButton from "./components/SaveDrawingButton";
 //-----------------------------------------------------------------------------------------------------
 
 const Map = (props) => {
@@ -65,6 +69,8 @@ const Map = (props) => {
           <DeletePointButton setLatLong={setLatLong}>
             Delete a Point
           </DeletePointButton>
+
+          <SaveDrawingButton>Save Drawing</SaveDrawingButton>
         </Control>
 
         <MyComponent />

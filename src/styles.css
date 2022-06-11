@@ -13,3 +13,15 @@ body,
   margin: 0;
   padding: 0;
 }
+
+/*
+-attempting to remove faint border aorund undo and save buttons
+-come back to this later (.leaflet-control)
+
+.leaflet-control {
+  border-left-width: 0px;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+}
+*/

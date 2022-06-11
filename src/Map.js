@@ -13,6 +13,7 @@ import "./styles.css";
 import Routing from "./Router";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
+import axios from "axios";
 //-----------------------------------------------------------------------------------------------------
 // MAP COMPONENT:
 
@@ -39,7 +40,18 @@ const Map = (props) => {
   // BUTTON COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
 
+// const id = 1;   
+// const saveDrawing = (id, latlong) => {
+//        return axios.put(`canvas-api-/${id}`, JSON.stringify(latLong))
+//        .then(() => { setLatLong([]); // clear of the current points from the map once response from server that save worked is recieved                
+//     })     
+// };
+  const api = process.env.REACT_APP_API
+
+  const id = 1;
   const saveDrawing = () => {
+    return axios.get(`${api}`)
+    .then((response) => {console.log(response)});
     console.log(JSON.stringify(latLong)); // this will POST to the db as new drawing entry
     setLatLong([]); // clear of the current points from the map
   };

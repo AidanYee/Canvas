@@ -1,20 +1,22 @@
+// MAP FILE
+//----------------------------------------------------------------------------------------------------
 import { useState } from "react";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-// example from sandbox (non-react)
-//import RoutineMachine from "./RoutineMachine";
+
 import L from "leaflet";
-// import icon from "./marker";
-// our react component
-import Routing from "./RoutingTest";
 import Control from "react-leaflet-custom-control";
-import Button from "./components/Button";
+
+// FROM OUR APP
+import Routing from "./Router";
+import DeletePointButton from "./components/DeletePointButton";
+//-----------------------------------------------------------------------------------------------------
 
 const Map = (props) => {
-  const [latLong, setLatLong] = useState([L.latLng(49.281, -123.135)]);
+  const [latLong, setLatLong] = useState([]);
   const instance = {
     waypoints: latLong,
     lineOptions: {
-      styles: [{ color: "#6FA1EC", weight: 4 }],
+      styles: [{ color: "#6FA1EC", weight: 10 }],
     },
     // shows directions
     show: true,
@@ -23,15 +25,12 @@ const Map = (props) => {
     routeWhileDragging: true,
     // move waypoints by dragging
     draggableWaypoints: true,
-    fitSelectedRoutes: true,
+    // fits route to the screen
+    fitSelectedRoutes: false,
     showAlternatives: false,
   };
 
-  // const removeLastPoint = () => {
-  //   setLatLong(prev => [...prev.slice(0, -1)])
-  //   console.log("🎲 ~ removeLastPoint", removeLastPoint);
-  // };
-
+  //----------------------------------------------------------------------------------------------------
   // MyComponent is a method from within react-leaflet, that is the library for react-leaflet hooks
   function MyComponent() {
     // useMapEvents is a React Leaflet Hook
@@ -51,6 +50,9 @@ const Map = (props) => {
     });
     return null;
   }
+
+  //----------------------------------------------------------------------------------------------------
+  // RENDER:
   return (
     <>
       <MapContainer
@@ -60,7 +62,9 @@ const Map = (props) => {
         center={[49.281, -123.135]}
       >
         <Control prepend position="bottomleft">
-          <Button setLatLong={setLatLong}>Delete a Point</Button>
+          <DeletePointButton setLatLong={setLatLong}>
+            Delete a Point
+          </DeletePointButton>
         </Control>
 
         <MyComponent />

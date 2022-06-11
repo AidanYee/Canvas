@@ -1,16 +1,13 @@
-// BUTTON COMPONENT:
+// DeletePointButton COMPONENT:
 import React from "react";
-// import Stack from '@mui/material/Stack'
-// import Button from "@mui/material/Button";
-// import L from "leaflet";
-// import { useEffect } from "react";
-// import { useMap } from "react-leaflet";
 
-function Button(props) {
+function DeletePointButton(props) {
   console.log("🎲 ~ props", props);
 
+  // removes last element in state array
   const removeLastPoint = () => {
     props.setLatLong((prev) => {
+      //
       if (prev.length > 1) {
         return [...prev.slice(0, -1)];
       }
@@ -21,4 +18,4 @@ function Button(props) {
   return <button onClick={removeLastPoint}>Remove Last Point</button>;
 }
 
-export default Button;
+export default DeletePointButton;

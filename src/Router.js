@@ -14,11 +14,10 @@ const Routing = ({ instance }) => {
   const onClickMarker = useMap();
 
   // -useEffect is responsible for managing side effects from components
-  // -in this situation useEffect is watching for changes to either the map 
+  // -in this situation useEffect is watching for changes to either the map
   useEffect(() => {
-
     if (!onClickMarker) return;
-    
+
     const routingControl = L.Routing.control(instance).addTo(onClickMarker);
 
     return () => onClickMarker.removeControl(routingControl);

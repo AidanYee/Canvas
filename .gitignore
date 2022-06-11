@@ -1,5 +1,3 @@
-node_modules
-
 # Logs
 logs
 *.log
@@ -36,4 +34,8 @@ typings/
 *.tgz
 
 # Yarn Integrity file
+<<<<<<< HEAD
 .yarn-integrity
+=======
+.yarn-integrity
+>>>>>>> 0712550a86206cbe959a3f1110e36134692936f1

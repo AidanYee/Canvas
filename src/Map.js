@@ -14,6 +14,7 @@ import Routing from "./Router";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
 //-----------------------------------------------------------------------------------------------------
+// MAP COMPONENT:
 
 const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
@@ -35,7 +36,24 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
-  // MyComponent is a method from within react-leaflet, that is the library for react-leaflet hooks
+  // BUTTON COMPONENTS STATE LOGIC:
+  // -This will take in the points created as props
+
+  const saveDrawing = () => {
+    console.log(JSON.stringify(latLong)); // this will POST to the db as new drawing entry
+    setLatLong([]); // clear of the current points from the map
+  };
+
+  // removes last element in state array
+  const removeLastPoint = () => {
+    setLatLong((prev) => {
+      return [...prev.slice(0, -1)];
+    });
+  };
+
+  //----------------------------------------------------------------------------------------------------
+  // MyComponent:
+  // -a method from within react-leaflet, that is the library for react-leaflet hooks
   function MyComponent() {
     // useMapEvents is a React Leaflet Hook
     useMapEvents({
@@ -43,7 +61,7 @@ const Map = (props) => {
       // on-click event to save lat + lng
       click: (e) => {
         const { lat, lng } = e.latlng;
-        console.log("🎲 ~ e.latlng", e.latlng);
+        //console.log("🎲 ~ e.latlng", e.latlng);
 
         // uses previous state and updates with new state
         setLatLong((prev) => [...prev, L.latLng(lat, lng)]);
@@ -66,11 +84,15 @@ const Map = (props) => {
         center={[49.281, -123.135]}
       >
         <Control prepend position="bottomleft">
-          <DeletePointButton setLatLong={setLatLong}>
+          {/* <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img> */}
+
+          <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>
 
-          <SaveDrawingButton>Save Drawing</SaveDrawingButton>
+          <SaveDrawingButton saveDrawing={saveDrawing}>
+            Save Drawing
+          </SaveDrawingButton>
         </Control>
 
         <MyComponent />

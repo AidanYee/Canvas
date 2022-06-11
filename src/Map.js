@@ -14,6 +14,7 @@ import Routing from "./Router";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
 //-----------------------------------------------------------------------------------------------------
+// MAP COMPONENT:
 
 const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
@@ -35,7 +36,23 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
-  // MyComponent is a method from within react-leaflet, that is the library for react-leaflet hooks
+  // BUTTON COMPONENT STATE LOGIC:
+  //This will take in the points created as props
+  //the on click handler "save" will make post a request to save the points in the db
+  const Save = () => {
+    console.log("instance in save", instance);
+  };
+
+  // removes last element in state array
+  const removeLastPoint = () => {
+    setLatLong((prev) => {
+      return [...prev.slice(0, -1)];
+    });
+  };
+
+  //----------------------------------------------------------------------------------------------------
+  // MyComponent:
+  // -a method from within react-leaflet, that is the library for react-leaflet hooks
   function MyComponent() {
     // useMapEvents is a React Leaflet Hook
     useMapEvents({
@@ -66,7 +83,7 @@ const Map = (props) => {
         center={[49.281, -123.135]}
       >
         <Control prepend position="bottomleft">
-          <DeletePointButton setLatLong={setLatLong}>
+          <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>
 

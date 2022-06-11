@@ -36,11 +36,12 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
-  // BUTTON COMPONENT STATE LOGIC:
-  //This will take in the points created as props
-  //the on click handler "save" will make post a request to save the points in the db
-  const Save = () => {
-    console.log("instance in save", instance);
+  // BUTTON COMPONENTS STATE LOGIC:
+  // -This will take in the points created as props
+
+  const saveDrawing = () => {
+    console.log(JSON.stringify(latLong)); // this will POST to the db as new drawing entry
+    setLatLong([]); // clear of the current points from the map
   };
 
   // removes last element in state array
@@ -60,7 +61,7 @@ const Map = (props) => {
       // on-click event to save lat + lng
       click: (e) => {
         const { lat, lng } = e.latlng;
-        console.log("🎲 ~ e.latlng", e.latlng);
+        //console.log("🎲 ~ e.latlng", e.latlng);
 
         // uses previous state and updates with new state
         setLatLong((prev) => [...prev, L.latLng(lat, lng)]);
@@ -83,11 +84,15 @@ const Map = (props) => {
         center={[49.281, -123.135]}
       >
         <Control prepend position="bottomleft">
+          {/* <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img> */}
+
           <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>
 
-          <SaveDrawingButton>Save Drawing</SaveDrawingButton>
+          <SaveDrawingButton saveDrawing={saveDrawing}>
+            Save Drawing
+          </SaveDrawingButton>
         </Control>
 
         <MyComponent />

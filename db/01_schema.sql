@@ -9,6 +9,6 @@ CREATE TABLE users (
 CREATE TABLE drawings (
   users_id INTEGER REFRENCES users(id) ON DELETE CASCADE,
   drawing_name VARCHAR(255) NOT NULL,
-  map_directions JSONB NOT NULL,
+  drawing_points JSON NOT NULL,
   is_showcase BOOLEAN NOT NULL DEFAULT FALSE 
 );

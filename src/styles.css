@@ -14,6 +14,13 @@ body,
   padding: 0;
 }
 
+/* hide directions for lealfet routing machine using css
+   https://github.com/perliedman/leaflet-routing-machine/issues/20
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+*/
+
 /*
 -attempting to remove faint border aorund undo and save buttons
 -come back to this later (.leaflet-control)

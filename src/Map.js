@@ -55,12 +55,13 @@ const Map = (props) => {
 
   //const testObject = { message: "poop" };
 
-  // this has been preoven to work, sends latLong to express server when called
+  // this has been proven to work, sends latLong to express server when called
   const saveDrawing = () => {
-    return axios.post(`${api}`, latLong)
+    return axios.post(`${api}drawings`, latLong)
       .then((response) => {
       console.log("Back from saving the drawing", response);
-      //BRING BACK LATER: setLatLong([]); // clear of the current points from the map
+        //BRING BACK LATER: 
+        setLatLong(); // clear of the current points from the map
     });
   };
 

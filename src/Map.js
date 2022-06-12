@@ -61,7 +61,7 @@ const Map = (props) => {
       .then((response) => {
       console.log("Back from saving the drawing", response);
         //BRING BACK LATER: 
-        setLatLong(); // clear of the current points from the map
+        setLatLong([]); // clear of the current points from the map
     });
   };
 

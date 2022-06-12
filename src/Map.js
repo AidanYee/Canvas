@@ -14,6 +14,7 @@ import Routing from "./Router";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
 import axios from "axios";
+
 //-----------------------------------------------------------------------------------------------------
 // MAP COMPONENT:
 
@@ -40,22 +41,29 @@ const Map = (props) => {
   // BUTTON COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
 
-// const id = 1;   
-// const saveDrawing = (id, latlong) => {
-//        return axios.put(`canvas-api-/${id}`, JSON.stringify(latLong))
-//        .then(() => { setLatLong([]); // clear of the current points from the map once response from server that save worked is recieved                
-//     })     
-// };
-  const api = process.env.REACT_APP_API
+  //-------------------------------------------------------------------------------------------
+  // GET REQUEST CODE: from mentor call establishing our first successfull get request
+  // const saveDrawing = () => {
+  //   return axios.get(`${api}`).then((response) => {
+  //     console.log(response);
+  //   });
+  // };
 
-  const id = 1;
+  //-------------------------------------------------------------------------------------------
+  // references our .env file
+  const api = process.env.REACT_APP_API;
+
+  const testObject = { message: "poop" };
+
+  // this has been preoven to work, sends latLong to express server when called
   const saveDrawing = () => {
-    return axios.get(`${api}`)
-    .then((response) => {console.log(response)});
-    console.log(JSON.stringify(latLong)); // this will POST to the db as new drawing entry
-    setLatLong([]); // clear of the current points from the map
+    return axios.post(`${api}`, latLong).then((response) => {
+      console.log("response", response);
+      //BRING BACK LATER: setLatLong([]); // clear of the current points from the map
+    });
   };
 
+  //----------------------------------------------------------------------------------------------------
   // removes last element in state array
   const removeLastPoint = () => {
     setLatLong((prev) => {

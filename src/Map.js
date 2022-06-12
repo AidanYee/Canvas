@@ -11,9 +11,13 @@ import "./styles.css";
 
 // COMPONENTS FROM OUR APP:
 import Routing from "./Router";
+import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
 import axios from "axios";
+
+// MUI LIBRARY
+import { StyledEngineProvider } from "@mui/material/styles";
 
 //-----------------------------------------------------------------------------------------------------
 // MAP COMPONENT:
@@ -53,16 +57,13 @@ const Map = (props) => {
   // references our .env file
   const api = process.env.REACT_APP_API;
 
-  //const testObject = { message: "poop" };
-
-  // this has been proven to work, sends latLong to express server when called
-  const saveDrawing = () => {
-    return axios.post(`${api}drawings`, latLong)
-      .then((response) => {
-      console.log("Back from saving the drawing", response);
-        //BRING BACK LATER: 
-        setLatLong(); // clear of the current points from the map
-    });
+  const saveDrawing = async () => {
+    try {
+      await axios.post(`${api}drawings`, latLong);
+    } catch (e) {
+      return console.log(e);
+    }
+    setLatLong([]);
   };
 
   //----------------------------------------------------------------------------------------------------
@@ -105,9 +106,15 @@ const Map = (props) => {
         zoom={14}
         center={[49.281, -123.135]}
       >
-        <Control prepend position="bottomleft">
-          {/* <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img> */}
+        {/* <Control prepend position="topleft">
+          <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img>
+        </Control> */}
 
+        <Control>
+          <DropDownMenu></DropDownMenu>
+        </Control>
+
+        <Control prepend position="bottomleft">
           <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>

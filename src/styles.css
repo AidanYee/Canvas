@@ -15,20 +15,12 @@ body,
 }
 
 /* hide directions for lealfet routing machine using css
-   https://github.com/perliedman/leaflet-routing-machine/issues/20
-.leaflet-control-container .leaflet-routing-container-hide {
+*/
+.leaflet-routing-container {
   display: none;
 }
-*/
 
 /*
 -attempting to remove faint border aorund undo and save buttons
 -come back to this later (.leaflet-control)
-
-.leaflet-control {
-  border-left-width: 0px;
-  border-top-width: 0px;
-  border-right-width: 0px;
-  border-bottom-width: 0px;
-}
 */

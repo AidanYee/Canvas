@@ -32,8 +32,14 @@ const Map = (props) => {
     lineOptions: {
       styles: [{ color: "#ff69b4", weight: 12 }],
     },
+    // RoutingOptions - from leaflet-routing-machine
+    routingOptions: {
+      //If U-turns are allowed in this route
+      allowUTurns: true,
+    },
     // shows directions
     show: true,
+    // allowUTurn: true,
     // adds way points by dragging
     addWaypoints: false,
     routeWhileDragging: true,
@@ -43,55 +49,46 @@ const Map = (props) => {
     fitSelectedRoutes: false,
     showAlternatives: false,
   };
- 
   //----------------------------------------------------------------------------------------------------
   // BUTTON COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
-  
-  //-------------------------------------------------------------------------------------------
-  // GET REQUEST CODE: from mentor call establishing our first successfull get request
-  // const saveDrawing = () => {
-  //   return axios.get(`${api}`).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
-  //-------------------------------------------------------------------------------------------
+
+  //------------------------------------
   // API KEY: (references our .env file)
   const api = process.env.REACT_APP_API;
-//-----------------------------------------------------------------------------------------------------
+  //-------------------------------------
 
   const [loggedIn, setLoggedIn] = useState(false);
 
   // The function is called by onClick loginUser from drop down menu
   //it makes axios request to database for user
-    const loginUser = async () => {
-      //console.log("login click");
-      try {
-        const user = await axios.post(`${api}users/login`);
-      
-        console.log("set logged in user", user.data);
-        setLoggedIn(user.data)
-      } catch (e) {
-        return console.log(e);
-      }
-    };
-  
-  const logout = () => {
-    setLoggedIn(false)
-  }
+  const loginUser = async () => {
+    //console.log("login click");
+    try {
+      const user = await axios.post(`${api}/users/login`);
 
-  console.log("logged in to de structure",loggedIn);
+      console.log("set logged in user", user.data);
+      setLoggedIn(user.data);
+    } catch (e) {
+      return console.log(e);
+    }
+  };
+
+  const logout = () => {
+    setLoggedIn(false);
+  };
+
+  console.log("logged in to de structure", loggedIn);
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
 
   const saveDrawing = async () => {
     try {
-      await axios.post(`${api}drawings`, latLong);
+      await axios.post(`${api}/drawings`, latLong);
     } catch (e) {
       return console.log(e);
     }
     setLatLong([]);
-
   };
 
   //----------------------------------------------------------------------------------------------------
@@ -143,7 +140,14 @@ const Map = (props) => {
         </Control>
 
         <Control>
-          {loggedIn && <LoggedInUserMessage setLoggedOut={logout} prepend position="center" name={loggedIn.user.user}/>}
+          {loggedIn && (
+            <LoggedInUserMessage
+              setLoggedOut={logout}
+              prepend
+              position="center"
+              name={loggedIn.user.user}
+            />
+          )}
         </Control>
 
         <Control>
@@ -172,4 +176,5 @@ const Map = (props) => {
   );
 };
 
+//-----------------
 export default Map;

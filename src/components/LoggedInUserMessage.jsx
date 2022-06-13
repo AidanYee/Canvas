@@ -1,12 +1,18 @@
 import React from "react";
+import { Button } from "@mui/material";
 
-const LoggedInUserMessage = () => { 
 
+const LoggedInUserMessage = (props) => { 
+  console.log("logged in user props", props);
+  const logout = () => {
+props.setLoggedOut()
+  }
   return (
-
-    <h3>Welcome Username</h3>
+    <>
+  <Button variant="text">Welcome </Button>
+      <Button onClick={logout} variant="text">Logout</Button>
+    </>
   )
-  
 };
 
 export default LoggedInUserMessage;

@@ -17,6 +17,7 @@ import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
 import Showcase from "./components/Showcase";
+import LoggedInUserMessage from "./components/LoggedInUserMessage";
 
 // MUI LIBRARY
 //import { StyledEngineProvider } from "@mui/material/styles";
@@ -42,11 +43,11 @@ const Map = (props) => {
     fitSelectedRoutes: false,
     showAlternatives: false,
   };
-
+ 
   //----------------------------------------------------------------------------------------------------
   // BUTTON COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
-
+  
   //-------------------------------------------------------------------------------------------
   // GET REQUEST CODE: from mentor call establishing our first successfull get request
   // const saveDrawing = () => {
@@ -57,24 +58,27 @@ const Map = (props) => {
   //-------------------------------------------------------------------------------------------
   // API KEY: (references our .env file)
   const api = process.env.REACT_APP_API;
+//-----------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  //const testObject = { message: "poop" };
+  const [loggedIn, setLoggedIn] = useState();
 
-  // this has been proven to work, sends latLong to express server when called
-  const saveDrawing = () => {
-    return axios.post(`${api}drawings`, latLong)
-      .then((response) => {
-      console.log("Back from saving the drawing", response);
-        //BRING BACK LATER: 
-        setLatLong([]); // clear of the current points from the map
-    });
-=======
-=======
+  
+    const loginUser = async () => {
+      console.log("login click");
+      try {
+        await axios.post(`${api}users/login`);
+      
+        console.log("set logged in user");
+      } catch (e) {
+        return console.log(e);
+      }
+      console.log("logged in response ");
+      setLoggedIn()
+    };
+  
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
->>>>>>> 8ba58faa49bc1508be66dc8154ffa7e78bb589be
+
   const saveDrawing = async () => {
     try {
       await axios.post(`${api}drawings`, latLong);
@@ -82,7 +86,7 @@ const Map = (props) => {
       return console.log(e);
     }
     setLatLong([]);
->>>>>>> 57671e63ff08c431acbc33cfec99e28f36be9eb0
+
   };
 
   //----------------------------------------------------------------------------------------------------
@@ -130,7 +134,11 @@ const Map = (props) => {
         </Control> */}
 
         <Control>
-          <DropDownMenu></DropDownMenu>
+          <DropDownMenu loginUser={loginUser}></DropDownMenu>
+        </Control>
+
+        <Control>
+          {loggedIn && <LoggedInUserMessage prepend position="center" />}
         </Control>
 
         <Control>

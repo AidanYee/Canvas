@@ -15,10 +15,12 @@ import ListItemText from "@mui/material/ListItemText";
 import GestureIcon from "@mui/icons-material/Gesture";
 import LoginIcon from "@mui/icons-material/Login";
 
+
+
 //----------------------------------------------------------------
 
 export default function DropDownMenu(props) {
-  // console.log("🎲 ~ props", props);
+   console.log("🎲 ~ props", props);
 
   const [state, setState] = React.useState({
     top: false,
@@ -26,6 +28,11 @@ export default function DropDownMenu(props) {
     bottom: false,
     right: false,
   });
+
+  const clickLogin = () => { 
+    props.loginUser()
+  
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -37,6 +44,8 @@ export default function DropDownMenu(props) {
 
     setState({ ...state, [anchor]: open });
   };
+
+  
 
   const list = (anchor) => (
     <Box
@@ -52,7 +61,7 @@ export default function DropDownMenu(props) {
               <ListItemIcon>
                 <LoginIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText onClick={clickLogin} primary={text} />
             </ListItemButton>
           </ListItem>
         ))}

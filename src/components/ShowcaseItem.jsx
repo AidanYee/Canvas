@@ -7,8 +7,8 @@ import Button from "@mui/material/Button";
 // -the func calls the setLatLong function (which was propsdrilled from map.js) with the
 //  value of props.points as the funcs argument
 export default function ShowcaseItem(props) {
-  console.log("name", props.name);
-  console.log("points", props.points);
+  //console.log("name", props.name);
+  //console.log("points", props.points);
 
   function renderShowcasePoints() {
     return props.setLatLong(props.points);

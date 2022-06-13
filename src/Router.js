@@ -1,4 +1,4 @@
-// Routing Component File:
+// ROUTER COMPONENT:
 //----------------------------------------------------------------------------------------------------------
 import { useEffect } from "react";
 
@@ -19,7 +19,15 @@ const Routing = ({ instance }) => {
   useEffect(() => {
     if (!onClickMarker) return;
 
+    // OSRM routing
     const routingControl = L.Routing.control(instance).addTo(onClickMarker);
+
+    // Graphopper routing testing below:
+    // const routingControl = L.Routing.control(instance)({
+    //   router: new L.Routing.GraphHopper("5e47f16c-3d8f-4b5f-883a-64f41af17262"),
+    // })
+    //   // .control(instance)
+    //   .addTo(onClickMarker);
 
     return () => onClickMarker.removeControl(routingControl);
   }, [onClickMarker, instance]);

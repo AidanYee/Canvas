@@ -19,7 +19,7 @@ export default function Showcase(props) {
   useEffect(() => {
     const getShowcaseDrawings = async () => {
       try {
-        const response = await axios.get(`${api}showcase`);
+        const response = await axios.get(`${api}/showcase`);
         setshowcaseData(response.data);
       } catch (e) {
         return console.log(e);

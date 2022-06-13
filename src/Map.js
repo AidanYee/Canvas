@@ -1,6 +1,8 @@
 // MAP FILE
 //----------------------------------------------------------------------------------------------------
 import { useState } from "react";
+import axios from "axios";
+
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
@@ -14,10 +16,10 @@ import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
 import SaveDrawingButton from "./components/SaveDrawingButton";
-import axios from "axios";
+import Showcase from "./components/Showcase";
 
 // MUI LIBRARY
-import { StyledEngineProvider } from "@mui/material/styles";
+//import { StyledEngineProvider } from "@mui/material/styles";
 
 //-----------------------------------------------------------------------------------------------------
 // MAP COMPONENT:
@@ -52,11 +54,12 @@ const Map = (props) => {
   //     console.log(response);
   //   });
   // };
-
   //-------------------------------------------------------------------------------------------
-  // references our .env file
+  // API KEY: (references our .env file)
   const api = process.env.REACT_APP_API;
 
+  //-------------------------------------------------------------------------------------------
+  // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
   const saveDrawing = async () => {
     try {
       await axios.post(`${api}drawings`, latLong);
@@ -112,6 +115,10 @@ const Map = (props) => {
 
         <Control>
           <DropDownMenu></DropDownMenu>
+        </Control>
+
+        <Control>
+          <Showcase setLatLong={setLatLong}></Showcase>
         </Control>
 
         <Control prepend position="bottomleft">

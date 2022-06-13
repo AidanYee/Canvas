@@ -30,7 +30,8 @@ const Map = (props) => {
   const instance = {
     waypoints: latLong,
     lineOptions: {
-      styles: [{ color: "#ff69b4", weight: 12 }],
+      styles: [{ color: "#ff69b4", weight: 7
+     }],
     },
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
@@ -140,8 +141,7 @@ const Map = (props) => {
         </Control>
 
         <Control>
-          {loggedIn && (
-            <LoggedInUserMessage
+          {loggedIn && ( <LoggedInUserMessage
               setLoggedOut={logout}
               prepend
               position="center"
@@ -150,7 +150,7 @@ const Map = (props) => {
           )}
         </Control>
 
-        <Control>
+        <Control prepend position="topleft">
           <Showcase setLatLong={setLatLong}></Showcase>
         </Control>
 

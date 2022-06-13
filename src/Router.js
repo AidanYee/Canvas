@@ -7,6 +7,7 @@ import { useMap } from "react-leaflet";
 
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
+import "lrm-graphhopper";
 
 //----------------------------------------------------------------------------------------------------------
 // map.js passes state via the instance object

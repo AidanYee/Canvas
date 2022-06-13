@@ -21,6 +21,9 @@ export default function DropDownMenu(props) {
   // console.log("🎲 ~ props", props);
 
   const [state, setState] = React.useState({
+    top: false,
+    left: true,
+    bottom: false,
     right: false,
   });
 
@@ -72,7 +75,7 @@ export default function DropDownMenu(props) {
 
   return (
     <div>
-      {["RIGHT"].map((anchor) => (
+      {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer

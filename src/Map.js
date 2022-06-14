@@ -51,7 +51,7 @@ const Map = (props) => {
     showAlternatives: false,
   };
   //----------------------------------------------------------------------------------------------------
-  // BUTTON COMPONENTS STATE LOGIC:
+  // COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
 
   //------------------------------------
@@ -62,13 +62,13 @@ const Map = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   // The function is called by onClick loginUser from drop down menu
-  //it makes axios request to database for user
+  //it makes axios request to database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
     //console.log("login click");
     try {
       const user = await axios.post(`${api}/users/login`);
 
-      console.log("set logged in user", user);
+      console.log("User is Logged In");
       setLoggedIn(user.data);
     } catch (e) {
       return console.log(e);
@@ -79,7 +79,7 @@ const Map = (props) => {
     setLoggedIn(false);
   };
 
-  console.log("logged in to de structure", loggedIn);
+  console.log("logged in User object", loggedIn);
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
 
@@ -137,7 +137,7 @@ const Map = (props) => {
         </Control> */}
 
         <Control>
-          <DropDownMenu setLatLong={setLatLong} loginUser={loginUser}></DropDownMenu>
+          <DropDownMenu user={loggedIn} setLatLong={setLatLong} loginUser={loginUser}></DropDownMenu>
         </Control>
 
         <Control>
@@ -145,7 +145,7 @@ const Map = (props) => {
               setLoggedOut={logout}
               prepend
               position="center"
-              name={loggedIn.user.user}
+              name={loggedIn.name}
             />
           )}
         </Control>

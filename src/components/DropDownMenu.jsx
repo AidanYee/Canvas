@@ -28,17 +28,19 @@ export default function DropDownMenu(props) {
   console.log("🎲 ~ props drop down menu", props);
  const [drawingData, setDrawingData] = useState([]);
   
-  // -this function makes the axios get for the drawings of a given user and returns it below
+  // -this function makes the axios post for the drawings of a given user and returns it below
   //  where it is turned into a series of Drawing Item component renders
-  // *NOTE* user data is HARDCODED TO user_id 1 in server ***
-      const getDrawingsForUser = async () => {
+  // *NOTE* user data is brought in as props from loggedIn state ***
+  const getDrawingsForUser = async () => {
+    const id = props.user
+    
         try {
-          const response = await axios.get(`${api}/getDrawings`);
-        
-          setDrawingData(response.data)
+          const response = await axios.post(`${api}/getDrawings`, id);
+         setDrawingData(response.data)
         } catch (e) {
           return console.log(e);
         }
+    
       };
 //------------------------------------------------------------------------
 // -When called this function toggles login related state

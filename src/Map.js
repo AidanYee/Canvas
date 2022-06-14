@@ -137,7 +137,7 @@ const Map = (props) => {
         </Control> */}
 
         <Control>
-          <DropDownMenu loginUser={loginUser}></DropDownMenu>
+          <DropDownMenu setLatLong={setLatLong} loginUser={loginUser}></DropDownMenu>
         </Control>
 
         <Control>

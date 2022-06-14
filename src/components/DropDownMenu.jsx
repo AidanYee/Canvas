@@ -25,21 +25,21 @@ const api = process.env.REACT_APP_API;
 //-------------------------------------
 // 
 export default function DropDownMenu(props) {
-  //console.log("🎲 ~ props", props);
+  console.log("🎲 ~ props drop down menu", props);
  const [drawingData, setDrawingData] = useState([]);
-
+  
   // -this function makes the axios get for the drawings of a given user and returns it below
   //  where it is turned into a series of Drawing Item component renders
   // *NOTE* user data is HARDCODED TO user_id 1 in server ***
       const getDrawingsForUser = async () => {
         try {
           const response = await axios.get(`${api}/getDrawings`);
+        
           setDrawingData(response.data)
         } catch (e) {
           return console.log(e);
         }
       };
-
 //------------------------------------------------------------------------
 // -When called this function toggles login related state
    const clickLogin = () => {
@@ -102,8 +102,9 @@ export default function DropDownMenu(props) {
 <List>
 {drawingData.map((drawing) => {
             return (
-              <React.Fragment key={drawing.drawing_name}>
+              <React.Fragment key={drawing.id}>
                 <DrawingItem
+                  
                   setLatLong={props.setLatLong} /*prop drilled from map.js */
                   name={drawing.drawing_name}
                   points={drawing.drawing_points}

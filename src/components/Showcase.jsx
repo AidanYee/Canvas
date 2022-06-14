@@ -44,7 +44,7 @@ export default function Showcase(props) {
           {/* map through the get response data and render a new showcaseItem for each value */}
           {showcaseData.map((drawing) => {
             return (
-              <React.Fragment key={drawing.drawing_name}>
+              <React.Fragment key={drawing.id}>
                 <ShowcaseItem
                   setLatLong={props.setLatLong} /*prop drilled from map.js */
                   name={drawing.drawing_name}

@@ -68,7 +68,7 @@ const Map = (props) => {
     try {
       const user = await axios.post(`${api}/users/login`);
 
-      console.log("set logged in user", user.data);
+      console.log("set logged in user", user);
       setLoggedIn(user.data);
     } catch (e) {
       return console.log(e);

@@ -1,6 +1,7 @@
 // DeletePointButton COMPONENT:
 import React from "react";
 import Button from "@mui/material/Button";
+
 import "./DeletePointButton.scss";
 
 function DeletePointButton(props) {

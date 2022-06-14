@@ -15,10 +15,11 @@ import "./styles.css";
 import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
-import SaveDrawingButton from "./components/SaveDrawingButton";
+
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
-
+import SaveForm from "./components/SaveForm"
+// import SaveForm from "./components/SaveForm";
 // MUI LIBRARY
 //import { StyledEngineProvider } from "@mui/material/styles";
 
@@ -26,7 +27,11 @@ import LoggedInUserMessage from "./components/LoggedInUserMessage";
 // MAP COMPONENT:
 
 const Map = (props) => {
+  
   const [latLong, setLatLong] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  
   const instance = {
     waypoints: latLong,
     lineOptions: {
@@ -53,18 +58,28 @@ const Map = (props) => {
   //----------------------------------------------------------------------------------------------------
   // COMPONENTS STATE LOGIC:
   // -This will take in the points created as props
-
-  //------------------------------------
+  //-------------------------------------------------------------------------------------------
+  // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
+   
   // API KEY: (references our .env file)
   const api = process.env.REACT_APP_API;
-  //-------------------------------------
+ 
+  const saveDrawing = async (name) => {
+  
+    try {
+      await axios.post(`${api}/drawings`, {latLong, name});
+    } catch (e) {
+      return console.log(e);
+    }
+    setLatLong([]);
+  };
 
-  const [loggedIn, setLoggedIn] = useState(false);
-
+//-------------------------------------------------------------------------------------------
+  // LOGIN AND LOG OUT FUNCTIONS:
   // The function is called by onClick loginUser from drop down menu
   //it makes axios request to database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
-    //console.log("login click");
+   
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -79,21 +94,8 @@ const Map = (props) => {
     setLoggedIn(false);
   };
 
-  console.log("logged in User object", loggedIn);
-  //-------------------------------------------------------------------------------------------
-  // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
-
-  const saveDrawing = async () => {
-    try {
-      await axios.post(`${api}/drawings`, latLong);
-    } catch (e) {
-      return console.log(e);
-    }
-    setLatLong([]);
-  };
-
   //----------------------------------------------------------------------------------------------------
-  // removes last element in state array
+  // -called by onclick in removes last element in state array
   const removeLastPoint = () => {
     setLatLong((prev) => {
       return [...prev.slice(0, -1)];
@@ -110,13 +112,12 @@ const Map = (props) => {
       // on-click event to save lat + lng
       click: (e) => {
         const { lat, lng } = e.latlng;
-        //console.log("🎲 ~ e.latlng", e.latlng);
+  
 
         // uses previous state and updates with new state
         setLatLong((prev) => [...prev, L.latLng(lat, lng)]);
 
-        // adds marker to map according to lat, lng
-        // L.marker([lat, lng], { icon }).addTo(map);
+    
       },
     });
     return null;
@@ -158,10 +159,8 @@ const Map = (props) => {
           <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>
-
-          <SaveDrawingButton saveDrawing={saveDrawing}>
-            Save Drawing
-          </SaveDrawingButton>
+          <SaveForm saveDrawing={saveDrawing}>
+          </SaveForm>
         </Control>
 
         <MyComponent />

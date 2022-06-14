@@ -1,7 +1,13 @@
-// DropDownMenu COMPONENT:
+// DROP DOWN MENU COMPONENT:
 //----------------------------------------------------------------
 import * as React from "react";
+import { useState } from "react";
+import axios from "axios";
 
+// APP FILES:
+import DrawingItem from "./DrawingItem";
+
+// CSS:
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -11,30 +17,43 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DrawingLibrary from "./DrawingLibrary";
-
 import GestureIcon from "@mui/icons-material/Gesture";
 import LoginIcon from "@mui/icons-material/Login";
 
 //----------------------------------------------------------------
-
+const api = process.env.REACT_APP_API;
+//-------------------------------------
+// 
 export default function DropDownMenu(props) {
-  console.log("🎲 ~ props", props);
+  //console.log("🎲 ~ props", props);
+ const [drawingData, setDrawingData] = useState([]);
 
+  // -this function makes the axios get for the drawings of a given user and returns it below
+  //  where it is turned into a series of Drawing Item component renders
+  // *NOTE* user data is HARDCODED TO user_id 1 in server ***
+      const getDrawingsForUser = async () => {
+        try {
+          const response = await axios.get(`${api}/getDrawings`);
+          setDrawingData(response.data)
+        } catch (e) {
+          return console.log(e);
+        }
+      };
+
+//------------------------------------------------------------------------
+// -When called this function toggles login related state
+   const clickLogin = () => {
+    props.loginUser();
+  };    
+   
+  //------------------------------------------------------------------------
+  // MUI OPENING AND CLOSING MENU CODE:
   const [state, setState] = React.useState({
     top: false,
     left: true,
     bottom: false,
     right: false,
   });
-
-  const clickLogin = () => {
-    props.loginUser();
-  };
-
-  const libraryClick = () => {
-    console.log("Drawing Library Clicked");
-  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -49,10 +68,10 @@ export default function DropDownMenu(props) {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(anchor, true)}
+      onKeyDown={toggleDrawer(anchor, true)}
     >
       <List>
         {["Login"].map((text, index) => (
@@ -74,11 +93,25 @@ export default function DropDownMenu(props) {
               <ListItemIcon>
                 <GestureIcon />
               </ListItemIcon>
-              <ListItemText onClick={libraryClick} primary={text} />
+              <ListItemText onClick={getDrawingsForUser} primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
+
+<List>
+{drawingData.map((drawing) => {
+            return (
+              <React.Fragment key={drawing.drawing_name}>
+                <DrawingItem
+                  setLatLong={props.setLatLong} /*prop drilled from map.js */
+                  name={drawing.drawing_name}
+                  points={drawing.drawing_points}
+                />
+              </React.Fragment>
+            );
+          })}
+</List>  
     </Box>
   );
 

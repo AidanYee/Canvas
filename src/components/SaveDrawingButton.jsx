@@ -1,6 +1,9 @@
 import React from "react";
+
+import Button from "@mui/material/Button";
+
+//scss imports should be last
 import "./SaveDrawingButton.scss";
-import Button from "@material-ui/core/Button";
 
 function SaveDrawingButton(props) {
   return (

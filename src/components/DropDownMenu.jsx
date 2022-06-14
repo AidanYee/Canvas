@@ -11,6 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import DrawingLibrary from "./DrawingLibrary";
 
 import GestureIcon from "@mui/icons-material/Gesture";
 import LoginIcon from "@mui/icons-material/Login";
@@ -29,6 +30,10 @@ export default function DropDownMenu(props) {
 
   const clickLogin = () => {
     props.loginUser();
+  };
+
+  const libraryClick = () => {
+    console.log("Drawing Library Clicked");
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -69,7 +74,7 @@ export default function DropDownMenu(props) {
               <ListItemIcon>
                 <GestureIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText onClick={libraryClick} primary={text} />
             </ListItemButton>
           </ListItem>
         ))}

@@ -31,8 +31,10 @@ export default function DropDownMenu(props) {
   //console.log("🎲 ~ props drop down menu", props);
 
   const [drawingData, setDrawingData] = useState([]);
-  const params = useParams();
   //console.log("drawing data", drawingData);
+
+  // PARAMS: -a react-router specific custom hook
+  const params = useParams();
 
   //------------------------------------------------------------------------------------------
   // GET DRAWING LINK:
@@ -42,6 +44,7 @@ export default function DropDownMenu(props) {
     //console.log("Params ID: render the drawing for", params.id);
 
     const getDrawingLink = async () => {
+      // -we pull that value of id out of react-routers param and use it to make the axios request
       const id = params.id;
 
       try {
@@ -75,7 +78,7 @@ export default function DropDownMenu(props) {
       }
     };
     getDrawingsForUser();
-  }, [props.user]);
+  }, [props.user, props.saveDrawing]);
 
   //------------------------------------------------------------------------
   // CLICK LOGIN FUNC:

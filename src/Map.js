@@ -130,6 +130,7 @@ const Map = (props) => {
             user={loggedIn}
             setLatLong={setLatLong}
             loginUser={loginUser}
+            saveDrawing={saveDrawing}
           ></DropDownMenu>
         </Control>
 

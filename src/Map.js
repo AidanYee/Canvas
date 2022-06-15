@@ -19,15 +19,20 @@ import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
 import SaveForm from "./components/SaveForm";
 
+// MUI
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
 
 //-----------------------------------------------------------------------------------------------------
-// MAP COMPONENT:
 
+// MAP COMPONENT:
 const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [showShowcase, setShowShowcase] = useState(true);
 
   const instance = {
     waypoints: latLong,
@@ -41,7 +46,9 @@ const Map = (props) => {
       allowUTurns: true,
     },
     // shows directions
-    show: true,
+    show: false,
+
+    collapsible: true,
     // allowUTurn: true,
     // adds way points by dragging
     addWaypoints: false,
@@ -111,6 +118,14 @@ const Map = (props) => {
     return null;
   }
 
+  const handleClose = (event) => {
+    if (showShowcase === true) {
+      setShowShowcase(false);
+    } else {
+      setShowShowcase(true);
+    }
+  };
+
   //----------------------------------------------------------------------------------------------------
   // RENDER:
   return (
@@ -124,7 +139,11 @@ const Map = (props) => {
         {/* <Control prepend position="topleft">
           <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img>
         </Control> */}
-
+        <Control>
+          <IconButton onClick={handleClose} aria-label="delete" size="large">
+            <DeleteIcon fontSize="inherit" />
+          </IconButton>
+        </Control>
         <Control>
           <DropDownMenu
             user={loggedIn}
@@ -146,14 +165,14 @@ const Map = (props) => {
         </Control>
 
         <Control prepend position="topleft">
-          <Showcase setLatLong={setLatLong}></Showcase>
+          {showShowcase && <Showcase setLatLong={setLatLong}></Showcase>}
         </Control>
 
         <Control prepend position="bottomleft">
           <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>
-          <SaveForm saveDrawing={saveDrawing}></SaveForm>
+          {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
         </Control>
 
         <MyComponent />

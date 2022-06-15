@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 // APP FILES:
 import DrawingItem from "./DrawingItem";
@@ -26,22 +26,25 @@ const api = process.env.REACT_APP_API;
 //-------------------------------------
 //
 export default function DropDownMenu(props) {
-  console.log("🎲 ~ props drop down menu", props);
+  //console.log("🎲 ~ props drop down menu", props);
+
   const [drawingData, setDrawingData] = useState([]);
   const params = useParams();
-  console.log("drawing data", drawingData);
+  //console.log("drawing data", drawingData);
   
+
+  //This useEffect makes a get request for drawings by params.id(drawing_id)
+  //useEffect fires again when params.id changes
   useEffect(() => {
-    console.log("Params ID: render the drawing for", params.id);
-    //make get request to the db for getDrawingsRouteByID
+    //console.log("Params ID: render the drawing for", params.id);
 
     const getDrawingLink = async () => {
       const id = params.id;
 
       try {
         const response = await axios.get(`${api}/shareDrawings/${id}`);
-        console.log("drawing link", response.data);
-        //setDrawingData([response.data]);
+        //console.log("drawing link", response.data);
+      
         props.setLatLong(response.data.drawing_points)
       } catch (e) {
         return console.log(e);
@@ -51,9 +54,10 @@ export default function DropDownMenu(props) {
     getDrawingLink();
   }, [params.id]);
 
-  console.log("params", params);
-
-  // -this function makes the axios post for the drawings of a given user and returns it below
+  //console.log("params", params);
+  
+  //------------------------------------------------------------------------------------------
+  // -this UseEffect triggers getDrawingsForUser func that makes the axios post for the drawings of a given user and returns it below
   //  where it is turned into a series of Drawing Item component renders
   // *NOTE* user data is brought in as props from loggedIn state ***
   useEffect(() => {
@@ -70,6 +74,7 @@ export default function DropDownMenu(props) {
     };
   getDrawingsForUser();
   }, [props.user])
+  
   //------------------------------------------------------------------------
   // -When called this function toggles login related state
   const clickLogin = () => {

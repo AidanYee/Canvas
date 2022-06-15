@@ -8,7 +8,6 @@ import L from "leaflet";
 import Control from "react-leaflet-custom-control";
 
 // SCSS:
-//import Button from "material-ui/Button";
 import "./styles.css";
 
 // COMPONENTS FROM OUR APP:
@@ -19,9 +18,7 @@ import DeletePointButton from "./components/DeletePointButton";
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
 import SaveForm from "./components/SaveForm"
-// import SaveForm from "./components/SaveForm";
-// MUI LIBRARY
-//import { StyledEngineProvider } from "@mui/material/styles";
+
 
 //-----------------------------------------------------------------------------------------------------
 // MAP COMPONENT:
@@ -56,9 +53,7 @@ const Map = (props) => {
     fitSelectedRoutes: false,
     showAlternatives: false,
   };
-  //----------------------------------------------------------------------------------------------------
-  // COMPONENTS STATE LOGIC:
-  // -This will take in the points created as props
+ 
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
    
@@ -84,7 +79,6 @@ const Map = (props) => {
     try {
       const user = await axios.post(`${api}/users/login`);
 
-      console.log("User is Logged In");
       setLoggedIn(user.data);
     } catch (e) {
       return console.log(e);

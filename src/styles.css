@@ -19,7 +19,6 @@ body,
 .leaflet-routing-container {
   display: none;
 }
-
 /*
 -attempting to remove faint border aorund undo and save buttons
 -come back to this later (.leaflet-control)

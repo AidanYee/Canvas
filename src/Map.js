@@ -38,6 +38,7 @@ const Map = (props) => {
       styles: [{ color: "#ff69b4", weight: 7
      }],
     },
+    
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
       //If U-turns are allowed in this route

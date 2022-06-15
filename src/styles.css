@@ -16,9 +16,9 @@ body,
 
 /* hide directions for lealfet routing machine using css
 */
-.leaflet-routing-container {
+/* .leaflet-routing-container {
   display: none;
-}
+} */
 /*
 -attempting to remove faint border aorund undo and save buttons
 -come back to this later (.leaflet-control)

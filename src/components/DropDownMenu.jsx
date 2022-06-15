@@ -109,7 +109,9 @@ export default function DropDownMenu(props) {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
+      sx={{
+        width: anchor === "top" || anchor === "bottom" ? "auto" : 500,
+      }}
       role="presentation"
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, true)}
@@ -144,7 +146,9 @@ export default function DropDownMenu(props) {
         {drawingData.map((drawing) => {
           return (
             <React.Fragment key={drawing.id}>
-              <Link to={`/${drawing.id}`}>{drawing.drawing_name}</Link>
+              <Link disablePadding to={`/${drawing.id}`}>
+                {drawing.drawing_name}{" "}
+              </Link>
               <DrawingItem
                 setLatLong={props.setLatLong} /*prop drilled from map.js */
                 name={drawing.drawing_name}
@@ -165,6 +169,8 @@ export default function DropDownMenu(props) {
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer
+            transitionDuration={{ enter: 500, exit: 500 }}
+            onClick={toggleDrawer(anchor, false)}
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}

@@ -21,20 +21,23 @@ import ListItemText from "@mui/material/ListItemText";
 import GestureIcon from "@mui/icons-material/Gesture";
 import LoginIcon from "@mui/icons-material/Login";
 
-//----------------------------------------------------------------
+// API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
-//-------------------------------------
-//
+
+//----------------------------------------------------------------
+
+// COMPONENT DECLERATION:
 export default function DropDownMenu(props) {
   //console.log("🎲 ~ props drop down menu", props);
 
   const [drawingData, setDrawingData] = useState([]);
   const params = useParams();
   //console.log("drawing data", drawingData);
-  
 
-  //This useEffect makes a get request for drawings by params.id(drawing_id)
-  //useEffect fires again when params.id changes
+  //------------------------------------------------------------------------------------------
+  // GET DRAWING LINK:
+  // -This useEffect makes a get request for drawings by params.id( aka drawing.id)
+  // -useEffect fires whenever the value of params.id changes
   useEffect(() => {
     //console.log("Params ID: render the drawing for", params.id);
 
@@ -44,38 +47,38 @@ export default function DropDownMenu(props) {
       try {
         const response = await axios.get(`${api}/shareDrawings/${id}`);
         //console.log("drawing link", response.data);
-      
-        props.setLatLong(response.data.drawing_points)
+
+        props.setLatLong(response.data.drawing_points);
       } catch (e) {
         return console.log(e);
       }
-      
     };
     getDrawingLink();
   }, [params.id]);
 
   //console.log("params", params);
-  
+
   //------------------------------------------------------------------------------------------
+  // GET DRAWINGS FOR USER:
   // -this UseEffect triggers getDrawingsForUser func that makes the axios post for the drawings of a given user and returns it below
   //  where it is turned into a series of Drawing Item component renders
   // *NOTE* user data is brought in as props from loggedIn state ***
   useEffect(() => {
     const getDrawingsForUser = async () => {
       const id = props.user;
-  
+
       try {
         const response = await axios.post(`${api}/getDrawings`, id);
         setDrawingData(response.data);
-        
       } catch (e) {
         return console.log(e);
       }
     };
-  getDrawingsForUser();
-  }, [props.user])
-  
+    getDrawingsForUser();
+  }, [props.user]);
+
   //------------------------------------------------------------------------
+  // CLICK LOGIN FUNC:
   // -When called this function toggles login related state
   const clickLogin = () => {
     props.loginUser();
@@ -128,7 +131,7 @@ export default function DropDownMenu(props) {
               <ListItemIcon>
                 <GestureIcon />
               </ListItemIcon>
-              <ListItemText  primary={text} />
+              <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -150,6 +153,8 @@ export default function DropDownMenu(props) {
       </List>
     </Box>
   );
+  //------------------------------------------------------------------------------------------
+  // COMPONENT RENDER:
 
   return (
     <div>

@@ -17,25 +17,24 @@ import DeletePointButton from "./components/DeletePointButton";
 
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
-import SaveForm from "./components/SaveForm"
+import SaveForm from "./components/SaveForm";
 
+// API KEY: (references our .env file)
+const api = process.env.REACT_APP_API;
 
 //-----------------------------------------------------------------------------------------------------
 // MAP COMPONENT:
 
 const Map = (props) => {
-  
   const [latLong, setLatLong] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  
   const instance = {
     waypoints: latLong,
     lineOptions: {
-      styles: [{ color: "#ff69b4", weight: 7
-     }],
+      styles: [{ color: "#ff69b4", weight: 7 }],
     },
-    
+
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
       //If U-turns are allowed in this route
@@ -53,29 +52,25 @@ const Map = (props) => {
     fitSelectedRoutes: false,
     showAlternatives: false,
   };
- 
+
   //-------------------------------------------------------------------------------------------
-  // POST/INSERT NEW DRAWING FUNC: (when called this func POSTS to api server which then INSERTS to the DB)
-   
-  // API KEY: (references our .env file)
-  const api = process.env.REACT_APP_API;
- 
+  // POST/INSERT NEW DRAWING FUNC:
+  // -when called this func POSTS to the api server which then INSERTS to the DB
+
   const saveDrawing = async (name) => {
-  
     try {
-      await axios.post(`${api}/drawings`, {latLong, name});
+      await axios.post(`${api}/drawings`, { latLong, name });
     } catch (e) {
       return console.log(e);
     }
     setLatLong([]);
   };
 
-//-------------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------
   // LOGIN AND LOG OUT FUNCTIONS:
-  // The function is called by onClick loginUser from drop down menu
-  //it makes axios request to database for user. It sets the loggedIn state with the particular logged in user object
+  // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
+  //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
-   
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -90,6 +85,7 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
+  // REMOVE LAST POINT FUNC:
   // -called by onclick in removes last element in state array
   const removeLastPoint = () => {
     setLatLong((prev) => {
@@ -98,7 +94,7 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
-  // MyComponent:
+  // MY COMPONENT FUNC: (REACT-LEAFLET)
   // -a method from within react-leaflet, that is the library for react-leaflet hooks
   function MyComponent() {
     // useMapEvents is a React Leaflet Hook
@@ -107,12 +103,9 @@ const Map = (props) => {
       // on-click event to save lat + lng
       click: (e) => {
         const { lat, lng } = e.latlng;
-  
 
         // uses previous state and updates with new state
         setLatLong((prev) => [...prev, L.latLng(lat, lng)]);
-
-    
       },
     });
     return null;
@@ -133,11 +126,16 @@ const Map = (props) => {
         </Control> */}
 
         <Control>
-          <DropDownMenu user={loggedIn} setLatLong={setLatLong} loginUser={loginUser}></DropDownMenu>
+          <DropDownMenu
+            user={loggedIn}
+            setLatLong={setLatLong}
+            loginUser={loginUser}
+          ></DropDownMenu>
         </Control>
 
         <Control>
-          {loggedIn && ( <LoggedInUserMessage
+          {loggedIn && (
+            <LoggedInUserMessage
               setLoggedOut={logout}
               prepend
               position="center"
@@ -154,8 +152,7 @@ const Map = (props) => {
           <DeletePointButton removeLastPoint={removeLastPoint}>
             Delete a Point
           </DeletePointButton>
-          <SaveForm saveDrawing={saveDrawing}>
-          </SaveForm>
+          <SaveForm saveDrawing={saveDrawing}></SaveForm>
         </Control>
 
         <MyComponent />

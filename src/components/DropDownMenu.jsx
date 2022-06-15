@@ -1,8 +1,9 @@
 // DROP DOWN MENU COMPONENT:
 //----------------------------------------------------------------
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 // APP FILES:
 import DrawingItem from "./DrawingItem";
@@ -23,31 +24,58 @@ import LoginIcon from "@mui/icons-material/Login";
 //----------------------------------------------------------------
 const api = process.env.REACT_APP_API;
 //-------------------------------------
-// 
+//
 export default function DropDownMenu(props) {
   console.log("🎲 ~ props drop down menu", props);
- const [drawingData, setDrawingData] = useState([]);
+  const [drawingData, setDrawingData] = useState([]);
+  const params = useParams();
+  console.log("drawing data", drawingData);
   
+  useEffect(() => {
+    console.log("Params ID: render the drawing for", params.id);
+    //make get request to the db for getDrawingsRouteByID
+
+    const getDrawingLink = async () => {
+      const id = params.id;
+
+      try {
+        const response = await axios.get(`${api}/shareDrawings/${id}`);
+        console.log("drawing link", response.data);
+        //setDrawingData([response.data]);
+        props.setLatLong(response.data.drawing_points)
+      } catch (e) {
+        return console.log(e);
+      }
+      
+    };
+    getDrawingLink();
+  }, [params.id]);
+
+  console.log("params", params);
+
   // -this function makes the axios post for the drawings of a given user and returns it below
   //  where it is turned into a series of Drawing Item component renders
   // *NOTE* user data is brought in as props from loggedIn state ***
-  const getDrawingsForUser = async () => {
-    const id = props.user
-    
-        try {
-          const response = await axios.post(`${api}/getDrawings`, id);
-         setDrawingData(response.data)
-        } catch (e) {
-          return console.log(e);
-        }
-    
-      };
-//------------------------------------------------------------------------
-// -When called this function toggles login related state
-   const clickLogin = () => {
+  useEffect(() => {
+    const getDrawingsForUser = async () => {
+      const id = props.user;
+  
+      try {
+        const response = await axios.post(`${api}/getDrawings`, id);
+        setDrawingData(response.data);
+        
+      } catch (e) {
+        return console.log(e);
+      }
+    };
+  getDrawingsForUser();
+  }, [props.user])
+  //------------------------------------------------------------------------
+  // -When called this function toggles login related state
+  const clickLogin = () => {
     props.loginUser();
-  };    
-   
+  };
+
   //------------------------------------------------------------------------
   // MUI OPENING AND CLOSING MENU CODE:
   const [state, setState] = React.useState({
@@ -95,26 +123,26 @@ export default function DropDownMenu(props) {
               <ListItemIcon>
                 <GestureIcon />
               </ListItemIcon>
-              <ListItemText onClick={getDrawingsForUser} primary={text} />
+              <ListItemText  primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
 
-<List>
-{drawingData.map((drawing) => {
-            return (
-              <React.Fragment key={drawing.id}>
-                <DrawingItem
-                  
-                  setLatLong={props.setLatLong} /*prop drilled from map.js */
-                  name={drawing.drawing_name}
-                  points={drawing.drawing_points}
-                />
-              </React.Fragment>
-            );
-          })}
-</List>  
+      <List>
+        {drawingData.map((drawing) => {
+          return (
+            <React.Fragment key={drawing.id}>
+              <Link to={`/${drawing.id}`}>{drawing.drawing_name}</Link>
+              <DrawingItem
+                setLatLong={props.setLatLong} /*prop drilled from map.js */
+                name={drawing.drawing_name}
+                points={drawing.drawing_points}
+              />
+            </React.Fragment>
+          );
+        })}
+      </List>
     </Box>
   );
 

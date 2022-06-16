@@ -23,6 +23,7 @@ import SaveForm from "./components/SaveForm";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LunchDiningRoundedIcon from "@mui/icons-material/LunchDiningRounded";
+import StarIcon from "@mui/icons-material/Star";
 
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
@@ -41,10 +42,17 @@ const Map = (props) => {
       styles: [{ color: "#ff69b4", weight: 7 }],
     },
 
+    createMarker: function () {
+      return null;
+    },
+
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
       //If U-turns are allowed in this route
       allowUTurns: true,
+    },
+    ItineraryOptions: {
+      itineraryClassName: "itinerary",
     },
     // shows directions
     show: false,
@@ -137,25 +145,30 @@ const Map = (props) => {
         zoom={14}
         center={[49.281, -123.135]}
       >
-        {/* <Control prepend position="topleft">
-          <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img>
-        </Control> */}
-
-        <Control>
-          <div className="ShowcaseButton">
-            <IconButton onClick={handleClose} aria-label="delete" size="large">
-              <DeleteIcon fontSize="inherit" />
-            </IconButton>
-          </div>
+        <Control prepend position="topleft">
+          <img
+            id="logo"
+            height="30"
+            src="Canvas_logo_updated3.png"
+            position="top-left"
+          ></img>
         </Control>
 
-        <Control>
+        <Control prepend position="topright">
           <DropDownMenu
             user={loggedIn}
             setLatLong={setLatLong}
             loginUser={loginUser}
             saveDrawing={saveDrawing}
           ></DropDownMenu>
+        </Control>
+
+        <Control>
+          <div className="ShowcaseButton">
+            <IconButton onClick={handleClose} aria-label="delete" size="large">
+              <StarIcon fontSize="large" />
+            </IconButton>
+          </div>
         </Control>
 
         <Control>

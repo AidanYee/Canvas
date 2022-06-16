@@ -1,6 +1,6 @@
 // MAP FILE
 //----------------------------------------------------------------------------------------------------
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
@@ -22,8 +22,12 @@ import SaveForm from "./components/SaveForm";
 // MUI
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+<<<<<<< HEAD
+
+=======
 import LunchDiningRoundedIcon from "@mui/icons-material/LunchDiningRounded";
 import StarIcon from "@mui/icons-material/Star";
+>>>>>>> 3a5c89e64e84a60281cd5e7e4c7f2f7e50e41fad
 
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
@@ -35,6 +39,7 @@ const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [showShowcase, setShowShowcase] = useState(true);
+  const [showcaseData, setshowcaseData] = useState([]);
 
   const instance = {
     waypoints: latLong,
@@ -136,6 +141,20 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    const getShowcaseDrawings = async () => {
+      try {
+        const response = await axios.get(`${api}/showcase`);
+        setshowcaseData(response.data);
+      } catch (e) {
+        return console.log(e);
+      }
+    };
+    getShowcaseDrawings();
+  }, []);
+
+  //----------------------------------------------------------------------------------------------------
   // RENDER:
   return (
     <>
@@ -183,7 +202,7 @@ const Map = (props) => {
         </Control>
 
         <Control prepend position="topleft">
-          {showShowcase && <Showcase setLatLong={setLatLong}></Showcase>}
+          {showShowcase && <Showcase setLatLong={setLatLong} showcaseData={showcaseData}></Showcase>}
         </Control>
 
         <Control prepend position="bottomleft">

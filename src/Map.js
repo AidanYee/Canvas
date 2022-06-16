@@ -22,12 +22,8 @@ import SaveForm from "./components/SaveForm";
 // MUI
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-<<<<<<< HEAD
-
-=======
 import LunchDiningRoundedIcon from "@mui/icons-material/LunchDiningRounded";
 import StarIcon from "@mui/icons-material/Star";
->>>>>>> 3a5c89e64e84a60281cd5e7e4c7f2f7e50e41fad
 
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;

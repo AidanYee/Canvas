@@ -1,5 +1,6 @@
 // import Button from "@mui/material/Button";
 import axios from "axios";
+import "./DeleteDrawingButton.scss";
 
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,6 +30,7 @@ const DeleteDrawingButton = (props) => {
 
   return (
     <IconButton
+      className="DeleteButton"
       aria-label="delete"
       size="small"
       id={props.id}

@@ -24,6 +24,21 @@ body,
 -come back to this later (.leaflet-control)
 */
 
+/* maximized directions for route */
+.leaflet-routing-container {
+  position: fixed;
+  right: 10px;
+  bottom: 30px;
+}
+
+/* minimized button for route */
+.leaflet-routing-collapse-btn {
+  position: fixed;
+  right: 10px;
+  bottom: 30px;
+}
+/* leaflet-routing-container leaflet-bar leaflet-routing-container-hide leaflet-routing-collapsible leaflet-control"><span class="leaflet-routing-collapse-btn"></span><div class="leaflet-routing-alternatives-container"></div></div> */
+
 /* Removes border from leaflet control items */
 .leaflet-touch .leaflet-bar {
   border: 0px;
@@ -37,7 +52,15 @@ body,
   margin-top: 50px;
 }
 
-/* .ShowcaseButton {
-  display: flex;
-  justify-content: space-between;
-} */
+.leaflet-control {
+  clear: initial;
+}
+
+.leaflet-control .ShowcaseButton {
+  clear: intitial;
+}
+
+.ShowcaseButton .MuiButtonBase-root {
+  padding-top: 0px;
+  color: #ffe3a9;
+}

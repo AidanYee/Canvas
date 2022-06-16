@@ -1,5 +1,11 @@
+//-------------------------------------------------------------------
 import React from "react";
+
 import { Button } from "@mui/material";
+
+// CSS:
+import "./LoggedInUserMessage.scss";
+//-------------------------------------------------------------------
 
 // -This component renders the logged in users name when state is set
 const LoggedInUserMessage = (props) => {
@@ -10,8 +16,17 @@ const LoggedInUserMessage = (props) => {
 
   return (
     <>
-      <Button variant="text">G Day! {props.name}</Button>
-      <Button onClick={logout} variant="text">
+      <Button className="WelcomeMessage" variant="text">
+        G Day! {props.name}
+      </Button>
+      <Button
+        sx={{
+          borderRadius: 50,
+        }}
+        onClick={logout}
+        variant="outlined"
+        color="error"
+      >
         Logout
       </Button>
     </>

@@ -134,31 +134,33 @@ export default function DropDownMenu(props) {
       onKeyDown={toggleDrawer(anchor, true)}
     >
       <List>
-        {["Login"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <LoginIcon />
-              </ListItemIcon>
-              <ListItemText onClick={clickLogin} primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {!props.user &&
+          ["Login"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <LoginIcon />
+                </ListItemIcon>
+                <ListItemText onClick={clickLogin} primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
-      <Divider />
+      {!props.user && <Divider />}
       <List>
-        {["Drawing Library"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GestureIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {props.user &&
+          ["Drawing Library"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <GestureIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
-
+      {props.user && <Divider />}
       <List>
         {drawingData.map((drawing) => {
           return (

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 
+// LEAFLET
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
@@ -14,20 +15,18 @@ import "./styles.css";
 import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
-
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
 import SaveForm from "./components/SaveForm";
 
 // MUI
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import LunchDiningRoundedIcon from "@mui/icons-material/LunchDiningRounded";
 import StarIcon from "@mui/icons-material/Star";
 
+//-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
-
+const GHKEY = process.env.GHKEY;
 //-----------------------------------------------------------------------------------------------------
 
 // MAP COMPONENT:
@@ -38,34 +37,44 @@ const Map = (props) => {
 
   const instance = {
     waypoints: latLong,
+
     lineOptions: {
       styles: [{ color: "#ff69b4", weight: 7 }],
     },
 
-    createMarker: function () {
-      return null;
+    createMarker: function (i, start, n) {
+      //for (i = 0; waypoint.length; i++){
+      return L.marker(start.latLng, {
+        opacity: 0,
+      });
     },
+
+    router: L.Routing.graphHopper("5e47f16c-3d8f-4b5f-883a-64f41af17262", {
+      urlParameters: {
+        vehicle: "bike",
+      },
+    }),
 
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
       //If U-turns are allowed in this route
       allowUTurns: true,
     },
-    ItineraryOptions: {
-      itineraryClassName: "itinerary",
-    },
+
     // shows directions
     show: false,
 
-    collapsible: true,
-    // allowUTurn: true,
     // adds way points by dragging
     addWaypoints: false,
-    routeWhileDragging: true,
+
     // move waypoints by dragging
     draggableWaypoints: false,
+
     // fits route to the screen
     fitSelectedRoutes: false,
+
+    collapsible: true,
+    routeWhileDragging: true,
     showAlternatives: false,
   };
 
@@ -182,8 +191,10 @@ const Map = (props) => {
           )}
         </Control>
 
-        <Control prepend position="topleft">
-          {showShowcase && <Showcase setLatLong={setLatLong}></Showcase>}
+        <Control>
+          <div className="showcase">
+            {showShowcase && <Showcase setLatLong={setLatLong}></Showcase>}
+          </div>
         </Control>
 
         <Control prepend position="bottomleft">

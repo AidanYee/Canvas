@@ -1,6 +1,6 @@
 // MAP FILE
 //----------------------------------------------------------------------------------------------------
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 // LEAFLET
@@ -34,6 +34,7 @@ const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [showShowcase, setShowShowcase] = useState(true);
+  const [showcaseData, setshowcaseData] = useState([]);
 
   const instance = {
     waypoints: latLong,
@@ -145,6 +146,20 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    const getShowcaseDrawings = async () => {
+      try {
+        const response = await axios.get(`${api}/showcase`);
+        setshowcaseData(response.data);
+      } catch (e) {
+        return console.log(e);
+      }
+    };
+    getShowcaseDrawings();
+  }, []);
+
+  //----------------------------------------------------------------------------------------------------
   // RENDER:
   return (
     <>
@@ -191,10 +206,13 @@ const Map = (props) => {
           )}
         </Control>
 
-        <Control>
-          <div className="showcase">
-            {showShowcase && <Showcase setLatLong={setLatLong}></Showcase>}
-          </div>
+        <Control prepend position="topleft">
+          {showShowcase && (
+            <Showcase
+              setLatLong={setLatLong}
+              showcaseData={showcaseData}
+            ></Showcase>
+          )}
         </Control>
 
         <Control prepend position="bottomleft">

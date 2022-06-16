@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "@mui/material";
 
+// -This component renders the logged in users name when state is set
 const LoggedInUserMessage = (props) => {
-  //This component renders the logged in users name when state is set 
-  console.log("logged in user props", props);
+  //console.log("logged in user props", props);
   const logout = () => {
     props.setLoggedOut();
   };

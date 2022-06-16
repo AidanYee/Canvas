@@ -1,5 +1,8 @@
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import axios from "axios";
+
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 // API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
@@ -25,9 +28,14 @@ const DeleteDrawingButton = (props) => {
   };
 
   return (
-    <Button id={props.id} onClick={deleteDrawing}>
-      DELETE
-    </Button>
+    <IconButton
+      aria-label="delete"
+      size="small"
+      id={props.id}
+      onClick={deleteDrawing}
+    >
+      <DeleteIcon />
+    </IconButton>
   );
 };
 

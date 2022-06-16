@@ -23,3 +23,21 @@ body,
 -attempting to remove faint border aorund undo and save buttons
 -come back to this later (.leaflet-control)
 */
+
+/* Removes border from leaflet control items */
+.leaflet-touch .leaflet-bar {
+  border: 0px;
+}
+
+.UndoAndSave {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-left: 25px;
+  margin-top: 50px;
+}
+
+/* .ShowcaseButton {
+  display: flex;
+  justify-content: space-between;
+} */

@@ -10,6 +10,9 @@ import DrawingItem from "./DrawingItem";
 import DeleteDrawingButton from "./DeleteDrawingButton";
 
 // CSS:
+import "./DropDownMenu.scss";
+
+import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -21,6 +24,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GestureIcon from "@mui/icons-material/Gesture";
 import LoginIcon from "@mui/icons-material/Login";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import LunchDiningRounded from "@mui/icons-material/LunchDiningRounded";
 
 // API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
@@ -53,9 +58,7 @@ export default function DropDownMenu(props) {
         //console.log("drawing link", response.data);
 
         props.setLatLong(response.data.drawing_points);
-      } catch (e) {
-        return console.log(e);
-      }
+      } catch (e) {}
     };
     getDrawingLink();
   }, [params.id]);
@@ -160,18 +163,24 @@ export default function DropDownMenu(props) {
         {drawingData.map((drawing) => {
           return (
             <React.Fragment key={drawing.id}>
-              <Link disablePadding to={`/${drawing.id}`}>
-                {drawing.drawing_name}{" "}
-              </Link>
-              <DrawingItem
-                setLatLong={props.setLatLong} /*prop drilled from map.js */
-                name={drawing.drawing_name}
-                points={drawing.drawing_points}
-              />
-              <DeleteDrawingButton
-                onDelete={(id) => onDelete(id)}
-                id={drawing.id}
-              />
+              <div className="Drawings-For-User">
+                <DrawingItem
+                  setLatLong={props.setLatLong} /*prop drilled from map.js */
+                  name={drawing.drawing_name}
+                  points={drawing.drawing_points}
+                />
+
+                <div className="DeleteAndShare">
+                  <DeleteDrawingButton
+                    onDelete={(id) => onDelete(id)}
+                    id={drawing.id}
+                  />
+
+                  <Link disablePadding to={`/${drawing.id}`}>
+                    <SendRoundedIcon />
+                  </Link>
+                </div>
+              </div>
             </React.Fragment>
           );
         })}
@@ -185,7 +194,13 @@ export default function DropDownMenu(props) {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <LunchDiningRounded
+            className="LunchDiningRounded"
+            fontSize="large"
+            onClick={toggleDrawer(anchor, true)}
+          >
+            {anchor}
+          </LunchDiningRounded>
           <Drawer
             transitionDuration={{ enter: 500, exit: 500 }}
             onClick={toggleDrawer(anchor, false)}

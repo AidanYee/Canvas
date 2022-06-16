@@ -22,6 +22,7 @@ import SaveForm from "./components/SaveForm";
 // MUI
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import LunchDiningRoundedIcon from "@mui/icons-material/LunchDiningRounded";
 
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
@@ -139,11 +140,15 @@ const Map = (props) => {
         {/* <Control prepend position="topleft">
           <img id="logo" src="Canvas_Logo.png" width="200" height="300"></img>
         </Control> */}
+
         <Control>
-          <IconButton onClick={handleClose} aria-label="delete" size="large">
-            <DeleteIcon fontSize="inherit" />
-          </IconButton>
+          <div className="ShowcaseButton">
+            <IconButton onClick={handleClose} aria-label="delete" size="large">
+              <DeleteIcon fontSize="inherit" />
+            </IconButton>
+          </div>
         </Control>
+
         <Control>
           <DropDownMenu
             user={loggedIn}
@@ -169,10 +174,12 @@ const Map = (props) => {
         </Control>
 
         <Control prepend position="bottomleft">
-          <DeletePointButton removeLastPoint={removeLastPoint}>
-            Delete a Point
-          </DeletePointButton>
-          {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
+          <div className="UndoAndSave">
+            <DeletePointButton removeLastPoint={removeLastPoint}>
+              Delete a Point
+            </DeletePointButton>
+            {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
+          </div>
         </Control>
 
         <MyComponent />

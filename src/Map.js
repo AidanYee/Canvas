@@ -54,7 +54,7 @@ const Map = (props) => {
     addWaypoints: false,
     routeWhileDragging: true,
     // move waypoints by dragging
-    draggableWaypoints: true,
+    draggableWaypoints: false,
     // fits route to the screen
     fitSelectedRoutes: false,
     showAlternatives: false,

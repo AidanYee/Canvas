@@ -21,7 +21,7 @@ const Routing = ({ instance }) => {
 
     // OSRM routing
     const routingControl = L.Routing.control(instance).addTo(onClickMarker);
-    console.log("instance", instance);
+    // console.log("instance", instance);
     // Graphopper routing testing below:
     // const routingControl = L.Routing.control(instance)({
     //   router: new L.Routing.GraphHopper("5e47f16c-3d8f-4b5f-883a-64f41af17262"),

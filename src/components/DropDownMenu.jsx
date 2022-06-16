@@ -7,6 +7,7 @@ import { useParams, Link } from "react-router-dom";
 
 // APP FILES:
 import DrawingItem from "./DrawingItem";
+import DeleteDrawingButton from "./DeleteDrawingButton";
 
 // CSS:
 import Box from "@mui/material/Box";
@@ -72,6 +73,7 @@ export default function DropDownMenu(props) {
 
       try {
         const response = await axios.post(`${api}/getDrawings`, id);
+
         setDrawingData(response.data);
       } catch (e) {
         return console.log(e);
@@ -85,6 +87,18 @@ export default function DropDownMenu(props) {
   // -When called this function toggles login related state
   const clickLogin = () => {
     props.loginUser();
+  };
+
+  //------------------------------------------------------------------------
+  // ON DELETE FUNCTION:
+  // -is called by
+
+  const onDelete = (id) => {
+    const newDrawingData = drawingData.filter(
+      (drawingData) => drawingData.id !== id
+    );
+
+    setDrawingData(newDrawingData);
   };
 
   //------------------------------------------------------------------------
@@ -153,6 +167,10 @@ export default function DropDownMenu(props) {
                 setLatLong={props.setLatLong} /*prop drilled from map.js */
                 name={drawing.drawing_name}
                 points={drawing.drawing_points}
+              />
+              <DeleteDrawingButton
+                onDelete={(id) => onDelete(id)}
+                id={drawing.id}
               />
             </React.Fragment>
           );

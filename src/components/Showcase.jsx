@@ -32,6 +32,7 @@ export default function Showcase(props) {
             return (
               <React.Fragment key={drawing.id}>
                 <ShowcaseItem
+                  handleFlyTo={props.handleFlyTo}
                   setLatLong={props.setLatLong} /*prop drilled from map.js */
                   name={drawing.drawing_name}
                   points={drawing.drawing_points}

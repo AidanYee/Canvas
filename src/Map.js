@@ -1,8 +1,12 @@
 // MAP FILE
 //----------------------------------------------------------------------------------------------------
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
+//import { useMap } from 'react-leaflet/hooks'
 import axios from "axios";
+//import React, { useRef } from 'react';
 
+
+// LEAFLET
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
@@ -14,7 +18,6 @@ import "./styles.css";
 import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
-
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
 import SaveForm from "./components/SaveForm";
@@ -25,9 +28,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LunchDiningRoundedIcon from "@mui/icons-material/LunchDiningRounded";
 import StarIcon from "@mui/icons-material/Star";
 
+//-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
-const GH_API_KEY = process.env.GRAPH_HOPPER_API;
+const GHKEY = process.env.GHKEY;
 //-----------------------------------------------------------------------------------------------------
 
 // MAP COMPONENT:
@@ -39,34 +43,44 @@ const Map = (props) => {
 
   const instance = {
     waypoints: latLong,
+
     lineOptions: {
       styles: [{ color: "#ff69b4", weight: 7 }],
     },
 
-    createMarker: function () {
-      return null;
+    createMarker: function (i, start, n) {
+      //for (i = 0; waypoint.length; i++){
+      return L.marker(start.latLng, {
+        opacity: 0,
+      });
     },
+
+    router: L.Routing.graphHopper("5e47f16c-3d8f-4b5f-883a-64f41af17262", {
+      urlParameters: {
+        vehicle: "bike",
+      },
+    }),
 
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
       //If U-turns are allowed in this route
       allowUTurns: true,
     },
-    ItineraryOptions: {
-      itineraryClassName: "itinerary",
-    },
+
     // shows directions
     show: false,
 
-    collapsible: true,
-    // allowUTurn: true,
     // adds way points by dragging
     addWaypoints: false,
-    routeWhileDragging: true,
+
     // move waypoints by dragging
     draggableWaypoints: false,
+
     // fits route to the screen
     fitSelectedRoutes: false,
+
+    collapsible: true,
+    routeWhileDragging: true,
     showAlternatives: false,
   };
 
@@ -92,6 +106,7 @@ const Map = (props) => {
       const user = await axios.post(`${api}/users/login`);
 
       setLoggedIn(user.data);
+      handleOnSetView()
     } catch (e) {
       return console.log(e);
     }
@@ -136,6 +151,53 @@ const Map = (props) => {
     }
   };
 
+  //------------------------------------------------------------------------------------------------------
+
+  // const disneyWorldLatLng = [28.3852, -81.5639];
+  // const disneyLandLatLng = [33.8121, -117.9190];
+  // const mapId = useRef();
+
+//   /**
+//    * handleOnSetView
+//    */
+
+  const handleOnSetView = () => {
+    // console.log("Handle set View called");
+    // const { current = {} } = mapId;
+    // const { leafletElement: map } = current;
+
+    // map.setView(disneyWorldLatLng, 14);
+  }
+  
+  const handleFlyTo = () => {
+
+    // console.log("handle flyTo called");
+
+    // const { current = {} } = mapId;
+
+    // //console.log(" mapRef", mapRef);
+
+    // const { leafletElement: map } = current;
+
+    // console.log("map in fly to", map);
+
+    // map.flyTo(disneyLandLatLng, 14, { duration: 2});
+}
+//   const handleFlyTo = () => {
+//     console.log("click for handle fly");
+//     const { current = {} } = mapId;
+//     //console.log(" mapRef", mapRef);
+//     const { leafletElement: map } = current;
+//     console.log("map in fly to", map);
+//     map.flyTo([49.281, -123.135], 14, { duration: 2});
+// }
+//   const handleFlyTo = () => {
+//     console.log("click for handle fly");
+    
+//     setLatLong((prev) => [...prev, L.latLong])
+//     map.flyTo([49.281, -123.135], 14, { duration: 2});
+// }
+
   //----------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -155,6 +217,7 @@ const Map = (props) => {
   return (
     <>
       <MapContainer
+        
         doubleClickZoom={false}
         id="mapId"
         zoom={14}
@@ -167,6 +230,17 @@ const Map = (props) => {
             src="Canvas_logo_updated3.png"
             position="top-left"
           ></img>
+        </Control>
+
+
+        <Control prepend position="topleft">
+          {showShowcase && (
+            <Showcase
+              setLatLong={setLatLong}
+              showcaseData={showcaseData}
+              handleFlyTo={handleFlyTo}
+            ></Showcase>
+          )}
         </Control>
 
         <Control prepend position="topright">
@@ -197,9 +271,6 @@ const Map = (props) => {
           )}
         </Control>
 
-        <Control prepend position="topleft">
-          {showShowcase && <Showcase setLatLong={setLatLong} showcaseData={showcaseData}></Showcase>}
-        </Control>
 
         <Control prepend position="bottomleft">
           <div className="UndoAndSave">

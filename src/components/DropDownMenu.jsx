@@ -180,6 +180,7 @@ export default function DropDownMenu(props) {
                     setDeleteAlertOpen={props.setDeleteAlertOpen}
                     onDelete={(id) => onDelete(id)}
                     id={drawing.id}
+                    setLatLong={props.setLatLong}
                   />
 
                   <Link disablePadding to={`/${drawing.id}`}>

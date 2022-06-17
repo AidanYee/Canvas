@@ -22,6 +22,7 @@ const DeleteDrawingButton = (props) => {
         console.log(res);
         props.onDelete(id);
         props.setDeleteAlertOpen(true);
+        props.setLatLong([]);
       })
 
       .catch((e) => {

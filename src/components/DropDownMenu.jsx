@@ -23,7 +23,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GestureIcon from "@mui/icons-material/Gesture";
-import LoginIcon from "@mui/icons-material/Login";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LunchDiningRounded from "@mui/icons-material/LunchDiningRounded";
 
@@ -52,6 +51,7 @@ export default function DropDownMenu(props) {
     const getDrawingLink = async () => {
       // -we pull that value of id out of react-routers param and use it to make the axios request
       const id = params.id;
+      console.log("🎲 ~ params.id", params.id);
 
       try {
         const response = await axios.get(`${api}/shareDrawings/${id}`);
@@ -88,9 +88,7 @@ export default function DropDownMenu(props) {
   //------------------------------------------------------------------------
   // CLICK LOGIN FUNC:
   // -When called this function toggles login related state
-  const clickLogin = () => {
-    props.loginUser();
-  };
+ 
 
   //------------------------------------------------------------------------
   // ON DELETE FUNCTION:
@@ -126,7 +124,7 @@ export default function DropDownMenu(props) {
   };
 
   const list = (anchor) => (
-    <Box
+     <Box
       sx={{
         width: anchor === "top" || anchor === "bottom" ? "auto" : 400,
       }}
@@ -134,20 +132,6 @@ export default function DropDownMenu(props) {
       onClick={toggleDrawer(anchor, true)}
       onKeyDown={toggleDrawer(anchor, true)}
     >
-      <List>
-        {!props.user &&
-          ["Login"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LoginIcon />
-                </ListItemIcon>
-                <ListItemText onClick={clickLogin} primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-      </List>
-      {!props.user && <Divider />}
       <List>
         {props.user &&
           ["Drawing Library"].map((text, index) => (
@@ -161,7 +145,7 @@ export default function DropDownMenu(props) {
             </ListItem>
           ))}
       </List>
-      {props.user && <Divider />}
+      <Divider />
       <List>
         {drawingData.map((drawing) => {
           return (
@@ -188,7 +172,7 @@ export default function DropDownMenu(props) {
                       onClick={() => {
                         props.handleClipboard()
                         navigator.clipboard.writeText(
-                          `localhost:3002/${drawing.id}`
+                          `localhost:3000/${drawing.id}`
                         )
                       }
                       }
@@ -201,6 +185,7 @@ export default function DropDownMenu(props) {
         })}
       </List>
     </Box>
+
   );
   //------------------------------------------------------------------------------------------
   // COMPONENT RENDER:

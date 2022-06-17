@@ -27,6 +27,7 @@ import StarIcon from "@mui/icons-material/Star";
 import SaveAlerts from "./components/SaveAlerts";
 import DeleteAlerts from "./components/DeleteAlerts";
 import ClipboardAlerts from "./components/ClipboardAlerts";
+import ClickToLogin from "./components/ClickToLogin";
 //-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
@@ -36,7 +37,9 @@ const GHKEY = process.env.GHKEY;
 // MAP COMPONENT:
 const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
+
   const [loggedIn, setLoggedIn] = useState(false);
+
   const [showShowcase, setShowShowcase] = useState(true);
   const [showcaseData, setshowcaseData] = useState([]);
 
@@ -120,6 +123,7 @@ const Map = (props) => {
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
   //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
+    console.log("ayoo")
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -129,6 +133,7 @@ const Map = (props) => {
     }
   };
 
+  //------------------------------------
   const logout = () => {
     setLoggedIn(false);
   };
@@ -231,13 +236,13 @@ const Map = (props) => {
           <DropDownMenu
             user={loggedIn}
             setLatLong={setLatLong}
-            loginUser={loginUser}
             saveDrawing={saveDrawing}
             flyToDrawing={flyToDrawing}
             deleteAlertOpen={deleteAlertOpen}
             setDeleteAlertOpen={setDeleteAlertOpen}
             handleClipboard= {handleClipboard}
           ></DropDownMenu>
+
         </Control>
 
         <Control>
@@ -249,6 +254,10 @@ const Map = (props) => {
         </Control>
 
         <Control>
+          {!loggedIn && ( <ClickToLogin loginUser={loginUser}
+          >
+          </ClickToLogin>)}
+         
           {loggedIn && (
             <LoggedInUserMessage
               setLoggedOut={logout}

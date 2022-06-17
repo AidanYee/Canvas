@@ -12,10 +12,10 @@ import DeleteDrawingButton from "./DeleteDrawingButton";
 // CSS:
 import "./DropDownMenu.scss";
 
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -103,6 +103,7 @@ export default function DropDownMenu(props) {
 
     setDrawingData(newDrawingData);
   };
+ 
 
   //------------------------------------------------------------------------
   // MUI OPENING AND CLOSING MENU CODE:
@@ -175,16 +176,20 @@ export default function DropDownMenu(props) {
 
                 <div className="DeleteAndShare">
                   <DeleteDrawingButton
+                    deleteAlertOpen={props.deleteAlertOpen}
+                    setDeleteAlertOpen={props.setDeleteAlertOpen}
                     onDelete={(id) => onDelete(id)}
                     id={drawing.id}
                   />
 
                   <Link disablePadding to={`/${drawing.id}`}>
                     <SendRoundedIcon
-                      onClick={() =>
+                      onClick={() => {
+                        props.handleClipboard()
                         navigator.clipboard.writeText(
                           `localhost:3002/${drawing.id}`
                         )
+                      }
                       }
                     />
                   </Link>

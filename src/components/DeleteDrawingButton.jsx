@@ -21,6 +21,7 @@ const DeleteDrawingButton = (props) => {
       .then((res) => {
         console.log(res);
         props.onDelete(id);
+        props.setDeleteAlertOpen(true);
       })
 
       .catch((e) => {

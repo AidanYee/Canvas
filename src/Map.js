@@ -23,6 +23,10 @@ import SaveForm from "./components/SaveForm";
 import IconButton from "@mui/material/IconButton";
 import StarIcon from "@mui/icons-material/Star";
 
+// ALERT COMPONENTS
+import SaveAlerts from "./components/SaveAlerts";
+import DeleteAlerts from "./components/DeleteAlerts";
+import ClipboardAlerts from "./components/ClipboardAlerts";
 //-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
@@ -35,6 +39,12 @@ const Map = (props) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [showShowcase, setShowShowcase] = useState(true);
   const [showcaseData, setshowcaseData] = useState([]);
+
+  // ALERT RELATED STATES
+  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
+  const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
 
   const instance = {
     waypoints: latLong,
@@ -83,6 +93,7 @@ const Map = (props) => {
 
   //-------------------------------------------------------------------------------------------
   // FLY TO DRAWING FUNC:
+  // -this function currently serves no purpose, and can be deleted if flyTo doesnt get built
   const flyToDrawing = (name) => {
     console.log(
       "u called the flyToDrawing func from clicking the" +
@@ -100,6 +111,7 @@ const Map = (props) => {
     } catch (e) {
       return console.log(e);
     }
+    setOpen(true)
     setLatLong([]);
   };
 
@@ -173,6 +185,12 @@ const Map = (props) => {
     //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
   };
 
+  //----------------------------------------------------------------------
+  const handleClipboard = () => {
+    console.log("handle clipboard");
+    setClipboardAlertOpen(true);
+  };
+
   //----------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -197,12 +215,15 @@ const Map = (props) => {
         zoom={14}
         center={[49.281, -123.135]}
       >
+      
+        
         <Control prepend position="topleft">
           <img
             id="logo"
             height="30"
             src="Canvas_logo_updated3.png"
             position="top-left"
+            alt="canvas-logo"
           ></img>
         </Control>
 
@@ -213,6 +234,9 @@ const Map = (props) => {
             loginUser={loginUser}
             saveDrawing={saveDrawing}
             flyToDrawing={flyToDrawing}
+            deleteAlertOpen={deleteAlertOpen}
+            setDeleteAlertOpen={setDeleteAlertOpen}
+            handleClipboard= {handleClipboard}
           ></DropDownMenu>
         </Control>
 
@@ -252,6 +276,27 @@ const Map = (props) => {
             </DeletePointButton>
             {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
           </div>
+
+        </Control>
+
+           <Control>
+          <SaveAlerts
+            open={open}
+            setOpen={setOpen}
+          >
+          </SaveAlerts>
+
+          <ClipboardAlerts
+            clipboardAlertOpen={clipboardAlertOpen}
+            setClipboardAlertOpen={setClipboardAlertOpen}
+          >
+          </ClipboardAlerts>
+
+          <DeleteAlerts
+          deleteAlertOpen={deleteAlertOpen}
+          setDeleteAlertOpen={setDeleteAlertOpen}
+          >
+          </DeleteAlerts>
         </Control>
 
         <MyComponent />

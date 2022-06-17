@@ -7,8 +7,8 @@ import axios from "axios";
 
 
 // LEAFLET
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-import L from "leaflet";
+import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
+import L, { map } from "leaflet";
 import Control from "react-leaflet-custom-control";
 
 // SCSS:
@@ -46,6 +46,8 @@ const Map = (props) => {
 
     lineOptions: {
       styles: [{ color: "#ff69b4", weight: 7 }],
+      //styles: [{ className: "animate" }], // Adding animate class
+      // https://gis.stackexchange.com/questions/299914/adjust-leaflet-routing-machine-draw-animate-route-speed
     },
 
     createMarker: function (i, start, n) {
@@ -84,6 +86,15 @@ const Map = (props) => {
     showAlternatives: false,
   };
 
+  //-------------------------------------------------------------------------------------------
+  // FLY TO DRAWING FUNC:
+  const flyToDrawing = (name) => {
+    console.log(
+      "u called the flyToDrawing func from clicking the" +
+        name +
+        " drawing from the library"
+    );
+  };
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
@@ -143,6 +154,8 @@ const Map = (props) => {
     return null;
   }
 
+  //--------------------------------------------------------------------------------
+  // -responsible for toggling showcase (featured drawings)
   const handleClose = (event) => {
     if (showShowcase === true) {
       setShowShowcase(false);
@@ -249,6 +262,7 @@ const Map = (props) => {
             setLatLong={setLatLong}
             loginUser={loginUser}
             saveDrawing={saveDrawing}
+            flyToDrawing={flyToDrawing}
           ></DropDownMenu>
         </Control>
 

@@ -14,7 +14,11 @@ export default function ShowcaseItem(props) {
   //console.log("points", props.points);
 
   function renderShowcasePoints() {
+<<<<<<< HEAD
     props.handleFlyTo()
+=======
+    props.handleFlyTo();
+>>>>>>> 3f5b6f7229809b687d9c924108a8ea7b9b017465
     return props.setLatLong(props.points);
   }
 

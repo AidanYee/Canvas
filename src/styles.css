@@ -69,4 +69,25 @@ body,
   position: bottom;
 } */
 
-/* < class="leaflet-control leaflet-bar">< class="showcase"><div class="MuiBox-root css-12dv9jb"><div class="MuiCardContent-root css-46bh2p-MuiCardContent-root"><div class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root">Showcase</div><div class="MuiTypography-root MuiTypography-h9 css-37jdci-MuiTypography-root">Example Showcase</div></div><div class="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">4 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">5 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">9 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">8 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button></div></div */
+.MuiBox-root.css-12dv9jb {
+  position: fixed;
+  margin-top: 80px;
+  left: 10px;
+  background-color: white;
+  border-radius: 5%;
+}
+
+/* --------------------------------------------------------------------------------
+ -CSS Code that animates a route by drawing the line from start to finish
+ -see un-commented code in map.js instance code options */
+/* path.leaflet-interactive.animate {
+  stroke-dasharray: 1920;
+  stroke-dashoffset: 1920;
+  animation: dash 5s linear 1s forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+} */

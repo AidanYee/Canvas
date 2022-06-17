@@ -22,9 +22,6 @@ const Routing = ({ instance }) => {
     // OSRM routing
     const routingControl = L.Routing.control(instance).addTo(onClickMarker);
 
-    // console.log(L.Routing);
-    // console.log(instance);
-
     return () => onClickMarker.removeControl(routingControl);
   }, [onClickMarker, instance]);
 

@@ -95,15 +95,35 @@ const Map = (props) => {
   };
 
   //-------------------------------------------------------------------------------------------
+  const mapInstance = useMap();
   // FLY TO DRAWING FUNC:
   // -this function currently serves no purpose, and can be deleted if flyTo doesnt get built
   const flyToDrawing = (name) => {
+    mapInstance.flyTo([49.281, -123.135], 14, { duration: 2 });
+
     console.log(
       "u called the flyToDrawing func from clicking the" +
         name +
         " drawing from the library"
     );
   };
+  
+// const mapRef = useRef();
+  // const handleFlyTo = () => {
+  //   console.log("click for handle fly");
+  //   const { current = {} } = mapRef;
+  //   const { leafletElement: map } = current;
+  //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
+  // };
+  const showcaseFlyTo = () => {
+    //   console.log("click for handle fly");
+    //   const map = useMap;
+    //   setLatLong((prev) => [...prev, L.latLong]);
+    //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
+        // map.flyTo(latLong[0])
+  };
+
+
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
@@ -175,21 +195,9 @@ const Map = (props) => {
     }
   };
 
+  
   //------------------------------------------------------------------------
-  // const mapRef = useRef();
-  // const handleFlyTo = () => {
-  //   console.log("click for handle fly");
-  //   const { current = {} } = mapRef;
-  //   const { leafletElement: map } = current;
-  //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
-  // };
-  const handleFlyTo = () => {
-    //   console.log("click for handle fly");
-    //   const map = useMap;
-    //   setLatLong((prev) => [...prev, L.latLong]);
-    //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
-  };
-
+  
   //----------------------------------------------------------------------
   const handleClipboard = () => {
     console.log("handle clipboard");
@@ -214,14 +222,6 @@ const Map = (props) => {
   // RENDER:
   return (
     <>
-      <MapContainer
-        doubleClickZoom={false}
-        id="mapId"
-        zoom={14}
-        center={[49.281, -123.135]}
-      >
-      
-        
         <Control prepend position="topleft">
           <img
             id="logo"
@@ -271,7 +271,7 @@ const Map = (props) => {
         <Control>
           {showShowcase && (
             <Showcase
-              handleFlyTo={handleFlyTo}
+              handleFlyTo={showcaseFlyTo}
               setLatLong={setLatLong}
               showcaseData={showcaseData}
             ></Showcase>
@@ -315,7 +315,7 @@ const Map = (props) => {
           url="https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=JHPAACJynf7oMojiymA4"
         />
         <Routing instance={instance} />
-      </MapContainer>
+
     </>
   );
 };

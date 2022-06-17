@@ -23,6 +23,11 @@ import SaveForm from "./components/SaveForm";
 import IconButton from "@mui/material/IconButton";
 import StarIcon from "@mui/icons-material/Star";
 
+// ALERT COMPONENTS
+import SaveAlerts from "./components/SaveAlerts";
+import DeleteAlerts from "./components/DeleteAlerts";
+import ClipboardAlerts from "./components/ClipboardAlerts";
+import ClickToLogin from "./components/ClickToLogin";
 //-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
@@ -32,9 +37,17 @@ const GHKEY = process.env.GHKEY;
 // MAP COMPONENT:
 const Map = (props) => {
   const [latLong, setLatLong] = useState([]);
+
   const [loggedIn, setLoggedIn] = useState(false);
+
   const [showShowcase, setShowShowcase] = useState(true);
   const [showcaseData, setshowcaseData] = useState([]);
+
+  // ALERT RELATED STATES
+  const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
+  const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
 
   const instance = {
     waypoints: latLong,
@@ -83,6 +96,7 @@ const Map = (props) => {
 
   //-------------------------------------------------------------------------------------------
   // FLY TO DRAWING FUNC:
+  // -this function currently serves no purpose, and can be deleted if flyTo doesnt get built
   const flyToDrawing = (name) => {
     console.log(
       "u called the flyToDrawing func from clicking the" +
@@ -100,6 +114,7 @@ const Map = (props) => {
     } catch (e) {
       return console.log(e);
     }
+    setOpen(true)
     setLatLong([]);
   };
 
@@ -108,6 +123,7 @@ const Map = (props) => {
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
   //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
+    console.log("ayoo")
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -117,6 +133,7 @@ const Map = (props) => {
     }
   };
 
+  //------------------------------------
   const logout = () => {
     setLoggedIn(false);
   };
@@ -173,6 +190,12 @@ const Map = (props) => {
     //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
   };
 
+  //----------------------------------------------------------------------
+  const handleClipboard = () => {
+    console.log("handle clipboard");
+    setClipboardAlertOpen(true);
+  };
+
   //----------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -197,6 +220,8 @@ const Map = (props) => {
         zoom={14}
         center={[49.281, -123.135]}
       >
+      
+        
         <Control prepend position="topleft">
           <img
             id="logo"
@@ -204,6 +229,7 @@ const Map = (props) => {
             height="30"
             src="Canvas_logo_updated3.png"
             position="top-left"
+            alt="canvas-logo"
           ></img>
         </Control>
 
@@ -211,10 +237,13 @@ const Map = (props) => {
           <DropDownMenu
             user={loggedIn}
             setLatLong={setLatLong}
-            loginUser={loginUser}
             saveDrawing={saveDrawing}
             flyToDrawing={flyToDrawing}
+            deleteAlertOpen={deleteAlertOpen}
+            setDeleteAlertOpen={setDeleteAlertOpen}
+            handleClipboard= {handleClipboard}
           ></DropDownMenu>
+
         </Control>
 
         <Control>
@@ -226,6 +255,10 @@ const Map = (props) => {
         </Control>
 
         <Control>
+          {!loggedIn && ( <ClickToLogin loginUser={loginUser}
+          >
+          </ClickToLogin>)}
+         
           {loggedIn && (
             <LoggedInUserMessage
               setLoggedOut={logout}
@@ -253,6 +286,27 @@ const Map = (props) => {
             </DeletePointButton>
             {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
           </div>
+
+        </Control>
+
+           <Control>
+          <SaveAlerts
+            open={open}
+            setOpen={setOpen}
+          >
+          </SaveAlerts>
+
+          <ClipboardAlerts
+            clipboardAlertOpen={clipboardAlertOpen}
+            setClipboardAlertOpen={setClipboardAlertOpen}
+          >
+          </ClipboardAlerts>
+
+          <DeleteAlerts
+          deleteAlertOpen={deleteAlertOpen}
+          setDeleteAlertOpen={setDeleteAlertOpen}
+          >
+          </DeleteAlerts>
         </Control>
 
         <MyComponent />

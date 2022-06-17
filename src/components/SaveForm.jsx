@@ -25,6 +25,7 @@ export default function SaveForm(props) {
     //console.log("Hi there", drawingName);
     props.saveDrawing(drawingName);
     handleClose();
+    console.log()
   };
 
   //----------------------------------

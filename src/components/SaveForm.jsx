@@ -42,7 +42,7 @@ export default function SaveForm(props) {
 
   return (
     <div>
-      <Button id="saveButton" onClick={handleClickOpen}>
+      <Button id="saveButton" variant="contained" onClick={handleClickOpen}>
         SAVE
       </Button>
       <Dialog open={open} onClose={handleClose}>

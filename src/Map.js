@@ -206,7 +206,7 @@ const Map = (props) => {
           )}
         </Control>
 
-        <Control prepend position="topleft">
+        <Control>
           {showShowcase && (
             <Showcase
               setLatLong={setLatLong}

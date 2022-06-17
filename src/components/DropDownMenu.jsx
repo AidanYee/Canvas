@@ -127,7 +127,7 @@ export default function DropDownMenu(props) {
   const list = (anchor) => (
     <Box
       sx={{
-        width: anchor === "top" || anchor === "bottom" ? "auto" : 500,
+        width: anchor === "top" || anchor === "bottom" ? "auto" : 400,
       }}
       role="presentation"
       onClick={toggleDrawer(anchor, true)}
@@ -179,7 +179,13 @@ export default function DropDownMenu(props) {
                   />
 
                   <Link disablePadding to={`/${drawing.id}`}>
-                    <SendRoundedIcon />
+                    <SendRoundedIcon
+                      onClick={() =>
+                        navigator.clipboard.writeText(
+                          `localhost:3002/${drawing.id}`
+                        )
+                      }
+                    />
                   </Link>
                 </div>
               </div>

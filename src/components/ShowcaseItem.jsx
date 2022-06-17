@@ -12,6 +12,7 @@ export default function ShowcaseItem(props) {
   //console.log("points", props.points);
 
   function renderShowcasePoints() {
+    props.handleFlyTo();
     return props.setLatLong(props.points);
   }
 

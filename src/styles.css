@@ -69,8 +69,6 @@ body,
   position: bottom;
 } */
 
-/* < class="leaflet-control leaflet-bar">< class="showcase"><div class="MuiBox-root css-12dv9jb"><div class="MuiCardContent-root css-46bh2p-MuiCardContent-root"><div class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root">Showcase</div><div class="MuiTypography-root MuiTypography-h9 css-37jdci-MuiTypography-root">Example Showcase</div></div><div class="MuiCardActions-root MuiCardActions-spacing css-1t6e9jv-MuiCardActions-root"><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">4 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">5 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">9 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button><button class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  css-1knaqv7-MuiButtonBase-root-MuiButton-root" tabindex="0" type="button">8 points<span class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"></span></button></div></div */
-
 .MuiBox-root.css-12dv9jb {
   position: fixed;
   margin-top: 80px;

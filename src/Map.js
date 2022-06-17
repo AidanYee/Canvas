@@ -1,11 +1,11 @@
 // MAP FILE
 //----------------------------------------------------------------------------------------------------
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 // LEAFLET
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-import L from "leaflet";
+import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
+import L, { map } from "leaflet";
 import Control from "react-leaflet-custom-control";
 
 // SCSS:
@@ -80,6 +80,15 @@ const Map = (props) => {
   };
 
   //-------------------------------------------------------------------------------------------
+  // FLY TO DRAWING FUNC:
+  const flyToDrawing = (name) => {
+    console.log(
+      "u called the flyToDrawing func from clicking the" +
+        name +
+        " drawing from the library"
+    );
+  };
+  //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
 
@@ -145,6 +154,21 @@ const Map = (props) => {
     }
   };
 
+  //------------------------------------------------------------------------
+  // const mapRef = useRef();
+  // const handleFlyTo = () => {
+  //   console.log("click for handle fly");
+  //   const { current = {} } = mapRef;
+  //   const { leafletElement: map } = current;
+  //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
+  // };
+  const handleFlyTo = () => {
+    //   console.log("click for handle fly");
+    //   const map = useMap;
+    //   setLatLong((prev) => [...prev, L.latLong]);
+    //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
+  };
+
   //----------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -184,6 +208,7 @@ const Map = (props) => {
             setLatLong={setLatLong}
             loginUser={loginUser}
             saveDrawing={saveDrawing}
+            flyToDrawing={flyToDrawing}
           ></DropDownMenu>
         </Control>
 
@@ -209,6 +234,7 @@ const Map = (props) => {
         <Control>
           {showShowcase && (
             <Showcase
+              handleFlyTo={handleFlyTo}
               setLatLong={setLatLong}
               showcaseData={showcaseData}
             ></Showcase>

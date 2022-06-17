@@ -9,15 +9,16 @@ import Button from "@mui/material/Button";
 export default function DrawingItem(props) {
   // const params = useParams();
   // console.log(params);
-  
+
   // useEffect(() => {
   //   axios.get(`/api/products/${params.id}`)
   //     .then(res => setProduct(res.data));
   // }, [params.id]);
 
-
   function renderDrawingPoints() {
-    return props.setLatLong(props.points);
+    props.setLatLong(props.points);
+    props.flyToDrawing(props.name);
+    return;
   }
 
   return (
@@ -26,4 +27,3 @@ export default function DrawingItem(props) {
     </Button>
   );
 }
-

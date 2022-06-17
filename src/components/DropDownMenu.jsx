@@ -170,6 +170,7 @@ export default function DropDownMenu(props) {
                   setLatLong={props.setLatLong} /*prop drilled from map.js */
                   name={drawing.drawing_name}
                   points={drawing.drawing_points}
+                  flyToDrawing={props.flyToDrawing}
                 />
 
                 <div className="DeleteAndShare">

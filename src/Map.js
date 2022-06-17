@@ -200,6 +200,7 @@ const Map = (props) => {
         <Control prepend position="topleft">
           <img
             id="logo"
+            alt=""
             height="30"
             src="Canvas_logo_updated3.png"
             position="top-left"

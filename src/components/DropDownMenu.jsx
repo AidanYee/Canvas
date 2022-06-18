@@ -23,8 +23,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GestureIcon from "@mui/icons-material/Gesture";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LunchDiningRounded from "@mui/icons-material/LunchDiningRounded";
+import ShareIcon from "@mui/icons-material/Share";
 
 // API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
@@ -148,27 +148,28 @@ export default function DropDownMenu(props) {
                   points={drawing.drawing_points}
                   flyToDrawing={props.flyToDrawing}
                 />
-
                 <div className="DeleteAndShare">
-                  <DeleteDrawingButton
-                    deleteAlertOpen={props.deleteAlertOpen}
-                    setDeleteAlertOpen={props.setDeleteAlertOpen}
-                    onDelete={(id) => onDelete(id)}
-                    id={drawing.id}
-                    setLatLong={props.setLatLong}
-                  />
-
-                  <Link disablePadding to={`/${drawing.id}`}>
-                    <SendRoundedIcon
-                      onClick={() => {
-                        props.handleClipboard()
-                        navigator.clipboard.writeText(
-                          `localhost:3000/${drawing.id}`
-                        )
-                      }
-                      }
+                  <div className="ShareButton">
+                    <Link disablePadding to={`/${drawing.id}`}>
+                      <ShareIcon
+                        onClick={() => {
+                          props.handleClipboard();
+                          navigator.clipboard.writeText(
+                            `localhost:3000/${drawing.id}`
+                          );
+                        }}
+                      />
+                    </Link>
+                  </div>
+                  <div className="DeleteButton">
+                    <DeleteDrawingButton
+                      deleteAlertOpen={props.deleteAlertOpen}
+                      setDeleteAlertOpen={props.setDeleteAlertOpen}
+                      onDelete={(id) => onDelete(id)}
+                      id={drawing.id}
+                      setLatLong={props.setLatLong}
                     />
-                  </Link>
+                  </div>
                 </div>
               </div>
             </React.Fragment>

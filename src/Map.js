@@ -176,19 +176,31 @@ const Map = (props) => {
   };
 
   //------------------------------------------------------------------------
+  //HANDLE FLY
+
+  const handleFlyTo = () => {
+    useMapEvents({})
+    console.log("click for handle fly");
+    const { current = {} } = mapRef;
+    const { leafletElement: map } = current;
+    map.flyTo([49.281, -123.135], 14, { duration: 2 });
+  };
+
   // const mapRef = useRef();
   // const handleFlyTo = () => {
+  //   useMapEvents({})
   //   console.log("click for handle fly");
   //   const { current = {} } = mapRef;
   //   const { leafletElement: map } = current;
   //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
   // };
-  const handleFlyTo = () => {
+  // const handleFlyTo = () => {
+
     //   console.log("click for handle fly");
     //   const map = useMap;
     //   setLatLong((prev) => [...prev, L.latLong]);
     //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
-  };
+  // };
 
   //----------------------------------------------------------------------
   const handleClipboard = () => {
@@ -225,7 +237,6 @@ const Map = (props) => {
         <Control prepend position="topleft">
           <img
             id="logo"
-            alt=""
             height="30"
             src="Canvas_logo_updated3.png"
             position="top-left"

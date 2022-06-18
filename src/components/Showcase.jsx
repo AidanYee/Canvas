@@ -3,6 +3,7 @@
 import React from "react";
 // MUI CSS
 import Box from "@mui/material/Box";
+import List from "@mui/material/List";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -24,20 +25,22 @@ export default function Showcase(props) {
             Checkout our featured community drawings
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions style={{ height: "400px", overflowY: "scroll" }}>
           {/* map through the get response data and render a new showcaseItem for each value */}
-          {props.showcaseData.map((drawing) => {
-            return (
-              <React.Fragment key={drawing.id}>
-                <ShowcaseItem
-                  handleFlyTo={props.handleFlyTo}
-                  setLatLong={props.setLatLong} /*prop drilled from map.js */
-                  name={drawing.drawing_name}
-                  points={drawing.drawing_points}
-                />
-              </React.Fragment>
-            );
-          })}
+          <List>
+            {props.showcaseData.map((drawing) => {
+              return (
+                <React.Fragment key={drawing.id}>
+                  <ShowcaseItem
+                    handleFlyTo={props.handleFlyTo}
+                    setLatLong={props.setLatLong} /*prop drilled from map.js */
+                    name={drawing.drawing_name}
+                    points={drawing.drawing_points}
+                  />
+                </React.Fragment>
+              );
+            })}
+          </List>
         </CardActions>
       </React.Fragment>
     </Box>

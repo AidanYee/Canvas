@@ -3,7 +3,14 @@
 import * as React from "react";
 
 // CSS:
-import Button from "@mui/material/Button";
+import {
+  Card,
+  Button,
+  CardMedia,
+  CardContent,
+  Typography,
+} from "@mui/material";
+
 import "./ShowcaseItem.scss";
 
 //-------------------------------------------------------------------------------------------
@@ -12,15 +19,30 @@ import "./ShowcaseItem.scss";
 // -the func calls the setLatLong function (which was propsdrilled from map.js) with the
 //  value of props.points as the funcs argument
 export default function ShowcaseItem(props) {
- 
   function renderShowcasePoints() {
     props.handleFlyTo(props.points);
     return props.setLatLong(props.points);
   }
 
+  let screenshot = "";
+  if (props.name === "Lighthouse") {
+    screenshot = "/lighthouse_showcase_image.png";
+  } else if (props.name == " Guy with Hair") {
+    screenshot = "/guy_with_hair.png";
+  }
+
   return (
-    <Button onClick={renderShowcasePoints} size="small">
-      {props.name}
-    </Button>
+    <Card className="showcase-item">
+      <CardMedia
+        className="showcase-drawing-image"
+        height="125"
+        component="img"
+        image={screenshot}
+      />
+
+      <Button onClick={renderShowcasePoints} size="small">
+        {props.name}
+      </Button>
+    </Card>
   );
 }

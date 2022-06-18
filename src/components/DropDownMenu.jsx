@@ -148,27 +148,28 @@ export default function DropDownMenu(props) {
                   points={drawing.drawing_points}
                   flyToDrawing={props.flyToDrawing}
                 />
-
                 <div className="DeleteAndShare">
-                  <DeleteDrawingButton
-                    deleteAlertOpen={props.deleteAlertOpen}
-                    setDeleteAlertOpen={props.setDeleteAlertOpen}
-                    onDelete={(id) => onDelete(id)}
-                    id={drawing.id}
-                    setLatLong={props.setLatLong}
-                  />
-
-                  <Link disablePadding to={`/${drawing.id}`}>
-                    <SendRoundedIcon
-                      onClick={() => {
-                        props.handleClipboard()
-                        navigator.clipboard.writeText(
-                          `localhost:3000/${drawing.id}`
-                        )
-                      }
-                      }
+                  <div className="ShareButton">
+                    <Link disablePadding to={`/${drawing.id}`}>
+                      <SendRoundedIcon
+                        onClick={() => {
+                          props.handleClipboard();
+                          navigator.clipboard.writeText(
+                            `localhost:3000/${drawing.id}`
+                          );
+                        }}
+                      />
+                    </Link>
+                  </div>
+                  <div className="DeleteButton">
+                    <DeleteDrawingButton
+                      deleteAlertOpen={props.deleteAlertOpen}
+                      setDeleteAlertOpen={props.setDeleteAlertOpen}
+                      onDelete={(id) => onDelete(id)}
+                      id={drawing.id}
+                      setLatLong={props.setLatLong}
                     />
-                  </Link>
+                  </div>
                 </div>
               </div>
             </React.Fragment>

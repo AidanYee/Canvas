@@ -10,6 +10,7 @@
   padding-left: 50px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
+  background-color: #FAF8F6;
 }
 
 .Drawings-For-User .MuiButton-root {
@@ -17,8 +18,12 @@
 }
 
 .Drawings-For-User:hover {
-  box-shadow: 0 8px 16px 0 #ff69b4;
-  // box-shadow: 0 8px 16px 0 #b7bcb6;
+  // glow shadow
+  // box-shadow: 0 8px 16px 0 #ff69b4;
+  // box-shadow: 0 4px 8px 0 #b7bcb6;
+  // hard box shadow
+  // box-shadow: 8px 8px #ff69b4;
+  box-shadow: 8px 8px #b7bcb6;
 }
 
 .DeleteAndShare {

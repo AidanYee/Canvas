@@ -2,15 +2,15 @@
 //----------------------------------------------------------------------------------------------------
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useParams } from "react-router-dom";
 // LEAFLET
 import { TileLayer, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
-
+import { geosearch } from "esri-leaflet-geocoder";
 // SCSS:
 import "./styles.css";
-
+import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
 // COMPONENTS FROM OUR APP:
 import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
@@ -36,7 +36,6 @@ const api = process.env.REACT_APP_API;
 
 // MAP COMPONENT:
 const Map = (props) => {
-
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
@@ -51,8 +50,10 @@ const Map = (props) => {
   const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-   //-------------------------------------------------------------------
-// INSTANCE OBJECT: -gets passed to L.routing.control in router.js
+  console.log(latLong);
+
+  //-------------------------------------------------------------------
+  // INSTANCE OBJECT: -gets passed to L.routing.control in router.js
   const instance = {
     waypoints: latLong,
 
@@ -102,18 +103,23 @@ const Map = (props) => {
 
   // FLY TO DRAWING and FLY TO SHOWCASE FUNCS:
   // -these functions are called in there corresponding components, they get passed the value
-  //  of latLong for the selected drawing and use the first element in that array to determine 
+  //  of latLong for the selected drawing and use the first element in that array to determine
   //  where the map flies to from wherever it currently is.
   const flyToDrawing = (points) => {
     mapInstance.flyTo(points[0], 14, { duration: 3 });
-   
-    
-  };
-  
-  const showcaseFlyTo = (points) => {
-   mapInstance.flyTo(points[0], 14, { duration: 3 });
   };
 
+  const showcaseFlyTo = (points) => {
+    mapInstance.flyTo(points[0], 14, { duration: 3 });
+  };
+
+  //----------------------------------------------------------------------------------------------
+  const mapSearchInstance = useMap();
+  useEffect(() => {
+    if (!mapSearchInstance) return;
+    const control = geosearch();
+    control.addTo(mapSearchInstance);
+  }, [mapSearchInstance]);
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
@@ -123,7 +129,7 @@ const Map = (props) => {
     } catch (e) {
       return console.log(e);
     }
-    setOpen(true)
+    setOpen(true);
     setLatLong([]);
   };
 
@@ -132,7 +138,7 @@ const Map = (props) => {
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
   //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
-    console.log("ayoo")
+    console.log("ayoo");
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -192,9 +198,39 @@ const Map = (props) => {
     console.log("handle clipboard");
     setClipboardAlertOpen(true);
   };
+  console.log("hi i am at the middle of map");
+  //---------------------------------------------------------------------------------------------
+  //DROP DOWN MENU LOGIC
+  // PARAMS: -a react-router specific custom hook
+  const params = useParams();
+  console.log("line 202 params", params);
+  //------------------------------------------------------------------------------------------
+  // GET DRAWING LINK:
+  // -This useEffect makes a get request for drawings by params.id( aka drawing.id)
+  // -useEffect fires whenever the value of params.id changes
+  useEffect(() => {
+    //console.log("Params ID: render the drawing for", params.id);
 
-//----------------------------------------------------------------------------------------------------
-// GET SHOWCASE DRAWINGS GET:
+    if (params.id) {
+      const getDrawingLink = async () => {
+        // -we pull that value of id out of react-routers param and use it to make the axios request
+        const id = params.id;
+        console.log("🎲 ~ params.id", params.id);
+
+        try {
+          const response = await axios.get(`${api}/shareDrawings/${id}`);
+          console.log("drawing link data", response.data);
+
+          setLatLong(response.data.drawing_points);
+        } catch (e) {}
+      };
+      getDrawingLink();
+    }
+  }, [params.id]);
+
+  //----------------------------------------------------------------------------------------------------
+  //------------------------------------------------------------
+  // GET SHOWCASE DRAWINGS GET:
 
   useEffect(() => {
     const getShowcaseDrawings = async () => {
@@ -212,100 +248,89 @@ const Map = (props) => {
   // MAP COMPONENT RENDER / RETURN:
   return (
     <>
-        <Control prepend position="topleft">
-          <img
-            id="logo"
-            height="30"
-            src="Canvas_logo_updated3.png"
-            position="top-left"
-            alt="canvas-logo"
-          ></img>
-        </Control>
+      <Control prepend position="topleft">
+        <img
+          id="logo"
+          height="30"
+          src="Canvas_logo_updated3.png"
+          position="top-left"
+          alt="canvas-logo"
+        ></img>
+      </Control>
 
-        <Control prepend position="topright">
-          <DropDownMenu
-            user={loggedIn}
-            setLatLong={setLatLong}
-            saveDrawing={saveDrawing}
-            flyToDrawing={flyToDrawing}
-            deleteAlertOpen={deleteAlertOpen}
-            setDeleteAlertOpen={setDeleteAlertOpen}
-            handleClipboard= {handleClipboard}
-          ></DropDownMenu>
-
-        </Control>
-
-        <Control>
-          <div className="ShowcaseButton">
-            <IconButton onClick={handleClose} aria-label="delete" size="large">
-              <StarIcon fontSize="large" />
-            </IconButton>
-          </div>
-        </Control>
-
-        <Control>
-          {!loggedIn && ( <ClickToLogin loginUser={loginUser}
-          >
-          </ClickToLogin>)}
-         
-          {loggedIn && (
-            <LoggedInUserMessage
-              setLoggedOut={logout}
-              prepend
-              position="center"
-              name={loggedIn.name}
-            />
-          )}
-        </Control>
-
-        <Control>
-          {showShowcase && (
-            <Showcase
-              handleFlyTo={showcaseFlyTo}
-              setLatLong={setLatLong}
-              showcaseData={showcaseData}
-            ></Showcase>
-          )}
-        </Control>
-
-        <Control prepend position="bottomleft">
-          <div className="UndoAndSave">
-            <DeletePointButton removeLastPoint={removeLastPoint}>
-              Delete a Point
-            </DeletePointButton>
-            {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
-          </div>
-
-        </Control>
-
-           <Control>
-          <SaveAlerts
-            open={open}
-            setOpen={setOpen}
-          >
-          </SaveAlerts>
-
-          <ClipboardAlerts
-            clipboardAlertOpen={clipboardAlertOpen}
-            setClipboardAlertOpen={setClipboardAlertOpen}
-          >
-          </ClipboardAlerts>
-
-          <DeleteAlerts
+      <Control prepend position="topright">
+        <DropDownMenu
+          user={loggedIn}
+          setLatLong={setLatLong}
+          saveDrawing={saveDrawing}
+          flyToDrawing={flyToDrawing}
           deleteAlertOpen={deleteAlertOpen}
           setDeleteAlertOpen={setDeleteAlertOpen}
-          >
-          </DeleteAlerts>
-        </Control>
+          handleClipboard={handleClipboard}
+        ></DropDownMenu>
+      </Control>
 
-        <MyComponent />
+      <Control>
+        <div className="ShowcaseButton">
+          <IconButton onClick={handleClose} aria-label="delete" size="large">
+            <StarIcon fontSize="large" />
+          </IconButton>
+        </div>
+      </Control>
 
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=JHPAACJynf7oMojiymA4"
-        />
-        <Routing instance={instance} />
+      <Control>
+        {!loggedIn && <ClickToLogin loginUser={loginUser}></ClickToLogin>}
 
+        {loggedIn && (
+          <LoggedInUserMessage
+            setLoggedOut={logout}
+            prepend
+            position="center"
+            name={loggedIn.name}
+          />
+        )}
+      </Control>
+
+      <Control>
+        {showShowcase && (
+          <Showcase
+            handleFlyTo={showcaseFlyTo}
+            setLatLong={setLatLong}
+            showcaseData={showcaseData}
+          ></Showcase>
+        )}
+      </Control>
+
+      <Control prepend position="bottomleft">
+        <div className="UndoAndSave">
+          <DeletePointButton removeLastPoint={removeLastPoint}>
+            Delete a Point
+          </DeletePointButton>
+          {loggedIn && <SaveForm saveDrawing={saveDrawing}></SaveForm>}
+        </div>
+      </Control>
+
+      <Control>
+        <SaveAlerts open={open} setOpen={setOpen}></SaveAlerts>
+
+        <ClipboardAlerts
+          clipboardAlertOpen={clipboardAlertOpen}
+          setClipboardAlertOpen={setClipboardAlertOpen}
+        ></ClipboardAlerts>
+
+        <DeleteAlerts
+          deleteAlertOpen={deleteAlertOpen}
+          setDeleteAlertOpen={setDeleteAlertOpen}
+        ></DeleteAlerts>
+      </Control>
+
+      <MyComponent />
+
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=JHPAACJynf7oMojiymA4"
+      />
+      <Routing instance={instance} />
     </>
   );
 };

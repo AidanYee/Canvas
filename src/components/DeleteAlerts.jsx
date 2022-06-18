@@ -1,35 +1,47 @@
+// DELETE ALERT COMPONENT:
+//-------------------------------------------------------------------------------
 import * as React from "react";
-import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material/Box";
+
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+//-------------------------------------------------------------------------------
 
 export default function DeleteAlerts(props) {
-  // const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+  const handleClick = () => {
+    props.setDeleteAlertOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    props.setDeleteAlertOpen(false);
+  };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Collapse in={props.deleteAlertOpen}>
-        <Alert
-          severity="error"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                props.setDeleteAlertOpen(false);
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-          Drawing Deleted!
+    <Stack spacing={2} sx={{ width: "100%" }}>
+      <Snackbar
+        open={props.deleteAlertOpen}
+        autoHideDuration={3500}
+        onClose={handleClose}
+        sx={{ width: "25%" }}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Drawing deleted
         </Alert>
-      </Collapse>
-    </Box>
+      </Snackbar>
+    </Stack>
   );
 }

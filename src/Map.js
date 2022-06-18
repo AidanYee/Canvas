@@ -58,8 +58,6 @@ const Map = (props) => {
 
     lineOptions: {
       styles: [{ color: "#ff69b4", weight: 7 }],
-      //styles: [{ className: "animate" }], // Adding animate class
-      // https://gis.stackexchange.com/questions/299914/adjust-leaflet-routing-machine-draw-animate-route-speed
     },
 
     createMarker: function (i, start, n) {
@@ -142,6 +140,7 @@ const Map = (props) => {
     } catch (e) {
       return console.log(e);
     }
+    setLatLong([]);
   };
 
   //------------------------------------
@@ -194,7 +193,7 @@ const Map = (props) => {
     setClipboardAlertOpen(true);
   };
 
-  //----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
 // GET SHOWCASE DRAWINGS GET:
 
   useEffect(() => {

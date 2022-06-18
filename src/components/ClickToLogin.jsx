@@ -1,10 +1,11 @@
+// CLICK TO LOGIN COMPONENT:
 //-------------------------------------------------------------------
 import React from "react";
 
-import { Button } from "@mui/material";
-
 // CSS:
+import { Button } from "@mui/material";
 import "./LoggedInUserMessage.scss";
+
 //-------------------------------------------------------------------
 
 // -This component renders the logged in users name when state is set

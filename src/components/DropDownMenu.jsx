@@ -63,8 +63,6 @@ export default function DropDownMenu(props) {
     getDrawingLink();
   }, [params.id]);
 
-  //console.log("params", params);
-
   //------------------------------------------------------------------------------------------
   // GET DRAWINGS FOR USER:
   // -this UseEffect triggers getDrawingsForUser func that makes the axios post for the drawings of a given user and returns it below
@@ -86,13 +84,7 @@ export default function DropDownMenu(props) {
   }, [props.user, props.saveDrawing]);
 
   //------------------------------------------------------------------------
-  // CLICK LOGIN FUNC:
-  // -When called this function toggles login related state
- 
-
-  //------------------------------------------------------------------------
-  // ON DELETE FUNCTION:
-  // -is called by
+  // ON DELETE FUNCTION: -is called by Onclick in render below
 
   const onDelete = (id) => {
     const newDrawingData = drawingData.filter(
@@ -102,7 +94,6 @@ export default function DropDownMenu(props) {
     setDrawingData(newDrawingData);
   };
  
-
   //------------------------------------------------------------------------
   // MUI OPENING AND CLOSING MENU CODE:
   const [state, setState] = React.useState({
@@ -188,7 +179,7 @@ export default function DropDownMenu(props) {
 
   );
   //------------------------------------------------------------------------------------------
-  // COMPONENT RENDER:
+  // COMPONENT RETURN/ RENDER:
 
   return (
     <div>

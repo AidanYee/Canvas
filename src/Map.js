@@ -1,11 +1,11 @@
 // MAP FILE
 //----------------------------------------------------------------------------------------------------
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 // LEAFLET
-import { MapContainer, TileLayer, useMapEvents, useMap } from "react-leaflet";
-import L, { map } from "leaflet";
+import { TileLayer, useMapEvents, useMap } from "react-leaflet";
+import L from "leaflet";
 import Control from "react-leaflet-custom-control";
 
 // SCSS:
@@ -31,11 +31,14 @@ import ClickToLogin from "./components/ClickToLogin";
 //-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
-const GHKEY = process.env.GHKEY;
+// const GHKEY = process.env.GHKEY;
 //-----------------------------------------------------------------------------------------------------
 
 // MAP COMPONENT:
 const Map = (props) => {
+
+  //-------------------------------------------------------------------
+  // STATE:
   const [latLong, setLatLong] = useState([]);
 
   const [loggedIn, setLoggedIn] = useState(false);
@@ -48,7 +51,8 @@ const Map = (props) => {
   const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-
+   //-------------------------------------------------------------------
+// INSTANCE OBJECT: -gets passed to L.routing.control in router.js
   const instance = {
     waypoints: latLong,
 
@@ -59,7 +63,6 @@ const Map = (props) => {
     },
 
     createMarker: function (i, start, n) {
-      //for (i = 0; waypoint.length; i++){
       return L.marker(start.latLng, {
         opacity: 0,
       });
@@ -95,39 +98,27 @@ const Map = (props) => {
   };
 
   //-------------------------------------------------------------------------------------------
+  // MAP INSTANCE: -used to apply react-leaflet custom hooks
   const mapInstance = useMap();
-  // FLY TO DRAWING FUNC:
-  // -this function currently serves no purpose, and can be deleted if flyTo doesnt get built
-  const flyToDrawing = (name) => {
-    mapInstance.flyTo([49.281, -123.135], 14, { duration: 2 });
+  //----------------------------
 
-    console.log(
-      "u called the flyToDrawing func from clicking the" +
-        name +
-        " drawing from the library"
-    );
+  // FLY TO DRAWING and FLY TO SHOWCASE FUNCS:
+  // -these functions are called in there corresponding components, they get passed the value
+  //  of latLong for the selected drawing and use the first element in that array to determine 
+  //  where the map flies to from wherever it currently is.
+  const flyToDrawing = (points) => {
+    mapInstance.flyTo(points[0], 14, { duration: 3 });
+   
+    
   };
   
-// const mapRef = useRef();
-  // const handleFlyTo = () => {
-  //   console.log("click for handle fly");
-  //   const { current = {} } = mapRef;
-  //   const { leafletElement: map } = current;
-  //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
-  // };
-  const showcaseFlyTo = () => {
-    //   console.log("click for handle fly");
-    //   const map = useMap;
-    //   setLatLong((prev) => [...prev, L.latLong]);
-    //   map.flyTo([49.281, -123.135], 14, { duration: 2 });
-        // map.flyTo(latLong[0])
+  const showcaseFlyTo = (points) => {
+   mapInstance.flyTo(points[0], 14, { duration: 3 });
   };
-
 
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
-
   const saveDrawing = async (name) => {
     try {
       await axios.post(`${api}/drawings`, { latLong, name });
@@ -159,8 +150,8 @@ const Map = (props) => {
   };
 
   //----------------------------------------------------------------------------------------------------
-  // REMOVE LAST POINT FUNC:
-  // -called by onclick in removes last element in state array
+  // REMOVE LAST POINT FUNC: (connected to undo button)
+  // -called by onclick in removes last element in the latLong state array
   const removeLastPoint = () => {
     setLatLong((prev) => {
       return [...prev.slice(0, -1)];
@@ -195,16 +186,16 @@ const Map = (props) => {
     }
   };
 
-  
-  //------------------------------------------------------------------------
-  
-  //----------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------
+  // HANDLE CLIPBOARD FUNC:
+  // -is called by the link in the DropDownMenu component and renders an alert to the screen
   const handleClipboard = () => {
     console.log("handle clipboard");
     setClipboardAlertOpen(true);
   };
 
   //----------------------------------------------------------------------------------------------------
+// GET SHOWCASE DRAWINGS GET:
 
   useEffect(() => {
     const getShowcaseDrawings = async () => {
@@ -219,7 +210,7 @@ const Map = (props) => {
   }, []);
 
   //----------------------------------------------------------------------------------------------------
-  // RENDER:
+  // MAP COMPONENT RENDER / RETURN:
   return (
     <>
         <Control prepend position="topleft">

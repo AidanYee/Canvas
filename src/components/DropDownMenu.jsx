@@ -1,6 +1,8 @@
 // DROP DOWN MENU COMPONENT:
 //----------------------------------------------------------------
 import * as React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 // APP FILES:
@@ -24,21 +26,50 @@ import GestureIcon from "@mui/icons-material/Gesture";
 import LunchDiningRounded from "@mui/icons-material/LunchDiningRounded";
 import ShareIcon from "@mui/icons-material/Share";
 
+// API KEY (for Axios requests)
+const api = process.env.REACT_APP_API;
+
 //----------------------------------------------------------------
 
 // COMPONENT DECLERATION:
 export default function DropDownMenu(props) {
   console.log("🎲 ~ props drop down menu", props);
+  const [isOpen, setIsOpen] = useState(false);
+  const [drawingData, setDrawingData] = useState([]);
+  //console.log("drawing data", drawingData);
+
+  //------------------------------------------------------------------------------------------
+  // GET DRAWINGS FOR USER:
+  // -this UseEffect triggers getDrawingsForUser func that makes the axios post for the drawings of a given user and returns it below
+  //  where it is turned into a series of Drawing Item component renders
+  // *NOTE* user data is brought in as props from loggedIn state ***
+  useEffect(() => {
+    if (props.user) {
+      const getDrawingsForUser = async () => {
+        const id = props.user;
+        console.log("id", id);
+
+        try {
+          const response = await axios.post(`${api}/getDrawings`, id);
+
+          setDrawingData(response.data);
+        } catch (e) {
+          return console.log(e);
+        }
+      };
+      getDrawingsForUser();
+    }
+  }, [props.user, props.saveDrawing]);
 
   //------------------------------------------------------------------------
   // ON DELETE FUNCTION: -is called by Onclick in render below
 
   const onDelete = (id) => {
-    const newDrawingData = props.drawingData.filter(
+    const newDrawingData = drawingData.filter(
       (drawingData) => drawingData.id !== id
     );
 
-    props.setDrawingData(newDrawingData);
+    setDrawingData(newDrawingData);
   };
 
   //------------------------------------------------------------------------
@@ -50,41 +81,44 @@ export default function DropDownMenu(props) {
     right: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (event) => {
+    //anchor, open
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }
-
-    setState({ ...state, [anchor]: open });
+    setIsOpen(!isOpen);
+    //setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor) => (
+  const list = () => (
+    //anchor
     <Box
-      sx={{
-        width: anchor === "top" || anchor === "bottom" ? "auto" : 400,
-      }}
+      // sx={{
+      //   width: anchor === "top" || anchor === "bottom" ? "auto" : 400,
+      // }}
       role="presentation"
-      onClick={toggleDrawer(anchor, true)}
-      onKeyDown={toggleDrawer(anchor, true)}
+      onClick={toggleDrawer} //anchor, true
+      // onKeyDown={toggleDrawer(anchor, true)}
     >
       <List>
-        {["Drawing Library"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <GestureIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {props.user &&
+          ["Drawing Library"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <GestureIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
       <Divider />
       <List>
-        {props.drawingData.map((drawing) => {
+        {drawingData.map((drawing) => {
           return (
             <React.Fragment key={drawing.id}>
               <div className="Drawings-For-User">
@@ -134,16 +168,16 @@ export default function DropDownMenu(props) {
           <LunchDiningRounded
             className="LunchDiningRounded"
             fontSize="large"
-            onClick={toggleDrawer(anchor, true)}
+            onClick={toggleDrawer} //(anchor, true)
           >
             {anchor}
           </LunchDiningRounded>
           <Drawer
             transitionDuration={{ enter: 500, exit: 500 }}
-            onClick={toggleDrawer(anchor, false)}
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
+            onClick={toggleDrawer} //anchor, false
+            anchor={"right"} //anchor
+            open={isOpen} //state[anchor]
+            onClose={toggleDrawer} //anchor, false
           >
             {list(anchor)}
           </Drawer>

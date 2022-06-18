@@ -1,34 +1,48 @@
+// CLIPBOARD ALERT COMPONENT:
+//-------------------------------------------------------------------------------
 import * as React from "react";
-import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material/Box";
 
+import MuiAlert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import Stack from "@mui/material/Stack";
+
+//-------------------------------------------------------------------------------
 export default function ClipboardAlerts(props) {
-  
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+  const handleClick = () => {
+    props.setClipboardAlertOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    props.setClipboardAlertOpen(false);
+  };
+
   return (
-    <Box sx={{ width: "100%" }}>
-      <Collapse in={props.clipboardAlertOpen}>
-        <Alert
-          severity="info"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                props.setClipboardAlertOpen(false);
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-          Drawing has been copied to your Clipboard!
+    <Stack spacing={2} sx={{ width: "100%" }}>
+      <Snackbar
+        open={props.clipboardAlertOpen}
+        autoHideDuration={3500}
+        onClose={handleClose}
+        sx={{ width: "25%" }}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
+          Drawing copied to Clipboard!
         </Alert>
-      </Collapse>
-    </Box>
+      </Snackbar>
+    </Stack>
   );
 }
+
+

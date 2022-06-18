@@ -23,8 +23,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import GestureIcon from "@mui/icons-material/Gesture";
-import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import LunchDiningRounded from "@mui/icons-material/LunchDiningRounded";
+import ShareIcon from "@mui/icons-material/Share";
 
 // API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
@@ -151,7 +151,7 @@ export default function DropDownMenu(props) {
                 <div className="DeleteAndShare">
                   <div className="ShareButton">
                     <Link disablePadding to={`/${drawing.id}`}>
-                      <SendRoundedIcon
+                      <ShareIcon
                         onClick={() => {
                           props.handleClipboard();
                           navigator.clipboard.writeText(

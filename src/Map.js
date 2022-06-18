@@ -2,15 +2,15 @@
 //----------------------------------------------------------------------------------------------------
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useParams } from "react-router-dom";
 // LEAFLET
 import { TileLayer, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
-
+import { geosearch } from "esri-leaflet-geocoder";
 // SCSS:
 import "./styles.css";
-
+import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
 // COMPONENTS FROM OUR APP:
 import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
@@ -113,6 +113,13 @@ const Map = (props) => {
     mapInstance.flyTo(points[0], 14, { duration: 3 });
   };
 
+  //----------------------------------------------------------------------------------------------
+  const mapSearchInstance = useMap();
+  useEffect(() => {
+    if (!mapSearchInstance) return;
+    const control = geosearch();
+    control.addTo(mapSearchInstance);
+  }, [mapSearchInstance]);
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
@@ -191,8 +198,61 @@ const Map = (props) => {
     console.log("handle clipboard");
     setClipboardAlertOpen(true);
   };
+  console.log("hi i am at the middle of map");
+  //---------------------------------------------------------------------------------------------
+  //DROP DOWN MENU LOGIC
+
+  const [drawingData, setDrawingData] = useState([]);
+  console.log("drawing data", drawingData);
+
+  // PARAMS: -a react-router specific custom hook
+  const params = useParams();
+
+  //------------------------------------------------------------------------------------------
+  // GET DRAWING LINK:
+  // -This useEffect makes a get request for drawings by params.id( aka drawing.id)
+  // -useEffect fires whenever the value of params.id changes
+  useEffect(() => {
+    console.log("Params ID: render the drawing for", params.id);
+    const getDrawingLink = async () => {
+      console.log("hi i am at the middle of map");
+      // -we pull that value of id out of react-routers param and use it to make the axios request
+      const id = params.id;
+      console.log("🎲 ~ params.id", params.id);
+
+      try {
+        const response = await axios.get(`${api}/shareDrawings/${id}`);
+        //console.log("drawing link", response.data);
+
+        setLatLong(response.data.drawing_points);
+      } catch (e) {}
+    };
+    getDrawingLink();
+  }, [params.id]); //
+
+  //------------------------------------------------------------------------------------------
+  // GET DRAWINGS FOR USER:
+  // -this UseEffect triggers getDrawingsForUser func that makes the axios post for the drawings of a given user and returns it below
+  //  where it is turned into a series of Drawing Item component renders
+  // *NOTE* user data is brought in as props from loggedIn state ***
+  console.log("logged in????? what is this", loggedIn); //???????????????????????????????????????
+  useEffect(() => {
+    const getDrawingsForUser = async () => {
+      const id = loggedIn;
+
+      try {
+        const response = await axios.post(`${api}/getDrawings`, id);
+
+        setDrawingData(response.data);
+      } catch (e) {
+        return console.log(e);
+      }
+    };
+    getDrawingsForUser();
+  }, [loggedIn]); //....props.saveDrawing????????????????????????????????????????????????
 
   //----------------------------------------------------------------------------------------------------
+  //------------------------------------------------------------
   // GET SHOWCASE DRAWINGS GET:
 
   useEffect(() => {

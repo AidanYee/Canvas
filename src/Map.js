@@ -40,7 +40,7 @@ const Map = (props) => {
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
-
+  console.log(latLong);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [showShowcase, setShowShowcase] = useState(true);

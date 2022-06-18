@@ -2,18 +2,51 @@
   display: flex;
   justify-content: space-between;
   align-content: center;
-  margin-left: 25px;
-  margin-top: 50px;
+  margin: 35px;
+  // margin-left: 15px;
+  border: 2px solid #b7bcb6;
+  border-radius: 5px;
+  padding: 30px;
+  padding-left: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.Drawings-For-User .MuiButton-root {
+  color: black;
+}
+
+.Drawings-For-User:hover {
+  box-shadow: 0 4px 8px 0 #ff69b4;
 }
 
 .DeleteAndShare {
   display: flex;
-  justify-content: space-around;
-  // flex-direction: ;
   align-items: center;
-  align-content: center;
-  margin-right: 15px;
+  justify-content: space-between;
+  
+
 }
+
+.ShareButton .MuiSvgIcon-root {
+  color: #b7bcb6;
+   margin-right: 25px;
+
+}
+
+.ShareButton .MuiSvgIcon-root:hover {
+  color: #77dd77;
+}
+
+.DeleteButton .MuiSvgIcon-root {
+  color: #b7bcb6;
+  margin-bottom: 3px;
+}
+
+.DeleteButton .MuiSvgIcon-root:hover {
+  color: #ff6961;
+}
+
 
 .LunchDiningRounded {
   color: #b983ff;

@@ -1,7 +1,12 @@
+// APP
+//-------------------------------------------------------------------
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Map from "./Map";
 import "./styles.css";
+import { MapContainer } from "react-leaflet";
+
+//-------------------------------------------------------------------
 
 // -Using React Router we have rendered two map layers:
 // 1.) Route /    => The main application where our app renders/runs
@@ -10,13 +15,19 @@ import "./styles.css";
 export default function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/:id" element={<Map />} />
+      <MapContainer
+              doubleClickZoom={false}
+              id="mapId"
+              zoom={14}
+              center={[49.281, -123.135]}>
+        <BrowserRouter>
+          <Routes>
+              <Route path="/:id" element={<Map />} />
 
-          <Route path="/" element={<Map />} />
-        </Routes>
-      </BrowserRouter>
+              <Route path="/" element={<Map />} />
+          </Routes>
+        </BrowserRouter>
+      </MapContainer>
     </div>
   );
 }

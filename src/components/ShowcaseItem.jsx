@@ -1,4 +1,8 @@
+// SHOWCASE ITEM COMPONENT:
+//-------------------------------------------------------------------------------------------
 import * as React from "react";
+
+// CSS:
 import Button from "@mui/material/Button";
 import "./ShowcaseItem.scss";
 
@@ -8,11 +12,9 @@ import "./ShowcaseItem.scss";
 // -the func calls the setLatLong function (which was propsdrilled from map.js) with the
 //  value of props.points as the funcs argument
 export default function ShowcaseItem(props) {
-  //console.log("name", props.name);
-  //console.log("points", props.points);
-
+ 
   function renderShowcasePoints() {
-    props.handleFlyTo();
+    props.handleFlyTo(props.points);
     return props.setLatLong(props.points);
   }
 

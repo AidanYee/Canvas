@@ -13,9 +13,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-  const handleClick = () => {
-    props.setClipboardAlertOpen(true);
-  };
+  // const handleClick = () => {
+  //   props.setClipboardAlertOpen(true);
+  // };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {

@@ -405,7 +405,7 @@ const Map = (props) => {
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://api.maptiler.com/maps/pastel/{z}/{x}/{y}.png?key=JHPAACJynf7oMojiymA4"
+        url="https://api.maptiler.com/maps/pastel/256/{z}/{x}/{y}.png?key=9omOWDKhGFHaAqNwlejF"
       />
       <Routing instance={instance} />
 

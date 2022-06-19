@@ -28,7 +28,6 @@ import ShareIcon from "@mui/icons-material/Share";
 
 // API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
-
 //----------------------------------------------------------------
 
 // COMPONENT DECLERATION:
@@ -135,7 +134,7 @@ export default function DropDownMenu(props) {
                         onClick={() => {
                           props.handleClipboard();
                           navigator.clipboard.writeText(
-                            `localhost:3000/${drawing.id}`
+                            process.env.REACT_APP_LINK+`/${drawing.id}`
                           );
                         }}
                       />

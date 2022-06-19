@@ -22,7 +22,7 @@ export default function Showcase(props) {
             Featured Drawings!
           </Typography>
           <Typography variant="h9" component="div">
-            Checkout our featured community drawings
+            Check out our featured community drawings
           </Typography>
         </CardContent>
         <CardActions style={{ height: "400px", overflowY: "scroll" }}>

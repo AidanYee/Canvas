@@ -1,8 +1,17 @@
 .WelcomeMessage {
-  // margin-right: 10px;
-  // color: black;
+  display: flex;
+  flex-direction: row;
+  margin-right: 45px;
+  color: #3D3d3d;
+  // backdrop-filter: blur(10px)
+
 }
 
-.button {
-  // color: black;
+.logoutbutton {
+   margin-left: 45px;
+}
+
+#logout {
+ background-color: #ff6961;
+ color: black;
 }

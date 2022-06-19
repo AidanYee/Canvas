@@ -106,20 +106,27 @@ const Map = (props) => {
   //  of latLong for the selected drawing and use the first element in that array to determine
   //  where the map flies to from wherever it currently is.
   const flyToDrawing = (points) => {
-    mapInstance.flyTo(points[0], 14, { duration: 3 });
+    mapInstance.flyTo(points[0], 13, { duration: 3 });
   };
 
   const showcaseFlyTo = (points) => {
-    mapInstance.flyTo(points[0], 14, { duration: 3 });
+    mapInstance.flyTo(points[0], 13, { duration: 3 });
   };
 
   //----------------------------------------------------------------------------------------------
+  //MAP SEARCH
+
   const mapSearchInstance = useMap();
+
   useEffect(() => {
-    if (!mapSearchInstance) return;
+
+    if (!mapSearchInstance)
+      return;
     const control = geosearch();
     control.addTo(mapSearchInstance);
+
   }, [mapSearchInstance]);
+
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB

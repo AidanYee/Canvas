@@ -118,7 +118,7 @@ const Map = (props) => {
   };
 
   const showcaseFlyTo = (points) => {
-    mapInstance.flyTo(points[50], 13, { duration: 3 });
+    mapInstance.flyTo(points[45], 13, { duration: 3 });
   };
 
 

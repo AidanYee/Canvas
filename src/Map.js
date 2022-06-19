@@ -31,10 +31,13 @@ import SaveAlerts from "./components/SaveAlerts";
 import DeleteAlerts from "./components/DeleteAlerts";
 import ClipboardAlerts from "./components/ClipboardAlerts";
 import ClickToLogin from "./components/ClickToLogin";
+
 //-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;
-// const GHKEY = process.env.GHKEY;
+const APIKEY = process.env.REACT_APP_GHKEY;
+const MAPKEY = process.env.REACT_APP_MAPTILER_KEY;
+
 //-----------------------------------------------------------------------------------------------------
 
 // MAP COMPONENT:
@@ -53,10 +56,6 @@ const Map = (props) => {
   const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-  console.log(latLong);
-  
-  const APIKEY = process.env.REACT_APP_GHKEY
-  console.log("🎲 ~ APIKEY", APIKEY);
   //-------------------------------------------------------------------
   // INSTANCE OBJECT: -gets passed to L.routing.control in router.js
   const instance = {
@@ -254,7 +253,6 @@ const Map = (props) => {
   // MAP COMPONENT RENDER / RETURN:
   return (
     <>
-    
       <Control prepend position="topleft">
         <img
           id="logo"
@@ -334,7 +332,7 @@ const Map = (props) => {
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://api.maptiler.com/maps/pastel/256/{z}/{x}/{y}.png?key=9omOWDKhGFHaAqNwlejF"
+        url={`https://api.maptiler.com/maps/pastel/256/{z}/{x}/{y}.png?key=${MAPKEY}`}
       />
       <Routing instance={instance} />
     </>

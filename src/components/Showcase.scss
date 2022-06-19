@@ -5,3 +5,20 @@
 .MuiButton-root {
   color: black;
 }
+
+// .MuiSvgIcon-root .css-ag7rrr-MuiTypography-root {
+//   margin: 25px;
+// }
+.MuiCardContent-root .header {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  
+}
+
+
+.MuiSvgIcon-root {
+  margin-left: 15px;
+  padding-bottom: 15px;
+  // align-self: flex-end;
+}

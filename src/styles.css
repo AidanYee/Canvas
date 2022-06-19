@@ -62,8 +62,8 @@ body,
 
 .ShowcaseButton .MuiButtonBase-root {
   position: fixed;
-  bottom: 0;
-  left: 0;
+  top: 0px;
+  right: 65px;
   margin-bottom: 60px;
   margin-left: 10px;
   color: #ffe3a9;
@@ -75,8 +75,8 @@ body,
 
 .MuiBox-root.css-12dv9jb {
   position: fixed;
-  margin-top: 100px;
-  left: 20px;
+  margin-top: 300px;
+  left: 25px;
   background-color: white;
   border-radius: 5%;
   overflow: hidden;

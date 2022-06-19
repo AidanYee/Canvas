@@ -3,14 +3,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
 // LEAFLET
 import { TileLayer, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
-import { geosearch } from "esri-leaflet-geocoder";
+// import { geosearch } from "esri-leaflet-geocoder";
+
 // SCSS:
 import "./styles.css";
-import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
+// import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
+
 // COMPONENTS FROM OUR APP:
 import Routing from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
@@ -106,20 +109,21 @@ const Map = (props) => {
   //  of latLong for the selected drawing and use the first element in that array to determine
   //  where the map flies to from wherever it currently is.
   const flyToDrawing = (points) => {
-    mapInstance.flyTo(points[0], 14, { duration: 3 });
+    mapInstance.flyTo(points[0], 12.5, { duration: 3 });
   };
 
   const showcaseFlyTo = (points) => {
-    mapInstance.flyTo(points[0], 14, { duration: 3 });
+    mapInstance.flyTo(points[0], 13, { duration: 3 });
   };
 
   //----------------------------------------------------------------------------------------------
-  const mapSearchInstance = useMap();
-  useEffect(() => {
-    if (!mapSearchInstance) return;
-    const control = geosearch();
-    control.addTo(mapSearchInstance);
-  }, [mapSearchInstance]);
+  // const mapSearchInstance = useMap();
+  // useEffect(() => {
+  //   if (!mapSearchInstance) return;
+  //   const control = geosearch();
+  //   control.addTo(mapSearchInstance);
+  // }, [mapSearchInstance]);
+
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
@@ -198,12 +202,12 @@ const Map = (props) => {
     console.log("handle clipboard");
     setClipboardAlertOpen(true);
   };
-  console.log("hi i am at the middle of map");
+  //console.log("hi i am at the middle of map");
   //---------------------------------------------------------------------------------------------
   //DROP DOWN MENU LOGIC
   // PARAMS: -a react-router specific custom hook
   const params = useParams();
-  console.log("line 202 params", params);
+  //console.log("line 202 params", params);
   //------------------------------------------------------------------------------------------
   // GET DRAWING LINK:
   // -This useEffect makes a get request for drawings by params.id( aka drawing.id)
@@ -251,7 +255,7 @@ const Map = (props) => {
       <Control prepend position="topleft">
         <img
           id="logo"
-          height="30"
+          height="40"
           src="Canvas_logo_updated3.png"
           position="top-left"
           alt="canvas-logo"
@@ -271,14 +275,6 @@ const Map = (props) => {
       </Control>
 
       <Control>
-        <div className="ShowcaseButton">
-          <IconButton onClick={handleClose} aria-label="delete" size="large">
-            <StarIcon fontSize="large" />
-          </IconButton>
-        </div>
-      </Control>
-
-      <Control>
         {!loggedIn && <ClickToLogin loginUser={loginUser}></ClickToLogin>}
 
         {loggedIn && (
@@ -289,6 +285,14 @@ const Map = (props) => {
             name={loggedIn.name}
           />
         )}
+      </Control>
+
+      <Control>
+        <div className="ShowcaseButton">
+          <IconButton onClick={handleClose} aria-label="delete" size="large">
+            <StarIcon fontSize="large" />
+          </IconButton>
+        </div>
       </Control>
 
       <Control>

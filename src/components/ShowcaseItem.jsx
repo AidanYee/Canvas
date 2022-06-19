@@ -25,10 +25,10 @@ export default function ShowcaseItem(props) {
   }
 
   let screenshot = "";
-  if (props.name === "Lighthouse") {
+  if (props.name === " Lighthouse") {
     screenshot = "/lighthouse_showcase_image.png";
-  } else if (props.name == " Guy with Hair") {
-    screenshot = "/guy_with_hair.png";
+  } else if (props.name === "orca stra") {
+    screenshot = "/orca-stra.png";
   }
 
   return (
@@ -38,9 +38,14 @@ export default function ShowcaseItem(props) {
         height="125"
         component="img"
         image={screenshot}
+        onClick={renderShowcasePoints}
       />
 
-      <Button onClick={renderShowcasePoints} size="small">
+      <Button
+        className="FeaturedNames"
+        onClick={renderShowcasePoints}
+        size="small"
+      >
         {props.name}
       </Button>
     </Card>

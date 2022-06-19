@@ -61,7 +61,10 @@ body,
 }
 
 .ShowcaseButton .MuiButtonBase-root {
-  padding-top: 0px;
+  position: fixed;
+  left: 0;
+  margin-top: 130px;
+  margin-left: 10px;
   color: #ffe3a9;
 }
 
@@ -71,10 +74,13 @@ body,
 
 .MuiBox-root.css-12dv9jb {
   position: fixed;
-  margin-top: 80px;
-  left: 10px;
+  margin-top: 180px;
+  left: 20px;
   background-color: white;
   border-radius: 5%;
+  overflow: hidden;
 }
 
-
+/* .MuiCardActions-root {
+  overflow: hidden;
+} */

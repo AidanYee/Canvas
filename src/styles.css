@@ -24,6 +24,13 @@ body,
 -come back to this later (.leaflet-control)
 */
 
+.leaflet-control-geocoder  {
+  position: fixed;
+  top: 2px;
+  right: 450px
+  
+}
+
 /* maximized directions for route */
 .leaflet-routing-container {
   position: fixed;

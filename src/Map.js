@@ -21,6 +21,7 @@ import DeletePointButton from "./components/DeletePointButton";
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
 import SaveForm from "./components/SaveForm";
+import SearchGeocoder from "./components/SearchGeocoder";
 
 // MUI
 import IconButton from "@mui/material/IconButton";
@@ -254,7 +255,8 @@ const Map = (props) => {
   // MAP COMPONENT RENDER / RETURN:
   return (
     <>
-    
+      <SearchGeocoder />
+      
       <Control prepend position="topleft">
         <img
           id="logo"

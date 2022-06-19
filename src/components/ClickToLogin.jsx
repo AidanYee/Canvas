@@ -4,7 +4,7 @@ import React from "react";
 
 // CSS:
 import { Button } from "@mui/material";
-import "./LoggedInUserMessage.scss";
+import "./ClickToLogin.scss";
 
 //-------------------------------------------------------------------
 
@@ -17,16 +17,19 @@ const ClickToLogin = (props) => {
 
   return (
     <>
-      <Button
-        sx={{
-          borderRadius: 50,
-        }}
-        onClick={clickLogin}
-        variant="outlined"
-        color="success"
-      >
-        Login
-      </Button>
+      <div className="login">
+        <Button
+          id="loginButton"
+          sx={{
+            // borderRadius: 50,
+          }}
+          onClick={clickLogin}
+          variant="contained"
+          color="success"
+        >
+          Login
+        </Button>
+      </div>
     </>
   );
 };

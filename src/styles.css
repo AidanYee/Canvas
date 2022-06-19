@@ -103,6 +103,7 @@ body,
   border-bottom: 2px solid black;
  }
 
- .nav {
-  background-color: white;
- }
+/* .leaflet-control.leaflet-bar {
+  margin-top: 0px;
+  margin-right: 0px;
+ } */

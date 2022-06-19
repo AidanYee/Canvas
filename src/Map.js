@@ -48,7 +48,7 @@ const Map = (props) => {
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
-  console.log(latLong);
+  //console.log(latLong);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [showShowcase, setShowShowcase] = useState(true);
@@ -59,7 +59,7 @@ const Map = (props) => {
   const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
-  console.log(latLong);
+  //console.log(latLong);
 
   //-------------------------------------------------------------------
   // INSTANCE OBJECT: -gets passed to L.routing.control in router.js

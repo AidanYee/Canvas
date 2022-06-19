@@ -84,3 +84,19 @@ body,
 /* .MuiCardActions-root {
   overflow: hidden;
 } */
+
+.MuiModal-root .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: #ff69b4;
+}
+
+ .MuiTextField-root #name-label {
+  color: #ff69b4
+ }
+
+ .MuiModal-root .MuiInput-underline.MuiInoutBase-root {
+  color: #ff69b4
+ }
+
+ .MuiModal-root .css-1a1fmpi-MuiInputBase-root-MuiInput-root:after {
+  border-bottom: 2px solid black;
+ }

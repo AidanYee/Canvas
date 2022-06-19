@@ -8,11 +8,11 @@ import { useParams } from "react-router-dom";
 import { TileLayer, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
-// import { geosearch } from "esri-leaflet-geocoder";
+
 
 // SCSS:
 import "./styles.css";
-// import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
+
 
 // COMPONENTS FROM OUR APP:
 import Routing from "./Router";
@@ -46,14 +46,14 @@ const Map = (props) => {
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
-  console.log(latLong);
+  //console.log(latLong);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // Render
   const [showShowcase, setShowShowcase] = useState(true);
+  // Request
   const [showcaseData, setshowcaseData] = useState([]);
 
-  // FEATURED DRAWINGS RENDERED:
-  // const [showcaseOpen, setShowcaseOpen] = useState(true);
 
   // ALERT RELATED STATES
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
@@ -121,13 +121,6 @@ const Map = (props) => {
     mapInstance.flyTo(points[50], 13, { duration: 3 });
   };
 
-  //----------------------------------------------------------------------------------------------
-  // const mapSearchInstance = useMap();
-  // useEffect(() => {
-  //   if (!mapSearchInstance) return;
-  //   const control = geosearch();
-  //   control.addTo(mapSearchInstance);
-  // }, [mapSearchInstance]);
 
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
@@ -147,7 +140,7 @@ const Map = (props) => {
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
   //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
-    console.log("ayoo");
+    //console.log("ayoo");
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -204,7 +197,7 @@ const Map = (props) => {
   // HANDLE CLIPBOARD FUNC:
   // -is called by the link in the DropDownMenu component and renders an alert to the screen
   const handleClipboard = () => {
-    console.log("handle clipboard");
+    //console.log("handle clipboard");
     setClipboardAlertOpen(true);
   };
   //console.log("hi i am at the middle of map");
@@ -224,11 +217,11 @@ const Map = (props) => {
       const getDrawingLink = async () => {
         // -we pull that value of id out of react-routers param and use it to make the axios request
         const id = params.id;
-        console.log("🎲 ~ params.id", params.id);
+        //console.log("🎲 ~ params.id", params.id);
 
         try {
           const response = await axios.get(`${api}/shareDrawings/${id}`);
-          console.log("drawing link data", response.data);
+          //console.log("drawing link data", response.data);
 
           setLatLong(response.data.drawing_points);
         } catch (e) {}

@@ -32,10 +32,10 @@ const api = process.env.REACT_APP_API;
 
 // COMPONENT DECLERATION:
 export default function DropDownMenu(props) {
-  console.log("🎲 ~ props drop down menu", props);
+  //console.log("🎲 ~ props drop down menu", props);
   const [isOpen, setIsOpen] = useState(false);
   const [drawingData, setDrawingData] = useState([]);
-  //console.log("drawing data", drawingData);
+  
 
   //------------------------------------------------------------------------------------------
   // GET DRAWINGS FOR USER:
@@ -46,7 +46,7 @@ export default function DropDownMenu(props) {
     if (props.user) {
       const getDrawingsForUser = async () => {
         const id = props.user;
-        console.log("id", id);
+        //console.log("id", id);
 
         try {
           const response = await axios.post(`${api}/getDrawings`, id);

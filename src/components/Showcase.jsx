@@ -16,10 +16,11 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";;
 
 // -when called this func gets all the showcase drawings from the DB via express api
 export default function Showcase(props) {
-    console.log(props);
+    // console.log(props);
 
     const handleClose = (event) => {
       console.log("showcase handleClose")
+      event.stopPropagation()
       props.setShowShowcase(false);
     };
 
@@ -32,8 +33,8 @@ export default function Showcase(props) {
             <Typography variant="h5" component="div">
               Featured Drawings!
             </Typography>
-            <IconButton aria-label="delete" size="small">
-              <CloseRoundedIcon onClick={handleClose} fontSize="small" />
+            <IconButton onClick={handleClose} aria-label="delete" size="small">
+              <CloseRoundedIcon  fontSize="small" />
             </IconButton>
           </div>
           <Typography variant="h9" component="div">

@@ -16,15 +16,17 @@ export default function App() {
   return (
     <div className="App">
       <MapContainer
-              doubleClickZoom={false}
-              id="mapId"
-              zoom={14}
-              center={[49.281, -123.135]}>
+        doubleClickZoom={false}
+        id="mapId"
+        zoom={12}
+        center={[49.281, -123.135]}
+        zoomControl={false}
+      >
         <BrowserRouter>
           <Routes>
-              <Route path="/:id" element={<Map />} />
+            <Route path="/:id" element={<Map />} />
 
-              <Route path="/" element={<Map />} />
+            <Route path="/" element={<Map />} />
           </Routes>
         </BrowserRouter>
       </MapContainer>

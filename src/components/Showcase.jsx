@@ -2,25 +2,40 @@
 //-------------------------------------------------------------------
 import React from "react";
 // MUI CSS
+import "./Showcase.scss";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import ShowcaseItem from "./ShowcaseItem";
+import IconButton from "@mui/material/IconButton";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";;
+
 //-------------------------------------------------------------------
 
 // -when called this func gets all the showcase drawings from the DB via express api
 export default function Showcase(props) {
-  //console.log(props);
+    console.log(props);
+
+    const handleClose = (event) => {
+      console.log("showcase handleClose")
+      props.setShowShowcase(false);
+    };
+
 
   return (
     <Box sx={{ minWidth: 275 }}>
       <React.Fragment>
         <CardContent>
-          <Typography variant="h5" component="div">
-            Featured Drawings!
-          </Typography>
+          <div className="header">
+            <Typography variant="h5" component="div">
+              Featured Drawings!
+            </Typography>
+            <IconButton aria-label="delete" size="small">
+              <CloseRoundedIcon onClick={handleClose} fontSize="small" />
+            </IconButton>
+          </div>
           <Typography variant="h9" component="div">
             Check out our featured community drawings
           </Typography>

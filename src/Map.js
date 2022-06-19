@@ -52,6 +52,9 @@ const Map = (props) => {
   const [showShowcase, setShowShowcase] = useState(true);
   const [showcaseData, setshowcaseData] = useState([]);
 
+  // FEATURED DRAWINGS RENDERED:
+  // const [showcaseOpen, setShowcaseOpen] = useState(true);
+
   // ALERT RELATED STATES
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
@@ -255,8 +258,6 @@ const Map = (props) => {
   return (
     <>
       <SearchGeocoder />
-      
-
       <Control prepend position="topleft">
         <img
           id="logo"
@@ -302,6 +303,7 @@ const Map = (props) => {
       <Control>
         {showShowcase && (
           <Showcase
+            setShowShowcase={setShowShowcase}
             handleFlyTo={showcaseFlyTo}
             setLatLong={setLatLong}
             showcaseData={showcaseData}

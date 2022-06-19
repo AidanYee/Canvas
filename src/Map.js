@@ -31,7 +31,6 @@ import SaveAlerts from "./components/SaveAlerts";
 import DeleteAlerts from "./components/DeleteAlerts";
 import ClipboardAlerts from "./components/ClipboardAlerts";
 import ClickToLogin from "./components/ClickToLogin";
-import { AppBar } from "@mui/material";
 //-----------------------------------------------------------------------------------------------------
 // API KEY: (references our .env file)
 const api = process.env.REACT_APP_API;

@@ -8,6 +8,8 @@ import { TileLayer, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
 import { geosearch } from "esri-leaflet-geocoder";
+import * as ELG from "esri-leaflet-geocoder";
+
 // SCSS:
 import "./styles.css";
 import "esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css";
@@ -123,9 +125,41 @@ const Map = (props) => {
     if (!mapSearchInstance)
       return;
     const control = geosearch();
+    console.log("control", control);
     control.addTo(mapSearchInstance);
 
+    // ELG.geosearch({
+    //   providers: [
+    //     ELG.arcgisOnlineProvider({
+    //       useMapBounds: false,
+    //       apikey: "AAPKd467c12f4bbb474b8f84fffe98eec35c4bpDIS0GkntPGQwKMN5OfcD1AZd6DL5BNbB88TPEDGvbzZE9yQNeViy2svKFJBq9"
+    //     })
+    //   ]
+    // })
+
   }, [mapSearchInstance]);
+
+  // const apiKey = "YOUR_API_KEY";
+
+  // const basemapEnum = "ArcGIS:Navigation";
+
+  // const map = L.map("map", {
+  //   minZoom: 2
+
+  // }).setView([-33.8688, 151.2093], 14); // Sydney
+
+  // L.esri.Vector.vectorBasemapLayer(basemapEnum, {
+  //   apiKey: apiKey
+  // }).addTo(map);
+
+  // {
+  //   providers: [
+  //     L.esri.arcgisOnlineProvider({
+  //       useMapBounds: false,
+  //       apikey: "AAPKd467c12f4bbb474b8f84fffe98eec35c4bpDIS0GkntPGQwKMN5OfcD1AZd6DL5BNbB88TPEDGvbzZE9yQNeViy2svKFJBq9"
+  //     })
+  //   ]
+  // }
 
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:

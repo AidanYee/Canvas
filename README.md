@@ -25,7 +25,7 @@ Clone the back-end of the project
 
 ```bash
   git clone https://github.com/AidanYee/canvas-api-
-
+```
   Go to the project directory
 
 ```bash

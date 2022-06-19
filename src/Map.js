@@ -26,7 +26,7 @@ import DeletePointButton from "./components/DeletePointButton";
 import Showcase from "./components/Showcase";
 import LoggedInUserMessage from "./components/LoggedInUserMessage";
 import SaveForm from "./components/SaveForm";
-//import SearchGeocoder from "./components/SearchGeocoder";
+import SearchGeocoder from "./components/SearchGeocoder";
 
 // MUI
 import IconButton from "@mui/material/IconButton";
@@ -125,28 +125,28 @@ const Map = (props) => {
   //----------------------------------------------------------------------------------------------
   //MAP SEARCH
 
-  const mapSearchInstance = useMap();
+  // const mapSearchInstance = useMap();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (!mapSearchInstance)
-      return;
-    const control = L.esri.Geocoding.geosearch({
-      position: "bottomright",
-      placeholder: "Enter an address or place...",
-      useMapBounds: false,
-      providers: [
-        L.esri.Geocoding.arcgisOnlineProvider({
-          apikey: "AAPKd467c12f4bbb474b8f84fffe98eec35c4bpDIS0GkntPGQwKMN5OfcD1AZd6DL5BNbB88TPEDGvbzZE9yQNeViy2svKFJBq9",
-          nearby: {
-            lat: -33.8688,
-            lng: 151.2093
-          }
-        })
-      ]
-    })
-    console.log("control", control);
-    control.addTo(mapSearchInstance);
+  //   if (!mapSearchInstance)
+  //     return;
+  //   const control = L.esri.Geocoding.geosearch({
+  //     position: "bottomright",
+  //     placeholder: "Enter an address or place...",
+  //     useMapBounds: false,
+  //     providers: [
+  //       L.esri.Geocoding.arcgisOnlineProvider({
+  //         apikey: "AAPKd467c12f4bbb474b8f84fffe98eec35c4bpDIS0GkntPGQwKMN5OfcD1AZd6DL5BNbB88TPEDGvbzZE9yQNeViy2svKFJBq9",
+  //         nearby: {
+  //           lat: -33.8688,
+  //           lng: 151.2093
+  //         }
+  //       })
+  //     ]
+  //   })
+  //   console.log("control", control);
+  //   control.addTo(mapSearchInstance);
 
     // control.on('results', handleOnSearchResuts);
 
@@ -163,7 +163,7 @@ const Map = (props) => {
     //   ]
     // })
 
-  }, [mapSearchInstance]);
+  // }, [mapSearchInstance]);
 
 //  const handleOnSearchResuts = (data) => {
 //     console.log('Search results', data);
@@ -409,7 +409,7 @@ const Map = (props) => {
       />
       <Routing instance={instance} />
 
-      {/* <SearchGeocoder/> */}
+      <SearchGeocoder/>
     </>
   );
 };

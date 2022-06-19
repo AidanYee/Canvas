@@ -54,7 +54,9 @@ const Map = (props) => {
   const [open, setOpen] = useState(false);
 
   console.log(latLong);
-
+  
+  const APIKEY = process.env.REACT_APP_GHKEY
+  console.log("🎲 ~ APIKEY", APIKEY);
   //-------------------------------------------------------------------
   // INSTANCE OBJECT: -gets passed to L.routing.control in router.js
   const instance = {
@@ -70,7 +72,7 @@ const Map = (props) => {
       });
     },
 
-    router: L.Routing.graphHopper("5e47f16c-3d8f-4b5f-883a-64f41af17262", {
+    router: L.Routing.graphHopper(APIKEY, {
       urlParameters: {
         vehicle: "bike",
       },

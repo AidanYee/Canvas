@@ -29,7 +29,7 @@ export default function ShowcaseItem(props) {
     screenshot = "/lighthouse_showcase_image.png";
   } else if (props.name === "orca stra") {
     screenshot = "/orca-stra.png";
-  } else if (props.name === "Im Stoked!") {
+  } else if (props.name === " IM STOKED") {
     screenshot = "/im-stoked.png";
   } else if (props.name === " Guy with Hair") {
     screenshot = "/guy_with_hair.png";

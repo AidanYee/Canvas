@@ -5,19 +5,19 @@ import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 import L from "leaflet";
 
-
+//-------------------------------------------------------------------------------------------
+// SEARCH GEOCODER COMPONENT:
+// -uses the nominatum search engine api to find a given location and fly to it.
 const SearchGeocoder = () => {
-
   const map = useMap();
 
   useEffect(() => {
     let geocoder = L.Control.Geocoder.nominatim();
     if (typeof URLSearchParams !== "undefined" && window.location.search) {
-      // parse /?geocoder=nominatim from URL
       const params = new URLSearchParams(window.location.search);
-     
+
       const geocoderString = params.get("geocoder");
-      
+
       if (geocoderString && L.Control.Geocoder[geocoderString]) {
         geocoder = L.Control.Geocoder[geocoderString]();
       } else if (geocoderString) {

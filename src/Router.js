@@ -11,7 +11,7 @@ import "lrm-graphhopper";
 
 //----------------------------------------------------------------------------------------------------------
 // map.js passes state via the instance object
-const Routing = ({ instance }) => {
+const Router = ({ instance }) => {
   const onClickMarker = useMap();
 
   // -useEffect is responsible for managing side effects from components
@@ -19,7 +19,6 @@ const Routing = ({ instance }) => {
   useEffect(() => {
     if (!onClickMarker) return;
 
-    // OSRM routing
     const routingControl = L.Routing.control(instance).addTo(onClickMarker);
 
     return () => onClickMarker.removeControl(routingControl);
@@ -28,4 +27,4 @@ const Routing = ({ instance }) => {
   return null;
 };
 
-export default Routing;
+export default Router;

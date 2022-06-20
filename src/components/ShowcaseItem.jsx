@@ -3,13 +3,8 @@
 import * as React from "react";
 
 // CSS:
-import {
-  Card,
-  Button,
-  CardMedia
-} from "@mui/material";
-
 import "./ShowcaseItem.scss";
+import { Card, Button, CardMedia } from "@mui/material";
 
 //-------------------------------------------------------------------------------------------
 // SHOWCASE ITEM COMPONENT:

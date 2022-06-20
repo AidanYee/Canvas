@@ -3,8 +3,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Map from "./Map";
-import "./styles.css";
 import { MapContainer } from "react-leaflet";
+
+import "./styles.css";
 
 //-------------------------------------------------------------------
 

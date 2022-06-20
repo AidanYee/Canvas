@@ -12,34 +12,37 @@ const SearchGeocoder = () => {
   const map = useMap();
 
   useEffect(() => {
-    let geocoder = L.Control.Geocoder.nominatim();
-    if (typeof URLSearchParams !== "undefined" && window.location.search) {
-      const params = new URLSearchParams(window.location.search);
-
-      const geocoderString = params.get("geocoder");
-
-      if (geocoderString && L.Control.Geocoder[geocoderString]) {
-        geocoder = L.Control.Geocoder[geocoderString]();
-      } else if (geocoderString) {
-        console.warn("Unsupported geocoder", geocoderString);
+    if (map) {
+      
+      let geocoder = L.Control.Geocoder.nominatim();
+      if (typeof URLSearchParams !== "undefined" && window.location.search) {
+        const params = new URLSearchParams(window.location.search);
+  
+        const geocoderString = params.get("geocoder");
+  
+        if (geocoderString && L.Control.Geocoder[geocoderString]) {
+          geocoder = L.Control.Geocoder[geocoderString]();
+        } else if (geocoderString) {
+          console.warn("Unsupported geocoder", geocoderString);
+        }
       }
-    }
-
-    L.Control.geocoder({
-      query: "",
-      placeholder: "Search here...",
-      defaultMarkGeocode: false,
-      position: "topright",
-      geocoder,
-    })
-      .on("markgeocode", function (e) {
-        const latlng = e.geocode.center;
-        L.marker(latlng, {
-          opacity: 0,
-        }).addTo(map);
-        map.fitBounds(e.geocode.bbox);
+  
+      L.Control.geocoder({
+        query: "",
+        placeholder: "Search here...",
+        defaultMarkGeocode: false,
+        position: "topright",
+        geocoder,
       })
-      .addTo(map);
+        .on("markgeocode", function (e) {
+          const latlng = e.geocode.center;
+          L.marker(latlng, {
+            opacity: 0,
+          }).addTo(map);
+          map.fitBounds(e.geocode.bbox);
+        })
+        .addTo(map);
+    }
   }, [map]); //---possibly var map should be inside dependancy array
   return null;
 };

@@ -10,7 +10,7 @@ import L from "leaflet";
 import Control from "react-leaflet-custom-control";
 
 // SCSS:
-import "./styles.scss";
+import "./styles.css";
 
 // COMPONENTS FROM OUR APP:
 import Router from "./Router";
@@ -107,26 +107,6 @@ const Map = () => {
     setLatLong([]);
   };
 
-  //----------------------------------------------------------------------------------------
-  // //DELETE DRAWING REQUEST
-  
-  // const deleteDrawing = (id) => {
-
-  //   //const id = props.id;
-
-  //   axios
-  //     .delete(`${api}/drawings/${id}`)
-  //     .then(() => {
-
-  //       //props.onDelete(id);
-  //       setDeleteAlertOpen(true);
-  //       setLatLong([]);
-  //     })
-
-  //     .catch((e) => {
-  //       return console.log(e);
-  //     });
-  // };
   //-------------------------------------------------------------------------------------------
   // DELETE DRAWING FUNC:
   const deleteDrawing = (id) => {
@@ -141,6 +121,7 @@ const Map = () => {
         return console.log(e);
       });
   };
+  
   //-------------------------------------------------------------------------------------------
   // LOGIN AND LOG OUT FUNCTIONS:
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to

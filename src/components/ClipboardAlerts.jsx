@@ -27,7 +27,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
         open={props.clipboardAlertOpen}
         autoHideDuration={3500}
         onClose={handleClose}
-        sx={{ width: "25%" }}
+        sx={{ width: "25%", opacity: "50%" }}
         anchorOrigin={{
           vertical: "top",
           horizontal: "center",

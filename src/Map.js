@@ -98,9 +98,7 @@ const Map = () => {
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
   const saveDrawing = async (name) => {
-    console.log("name", name);
-    console.log("latLong", latLong);
-    console.log("loggedIn", loggedIn);
+    
     const id = loggedIn.id;
     try {
       await axios.post(`${api}/drawings/${id}`, { latLong, name });
@@ -193,7 +191,7 @@ const Map = () => {
   //--------------------------------------------------------------------------------
   // SHOWCASE STAR and X BUTTON:
   // -responsible for toggling showcase (featured drawings)
-  const handleClose = (event) => {
+  const handleClose = () => {
     if (showShowcase === true) {
       setShowShowcase(false);
     } else {

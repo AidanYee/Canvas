@@ -120,10 +120,9 @@ export default function DropDownMenu(props) {
                     <DeleteDrawingButton
                       deleteDrawing={props.deleteDrawing}
                       deleteAlertOpen={props.deleteAlertOpen}
-                      setDeleteAlertOpen={props.setDeleteAlertOpen}
                       onDelete={(id) => onDelete(id)}
                       id={drawing.id}
-                      setLatLong={props.setLatLong}
+                     
                     />
                   </div>
                 </div>

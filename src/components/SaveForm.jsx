@@ -60,7 +60,7 @@ export default function SaveForm(props) {
             type="Drawing Name"
             fullWidth
             variant="standard"
-            borderColor="black"
+            // borderColor="black"
             value={drawingName}
             onChange={(e) => setDrawingName(e.target.value)}
           />

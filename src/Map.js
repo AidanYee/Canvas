@@ -98,8 +98,12 @@ const Map = () => {
   // POST/INSERT NEW DRAWING FUNC:
   // -when called this func POSTS to the api server which then INSERTS to the DB
   const saveDrawing = async (name) => {
+    console.log("name", name);
+    console.log("latLong", latLong);
+    console.log("loggedIn", loggedIn);
+    const id = loggedIn.id;
     try {
-      await axios.post(`${api}/drawings`, { latLong, name });
+      await axios.post(`${api}/drawings/${id}`, { latLong, name });
     } catch (e) {
       return console.log(e);
     }
@@ -121,7 +125,7 @@ const Map = () => {
         return console.log(e);
       });
   };
-  
+
   //-------------------------------------------------------------------------------------------
   // LOGIN AND LOG OUT FUNCTIONS:
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to

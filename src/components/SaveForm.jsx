@@ -22,10 +22,10 @@ export default function SaveForm(props) {
   const [drawingName, setDrawingName] = useState(" ");
 
   const saveOnClick = () => {
-    //console.log("Hi there", drawingName);
+    
     props.saveDrawing(drawingName);
     handleClose();
-    console.log()
+    
   };
 
   //----------------------------------

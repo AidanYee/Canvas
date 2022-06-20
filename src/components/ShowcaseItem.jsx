@@ -6,9 +6,7 @@ import * as React from "react";
 import {
   Card,
   Button,
-  CardMedia,
-  CardContent,
-  Typography,
+  CardMedia
 } from "@mui/material";
 
 import "./ShowcaseItem.scss";

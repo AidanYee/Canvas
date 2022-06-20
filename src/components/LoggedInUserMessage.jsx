@@ -21,17 +21,9 @@ const LoggedInUserMessage = (props) => {
           Welcome, {props.name}!
         </Typography>
 
-        {/* <Button className="WelcomeMessage" variant="string">
-          G Day! {props.name}
-        </Button> */}
         <div className="logoutbutton">
           <Button
             id="logout"
-            sx={
-              {
-                // borderRadius: 50,
-              }
-            }
             onClick={logout}
             variant="contained"
             color="error"

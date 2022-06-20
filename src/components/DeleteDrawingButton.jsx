@@ -15,14 +15,13 @@ const DeleteDrawingButton = (props) => {
   //console.log("props in delete button", props.id);
 
   const deleteDrawing = () => {
-    console.log("Delete axios request func");
-    //console.log("drawing", props.id);
+    
     const id = props.id;
 
     axios
       .delete(`${api}/drawings/${id}`)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        
         props.onDelete(id);
         props.setDeleteAlertOpen(true);
         props.setLatLong([]);

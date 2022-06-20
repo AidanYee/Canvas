@@ -19,7 +19,7 @@ export default function Showcase(props) {
     // console.log(props);
 
     const handleClose = (event) => {
-      console.log("showcase handleClose")
+    
       event.stopPropagation()
       props.setShowShowcase(false);
     };

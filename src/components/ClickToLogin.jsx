@@ -20,9 +20,6 @@ const ClickToLogin = (props) => {
       <div className="login">
         <Button
           id="loginButton"
-          sx={{
-            // borderRadius: 50,
-          }}
           onClick={clickLogin}
           variant="contained"
           color="success"

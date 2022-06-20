@@ -3,9 +3,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Map from "./Map";
-import "./styles.css";
+import "./styles.scss";
 import { MapContainer } from "react-leaflet";
-
+import Nav from "./components/Nav";
 //-------------------------------------------------------------------
 
 // -Using React Router we have rendered two map layers:
@@ -15,6 +15,8 @@ import { MapContainer } from "react-leaflet";
 export default function App() {
   return (
     <div className="App">
+      {/* <Nav/> */}
+      
       <MapContainer
         doubleClickZoom={false}
         id="mapId"

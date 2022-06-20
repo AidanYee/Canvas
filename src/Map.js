@@ -11,7 +11,7 @@ import Control from "react-leaflet-custom-control";
 
 
 // SCSS:
-import "./styles.css";
+import "./styles.scss";
 
 
 // COMPONENTS FROM OUR APP:
@@ -42,7 +42,7 @@ const MAPKEY = process.env.REACT_APP_MAPTILER_KEY;
 //-----------------------------------------------------------------------------------------------------
 
 // MAP COMPONENT:
-const Map = (props) => {
+const Map = () => {
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
@@ -118,7 +118,7 @@ const Map = (props) => {
   };
 
   const showcaseFlyTo = (points) => {
-    mapInstance.flyTo(points[45], 13, { duration: 3 });
+    mapInstance.setView(points[45], 12.5, { duration: 3 });
   };
 
 
@@ -135,12 +135,32 @@ const Map = (props) => {
     setLatLong([]);
   };
 
+  //----------------------------------------------------------------------------------------
+  //DELETE DRAWING REQUEST
+  
+  const deleteDrawing = (id) => {
+
+    //const id = props.id;
+
+    axios
+      .delete(`${api}/drawings/${id}`)
+      .then(() => {
+
+        //props.onDelete(id);
+        setDeleteAlertOpen(true);
+        setLatLong([]);
+      })
+
+      .catch((e) => {
+        return console.log(e);
+      });
+  };
   //-------------------------------------------------------------------------------------------
   // LOGIN AND LOG OUT FUNCTIONS:
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
   //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
-    //console.log("ayoo");
+   
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -266,7 +286,7 @@ const Map = (props) => {
           setLatLong={setLatLong}
           saveDrawing={saveDrawing}
           flyToDrawing={flyToDrawing}
-          deleteAlertOpen={deleteAlertOpen}
+          deleteDrawing={(id) => deleteDrawing(id)}
           setDeleteAlertOpen={setDeleteAlertOpen}
           handleClipboard={handleClipboard}
         ></DropDownMenu>

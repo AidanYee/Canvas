@@ -1,6 +1,6 @@
 // SHOWCASE COMPONENT:
 //-------------------------------------------------------------------
-import React from "react";
+import React, {useEffect} from "react";
 // MUI CSS
 import "./Showcase.scss";
 import Box from "@mui/material/Box";
@@ -23,6 +23,9 @@ export default function Showcase(props) {
       event.stopPropagation()
       props.setShowShowcase(false);
     };
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
 
 
   return (

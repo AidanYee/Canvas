@@ -40,7 +40,7 @@ const SearchGeocoder = () => {
         map.fitBounds(e.geocode.bbox);
       })
       .addTo(map);
-  }, []); //---possibly var map should be inside dependancy array
+  }, [map]); //---possibly var map should be inside dependancy array
   return null;
 };
 

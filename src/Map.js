@@ -9,13 +9,11 @@ import { TileLayer, useMapEvents, useMap } from "react-leaflet";
 import L from "leaflet";
 import Control from "react-leaflet-custom-control";
 
-
 // SCSS:
 import "./styles.scss";
 
-
 // COMPONENTS FROM OUR APP:
-import Routing from "./Router";
+import Router from "./Router";
 import DropDownMenu from "./components/DropDownMenu";
 import DeletePointButton from "./components/DeletePointButton";
 import Showcase from "./components/Showcase";
@@ -46,22 +44,21 @@ const Map = () => {
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
-  //console.log(latLong);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // Render
+  // Showcase Render State
   const [showShowcase, setShowShowcase] = useState(true);
-  // Request
+  // getShowcaseDrawings State
   const [showcaseData, setshowcaseData] = useState([]);
 
-
-  // ALERT RELATED STATES
+  // Alert Related State:
   const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
   const [clipboardAlertOpen, setClipboardAlertOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
   //-------------------------------------------------------------------
-  // INSTANCE OBJECT: -gets passed to L.routing.control in router.js
+  // INSTANCE OBJECT:
+  // -gets passed to L.routing.control in router.js
   const instance = {
     waypoints: latLong,
 
@@ -74,53 +71,28 @@ const Map = () => {
         opacity: 0,
       });
     },
-
     router: L.Routing.graphHopper(APIKEY, {
       urlParameters: {
         vehicle: "bike",
       },
     }),
-
     // RoutingOptions - from leaflet-routing-machine
     routingOptions: {
       //If U-turns are allowed in this route
       allowUTurns: true,
     },
-
     // shows directions
     show: false,
-
     // adds way points by dragging
     addWaypoints: false,
-
     // move waypoints by dragging
     draggableWaypoints: false,
-
     // fits route to the screen
     fitSelectedRoutes: false,
-
     collapsible: true,
     routeWhileDragging: true,
     showAlternatives: false,
   };
-
-  //-------------------------------------------------------------------------------------------
-  // MAP INSTANCE: -used to apply react-leaflet custom hooks
-  const mapInstance = useMap();
-  //----------------------------
-
-  // FLY TO DRAWING and FLY TO SHOWCASE FUNCS:
-  // -these functions are called in there corresponding components, they get passed the value
-  //  of latLong for the selected drawing and use the first element in that array to determine
-  //  where the map flies to from wherever it currently is.
-  const flyToDrawing = (points) => {
-    mapInstance.flyTo(points[0], 12.5, { duration: 3 });
-  };
-
-  const showcaseFlyTo = (points) => {
-    mapInstance.setView(points[45], 12.5, { duration: 3 });
-  };
-
 
   //-------------------------------------------------------------------------------------------
   // POST/INSERT NEW DRAWING FUNC:
@@ -136,17 +108,31 @@ const Map = () => {
   };
 
   //----------------------------------------------------------------------------------------
-  //DELETE DRAWING REQUEST
+  // //DELETE DRAWING REQUEST
   
+  // const deleteDrawing = (id) => {
+
+  //   //const id = props.id;
+
+  //   axios
+  //     .delete(`${api}/drawings/${id}`)
+  //     .then(() => {
+
+  //       //props.onDelete(id);
+  //       setDeleteAlertOpen(true);
+  //       setLatLong([]);
+  //     })
+
+  //     .catch((e) => {
+  //       return console.log(e);
+  //     });
+  // };
+  //-------------------------------------------------------------------------------------------
+  // DELETE DRAWING FUNC:
   const deleteDrawing = (id) => {
-
-    //const id = props.id;
-
     axios
       .delete(`${api}/drawings/${id}`)
       .then(() => {
-
-        //props.onDelete(id);
         setDeleteAlertOpen(true);
         setLatLong([]);
       })
@@ -160,7 +146,6 @@ const Map = () => {
   // -The function is called by onClick of Login button in the drop down menu. It makes an axios request to
   //   database for user. It sets the loggedIn state with the particular logged in user object
   const loginUser = async () => {
-   
     try {
       const user = await axios.post(`${api}/users/login`);
 
@@ -171,7 +156,7 @@ const Map = () => {
     setLatLong([]);
   };
 
-  //------------------------------------
+  //-----------------------
   const logout = () => {
     setLoggedIn(false);
   };
@@ -183,6 +168,23 @@ const Map = () => {
     setLatLong((prev) => {
       return [...prev.slice(0, -1)];
     });
+  };
+
+  //-------------------------------------------------------------------------------------------
+  // MAP INSTANCE: -used to apply react-leaflet custom hooks
+  const mapInstance = useMap();
+  //----------------------------
+
+  // FLY TO DRAWING and FLY TO SHOWCASE FUNCS:
+  // -these functions are called in there corresponding components, they get passed the value
+  //  of latLong for the selected drawing and use the first element in that array to determine
+  //  where the map flies to from wherever it currently is.
+  const flyToDrawing = (points) => {
+    mapInstance.setView(points[0], 12.5, { duration: 3 });
+  };
+
+  const showcaseFlyTo = (points) => {
+    mapInstance.flyTo(points[45], 13, { duration: 3 });
   };
 
   //----------------------------------------------------------------------------------------------------
@@ -204,6 +206,7 @@ const Map = () => {
   }
 
   //--------------------------------------------------------------------------------
+  // SHOWCASE STAR and X BUTTON:
   // -responsible for toggling showcase (featured drawings)
   const handleClose = (event) => {
     if (showShowcase === true) {
@@ -217,31 +220,26 @@ const Map = () => {
   // HANDLE CLIPBOARD FUNC:
   // -is called by the link in the DropDownMenu component and renders an alert to the screen
   const handleClipboard = () => {
-    //console.log("handle clipboard");
     setClipboardAlertOpen(true);
   };
-  //console.log("hi i am at the middle of map");
+
   //---------------------------------------------------------------------------------------------
   //DROP DOWN MENU LOGIC
   // PARAMS: -a react-router specific custom hook
   const params = useParams();
-  //console.log("line 202 params", params);
+
   //------------------------------------------------------------------------------------------
   // GET DRAWING LINK:
   // -This useEffect makes a get request for drawings by params.id( aka drawing.id)
   // -useEffect fires whenever the value of params.id changes
   useEffect(() => {
-    //console.log("Params ID: render the drawing for", params.id);
-
     if (params.id) {
       const getDrawingLink = async () => {
         // -we pull that value of id out of react-routers param and use it to make the axios request
         const id = params.id;
-        //console.log("🎲 ~ params.id", params.id);
 
         try {
           const response = await axios.get(`${api}/shareDrawings/${id}`);
-          //console.log("drawing link data", response.data);
 
           setLatLong(response.data.drawing_points);
         } catch (e) {}
@@ -251,7 +249,6 @@ const Map = () => {
   }, [params.id]);
 
   //----------------------------------------------------------------------------------------------------
-  //------------------------------------------------------------
   // GET SHOWCASE DRAWINGS GET:
 
   useEffect(() => {
@@ -286,9 +283,9 @@ const Map = () => {
           setLatLong={setLatLong}
           saveDrawing={saveDrawing}
           flyToDrawing={flyToDrawing}
-          deleteDrawing={(id) => deleteDrawing(id)}
           setDeleteAlertOpen={setDeleteAlertOpen}
           handleClipboard={handleClipboard}
+          deleteDrawing={(id) => deleteDrawing(id)}
         ></DropDownMenu>
       </Control>
 
@@ -353,7 +350,7 @@ const Map = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url={`https://api.maptiler.com/maps/pastel/256/{z}/{x}/{y}.png?key=${MAPKEY}`}
       />
-      <Routing instance={instance} />
+      <Router instance={instance} />
     </>
   );
 };

@@ -1,10 +1,11 @@
 //-------------------------------------------------------------------
 import React from "react";
-
 import { Button } from "@mui/material";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
+
 // CSS:
 import "./LoggedInUserMessage.scss";
+
 //-------------------------------------------------------------------
 
 // -This component renders the logged in users name when state is set

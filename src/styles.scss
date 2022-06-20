@@ -14,25 +14,10 @@ body,
   padding: 0;
 }
 
-/* hide directions for lealfet routing machine using css
-*/
-/* .leaflet-routing-container {
-  display: none;
-} */
-/*
--attempting to remove faint border aorund undo and save buttons
--come back to this later (.leaflet-control)
-*/
-// .nav {
-//   height: 3.5em;
-//   width: 100%;
-//   background-color: grey
-// }
-
 .leaflet-control-geocoder {
   position: fixed;
   top: 2px;
-  right: 450px
+  right: 450px;
 }
 
 /* maximized directions for route */
@@ -48,8 +33,6 @@ body,
   right: 10px;
   bottom: 30px;
 }
-
-/* leaflet-routing-container leaflet-bar leaflet-routing-container-hide leaflet-routing-collapsible leaflet-control"><span class="leaflet-routing-collapse-btn"></span><div class="leaflet-routing-alternatives-container"></div></div> */
 
 /* Removes border from leaflet control items */
 .leaflet-touch .leaflet-bar {
@@ -81,50 +64,28 @@ body,
   color: #ffe3a9;
 }
 
-/* .showcase .MuiCardContent-root .css-46bh2p-MuiCardContent-root {
-  position: bottom;
-} */
-
 .MuiBox-root.css-12dv9jb {
   position: fixed;
-  margin-top: 300px;
+  margin-top: 100px;
   left: 25px;
   background-color: white;
   border-radius: 5%;
   overflow: hidden;
-  color: #3D3d3d;
-
-  
+  color: #3d3d3d;
 }
-
-// .MuiCardActions-root .MuiCardActions-spacing .css-1t6e9jv-MuiCardActions-root::-webkit-scrollbar {
-//   display: none;
-
-
-// }
-
-
-/* .MuiCardActions-root {
-  overflow: hidden;
-} */
 
 .MuiModal-root .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   color: #ff69b4;
 }
 
 .MuiTextField-root #name-label {
-  color: #ff69b4
+  color: #ff69b4;
 }
 
 .MuiModal-root .MuiInput-underline.MuiInoutBase-root {
-  color: #ff69b4
+  color: #ff69b4;
 }
 
 .MuiModal-root .css-1a1fmpi-MuiInputBase-root-MuiInput-root:after {
   border-bottom: 2px solid black;
 }
-
-/* .leaflet-control.leaflet-bar {
-  margin-top: 0px;
-  margin-right: 0px;
- } */

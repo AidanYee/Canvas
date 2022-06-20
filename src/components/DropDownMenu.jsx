@@ -15,7 +15,6 @@ import "./DropDownMenu.scss";
 // import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-// import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -26,6 +25,7 @@ import GestureIcon from "@mui/icons-material/Gesture";
 import LunchDiningRounded from "@mui/icons-material/LunchDiningRounded";
 import ShareIcon from "@mui/icons-material/Share";
 
+//----------------------------------------------------------------
 // API KEY (for Axios requests)
 const api = process.env.REACT_APP_API;
 //----------------------------------------------------------------
@@ -35,7 +35,6 @@ export default function DropDownMenu(props) {
   //console.log("🎲 ~ props drop down menu", props);
   const [isOpen, setIsOpen] = useState(false);
   const [drawingData, setDrawingData] = useState([]);
-  
 
   //------------------------------------------------------------------------------------------
   // GET DRAWINGS FOR USER:
@@ -43,10 +42,8 @@ export default function DropDownMenu(props) {
   //  where it is turned into a series of Drawing Item component renders
   // *NOTE* user data is brought in as props from loggedIn state ***
   useEffect(() => {
-
     if (props.user) {
       const getDrawingsForUser = async () => {
-
         const id = props.user;
 
         try {
@@ -76,18 +73,11 @@ export default function DropDownMenu(props) {
   // MUI OPENING AND CLOSING MENU CODE:
 
   const toggleDrawer = (event) => {
-    
     setIsOpen(!isOpen);
-    
   };
 
   const list = () => (
-    
-    <Box
-      sx={{ width: 400}}
-      role="presentation"
-      onClick={toggleDrawer} 
-    >
+    <Box sx={{ width: 400 }} role="presentation" onClick={toggleDrawer}>
       <List>
         {props.user &&
           ["Drawing Library"].map((text, index) => (
@@ -120,7 +110,7 @@ export default function DropDownMenu(props) {
                         onClick={() => {
                           props.handleClipboard();
                           navigator.clipboard.writeText(
-                            process.env.REACT_APP_LINK+`/${drawing.id}`
+                            process.env.REACT_APP_LINK + `/${drawing.id}`
                           );
                         }}
                       />
@@ -129,10 +119,10 @@ export default function DropDownMenu(props) {
                   <div className="DeleteButton">
                     <DeleteDrawingButton
                       deleteDrawing={props.deleteDrawing}
-                      //setDeleteAlertOpen={props.setDeleteAlertOpen}
+                      deleteAlertOpen={props.deleteAlertOpen}
                       onDelete={(id) => onDelete(id)}
                       id={drawing.id}
-                      //setLatLong={props.setLatLong}
+                     
                     />
                   </div>
                 </div>
@@ -153,16 +143,16 @@ export default function DropDownMenu(props) {
           <LunchDiningRounded
             className="LunchDiningRounded"
             fontSize="large"
-            onClick={toggleDrawer} 
+            onClick={toggleDrawer}
           >
             {anchor}
           </LunchDiningRounded>
           <Drawer
             transitionDuration={{ enter: 500, exit: 500 }}
-            onClick={toggleDrawer} 
-            anchor={"right"} 
-            open={isOpen} 
-            onClose={toggleDrawer} 
+            onClick={toggleDrawer}
+            anchor={"right"}
+            open={isOpen}
+            onClose={toggleDrawer}
           >
             {list(anchor)}
           </Drawer>
@@ -171,6 +161,3 @@ export default function DropDownMenu(props) {
     </div>
   );
 }
-
-
-

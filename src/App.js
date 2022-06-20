@@ -3,9 +3,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Map from "./Map";
-import "./styles.scss";
 import { MapContainer } from "react-leaflet";
-import Nav from "./components/Nav";
+
+import "./styles.css";
+
 //-------------------------------------------------------------------
 
 // -Using React Router we have rendered two map layers:

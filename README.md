@@ -15,15 +15,17 @@ An online mapping tool that allows users to bring there artistic flourish to the
 
 ## Screenshots:
 
-#### screenshots will go here when the app design is totally finalized
+#### CREATE A DRAWING
+![demo](public/CreateDrawing.gif)
 
-#### HOME PAGE SCREEN SHOT
+#### FEATURED DRAWINGS
+![1](public/FeaturedDrawing.gif)
 
-#### FEATURED DRAWINGS SCREEN SHOT
+#### DRAWING LIBRARY
+![2](public/DrawingLib.gif)
 
-#### DRAWING LIBRARY PAGE SCREEN SHOT
-
-#### DIRECTIONS EXAMPLE SCREEN SHOT
+#### DIRECTIONS 
+![3](public/Directions.gif)
 
 ## Run Locally:
 

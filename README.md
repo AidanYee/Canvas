@@ -7,10 +7,14 @@ An online mapping tool that allows users to bring there artistic flourish to the
 ### Project Features
 
 - Upon arrival to the site, a user has access to an interactive map of the world.
+
 - A user can use the search bar to navigate to a specific area of their choosing
+
 - A Featured Drawings module on the lef hand side offers up a host of differetn example drawings made by members of canvas community.
+
 - If a user logs in they gain access to their drawing library with options to view, share or delete any drawing.
 - Once logged in a user can create a drawing by clicking points on the screen, once finsihed a drawing can be saved and added to a users drawing library.
+
 - A user can toggle the directions button at any time to see turn by turn directions for the currently loaded drawing.
 
 ## Screenshots:

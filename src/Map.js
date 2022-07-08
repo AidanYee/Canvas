@@ -144,7 +144,9 @@ const Map = () => {
   const logout = () => {
     setLoggedIn(false);
   };
-
+//---------------------------------------------------------------------
+  
+  
   //----------------------------------------------------------------------------------------------------
   // REMOVE LAST POINT FUNC: (connected to undo button)
   // -called by onclick in removes last element in the latLong state array
@@ -265,6 +267,8 @@ const Map = () => {
         <DropDownMenu
           loggedIn={loggedIn}
           user={user}
+          // drawingData={drawingData}
+          // setdrawingData={setDrawingData}
           setLatLong={setLatLong}
           saveDrawing={saveDrawing}
           flyToDrawing={flyToDrawing}

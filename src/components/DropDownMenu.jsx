@@ -32,7 +32,7 @@ const api = process.env.REACT_APP_API;
 
 // COMPONENT DECLERATION:
 export default function DropDownMenu(props) {
-  console.log("🎲 ~ props drop down menu", props);
+  //console.log("🎲 ~ props drop down menu", props);
   const [isOpen, setIsOpen] = useState(false);
   const [drawingData, setDrawingData] = useState([]);
 
@@ -42,8 +42,7 @@ export default function DropDownMenu(props) {
   //  where it is turned into a series of Drawing Item component renders
   // *NOTE* user data is brought in as props from loggedIn state ***
   useEffect(() => {
-    //props.user is user object
-    if (props.loggedIn) {
+    if (props.user) {
       const getDrawingsForUser = async () => {
         const id = props.user;
 
@@ -57,7 +56,7 @@ export default function DropDownMenu(props) {
       };
       getDrawingsForUser();
     }
-  }, [props.loggedIn, props.saveDrawing, props.user]);
+  }, [props.user, props.saveDrawing]);
 
   //------------------------------------------------------------------------
   // ON DELETE FUNCTION: -is called by Onclick in render below

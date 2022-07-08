@@ -44,9 +44,8 @@ const Map = () => {
   //-------------------------------------------------------------------
   // STATE:
   const [latLong, setLatLong] = useState([]);
-  const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  console.log("logged in", loggedIn);
+
   // Showcase Render State
   const [showShowcase, setShowShowcase] = useState(true);
   // getShowcaseDrawings State
@@ -100,7 +99,7 @@ const Map = () => {
   // -when called this func POSTS to the api server which then INSERTS to the DB
   const saveDrawing = async (name) => {
     
-    const id = user.id;//user.id
+    const id = loggedIn.id;
     try {
       await axios.post(`${api}/drawings/${id}`, { latLong, name });
     } catch (e) {
@@ -132,8 +131,8 @@ const Map = () => {
   const loginUser = async () => {
     try {
       const user = await axios.post(`${api}/users/login`);
-      setUser(user.data)
-      setLoggedIn(true);//true
+
+      setLoggedIn(user.data);
     } catch (e) {
       return console.log(e);
     }
@@ -263,8 +262,7 @@ const Map = () => {
       </Control>
       <Control prepend position="topright">
         <DropDownMenu
-          loggedIn={loggedIn}
-          user={user}
+          user={loggedIn}
           setLatLong={setLatLong}
           saveDrawing={saveDrawing}
           flyToDrawing={flyToDrawing}
@@ -282,7 +280,7 @@ const Map = () => {
             setLoggedOut={logout}
             prepend
             position="center"
-            name={user.name}
+            name={loggedIn.name}
           />
         )}
       </Control>
